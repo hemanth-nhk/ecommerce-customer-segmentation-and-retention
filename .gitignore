@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Raw datasets (keep local, do not commit to repository)
+data/raw/
+
+# Processed datasets: ignore large CSVs, track lightweight Parquet
+data/processed/*.csv
+!data/processed/*.parquet
+
+# Temporary analytical outputs
+outputs/models/
+outputs/tmp/
+
+# Environment variables and secrets
+.env
+*.env
+
+# Operating System and IDE artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

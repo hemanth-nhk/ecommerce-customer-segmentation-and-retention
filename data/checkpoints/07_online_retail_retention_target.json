@@ -1,0 +1,190 @@
+{
+  "checkpoint": "07_online_retail_retention_target",
+  "analysis_timestamp_utc": "2026-09-18T15:26:11.242848+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "statement_on_data_immutability": "Raw data was inspected strictly in read-only mode and was NOT modified, overwritten, or cleaned in-place.",
+  "global_temporal_boundaries": {
+    "t_min": "2009-12-01 07:45:00",
+    "t_max": "2011-12-09 12:50:00",
+    "total_span_days": 738.21,
+    "total_commercial_customers": 5878
+  },
+  "candidate_future_windows_evaluation": {
+    "W_30d": {
+      "window_days": 30,
+      "t_obs": "2011-11-09 12:50:00",
+      "t_max": "2011-12-09 12:50:00",
+      "pre_cutoff_history_days": 708.21,
+      "pre_cutoff_history_months": 23.3,
+      "eligible_customers": 5717,
+      "ineligible_new_customers": 161,
+      "positive_returners": 1487,
+      "non_returners": 4230,
+      "positive_return_rate_pct": 26.01,
+      "expected_20pct_test_positives": 297.4,
+      "expected_80pct_train_positives": 1189.6,
+      "temporal_isolation_verified": true
+    },
+    "W_60d": {
+      "window_days": 60,
+      "t_obs": "2011-10-10 12:50:00",
+      "t_max": "2011-12-09 12:50:00",
+      "pre_cutoff_history_days": 678.21,
+      "pre_cutoff_history_months": 22.3,
+      "eligible_customers": 5518,
+      "ineligible_new_customers": 360,
+      "positive_returners": 2036,
+      "non_returners": 3482,
+      "positive_return_rate_pct": 36.9,
+      "expected_20pct_test_positives": 407.2,
+      "expected_80pct_train_positives": 1628.8,
+      "temporal_isolation_verified": true
+    },
+    "W_90d": {
+      "window_days": 90,
+      "t_obs": "2011-09-10 12:50:00",
+      "t_max": "2011-12-09 12:50:00",
+      "pre_cutoff_history_days": 648.21,
+      "pre_cutoff_history_months": 21.3,
+      "eligible_customers": 5281,
+      "ineligible_new_customers": 597,
+      "positive_returners": 2292,
+      "non_returners": 2989,
+      "positive_return_rate_pct": 43.4,
+      "expected_20pct_test_positives": 458.4,
+      "expected_80pct_train_positives": 1833.6,
+      "temporal_isolation_verified": true
+    },
+    "W_120d": {
+      "window_days": 120,
+      "t_obs": "2011-08-11 12:50:00",
+      "t_max": "2011-12-09 12:50:00",
+      "pre_cutoff_history_days": 618.21,
+      "pre_cutoff_history_months": 20.3,
+      "eligible_customers": 5179,
+      "ineligible_new_customers": 699,
+      "positive_returners": 2422,
+      "non_returners": 2757,
+      "positive_return_rate_pct": 46.77,
+      "expected_20pct_test_positives": 484.4,
+      "expected_80pct_train_positives": 1937.6,
+      "temporal_isolation_verified": true
+    },
+    "W_180d": {
+      "window_days": 180,
+      "t_obs": "2011-06-12 12:50:00",
+      "t_max": "2011-12-09 12:50:00",
+      "pre_cutoff_history_days": 558.21,
+      "pre_cutoff_history_months": 18.3,
+      "eligible_customers": 4977,
+      "ineligible_new_customers": 901,
+      "positive_returners": 2577,
+      "non_returners": 2400,
+      "positive_return_rate_pct": 51.78,
+      "expected_20pct_test_positives": 515.4,
+      "expected_80pct_train_positives": 2061.6,
+      "temporal_isolation_verified": true
+    }
+  },
+  "repeat_buyer_subpopulation_evaluation": {
+    "W_30d": {
+      "window_days": 30,
+      "eligible_repeat_buyers": 4026,
+      "positive_returners": 1290,
+      "non_returners": 2736,
+      "positive_return_rate_pct": 32.04,
+      "expected_20pct_test_positives": 258.0
+    },
+    "W_60d": {
+      "window_days": 60,
+      "eligible_repeat_buyers": 3841,
+      "positive_returners": 1737,
+      "non_returners": 2104,
+      "positive_return_rate_pct": 45.22,
+      "expected_20pct_test_positives": 347.4
+    },
+    "W_90d": {
+      "window_days": 90,
+      "eligible_repeat_buyers": 3705,
+      "positive_returners": 1974,
+      "non_returners": 1731,
+      "positive_return_rate_pct": 53.28,
+      "expected_20pct_test_positives": 394.8
+    },
+    "W_120d": {
+      "window_days": 120,
+      "eligible_repeat_buyers": 3615,
+      "positive_returners": 2076,
+      "non_returners": 1539,
+      "positive_return_rate_pct": 57.43,
+      "expected_20pct_test_positives": 415.2
+    },
+    "W_180d": {
+      "window_days": 180,
+      "eligible_repeat_buyers": 3429,
+      "positive_returners": 2181,
+      "non_returners": 1248,
+      "positive_return_rate_pct": 63.6,
+      "expected_20pct_test_positives": 436.2
+    }
+  },
+  "feature_design_specification": {
+    "temporal_constraint": "Every feature must be computed exclusively from transactions with timestamp <= T_obs.",
+    "prohibition_of_full_period_leakage": "Phase 3 and Phase 4 full-period values (which include purchases in (T_obs, T_max]) MUST NOT be imported directly into the predictive dataset.",
+    "point_in_time_feature_families": {
+      "rfm_core": [
+        "recency_days: (T_obs - max(InvoiceDate_pre)) in days",
+        "frequency: count of unique commercial invoices on or before T_obs",
+        "monetary_total: sum of commercial invoice values on or before T_obs",
+        "average_order_value: monetary_total / frequency",
+        "median_order_value: median invoice value on or before T_obs"
+      ],
+      "purchase_behavior": [
+        "customer_tenure_days: (T_obs - min(InvoiceDate_pre)) in days",
+        "activity_lifespan_days: (max(InvoiceDate_pre) - min(InvoiceDate_pre)) in days",
+        "number_of_active_months: distinct YYYY-MM on or before T_obs",
+        "purchase_frequency_per_active_month: frequency / active_months",
+        "inter_purchase_mean_days: mean gap between pre-T_obs consecutive orders (NaN for F=1)",
+        "inter_purchase_median_days: median gap between pre-T_obs consecutive orders (NaN for F=1)",
+        "inter_purchase_max_days: maximum gap between pre-T_obs consecutive orders (NaN for F=1)",
+        "total_items: total line item rows on or before T_obs",
+        "total_units: total Quantity on or before T_obs",
+        "unique_products: count of distinct StockCodes on or before T_obs",
+        "average_items_per_order: total_items / frequency",
+        "average_units_per_order: total_units / frequency",
+        "product_diversity_ratio: unique_products / total_items"
+      ],
+      "cancellation_signals": [
+        "cancellation_count: count of cancellation invoices ('C' prefix) on or before T_obs",
+        "cancellation_rate: cancellations / total invoices on or before T_obs",
+        "cancellation_value: signed monetary sum of cancellations on or before T_obs"
+      ]
+    },
+    "segmentation_recomputation_protocol": {
+      "full_period_segment_status": "REJECTED for predictive modeling (incorporates post-T_obs activity).",
+      "point_in_time_recomputation_rule": "If RFM/behavioral segment is included as a model feature, it must be recomputed strictly from pre-T_obs quantiles: R_score_pre (based on recency relative to T_obs), F_score_pre (based on pre-T_obs orders), and M_score_pre (based on pre-T_obs spend), using the exact locked segment rules from Phase 4."
+    }
+  },
+  "target_window_selection": {
+    "status": "TARGET WINDOW SELECTED FOR MODEL DEVELOPMENT",
+    "selected_window_days": 90,
+    "selected_window_code": "W_90d",
+    "t_obs": "2011-09-10 12:50:00",
+    "t_max": "2011-12-09 12:50:00",
+    "pre_cutoff_history_days": 648.21,
+    "eligible_cohort_size": 5281,
+    "positive_returners": 2292,
+    "non_returners": 2989,
+    "positive_rate_pct": 43.4,
+    "expected_test_positives_20pct": 458.4,
+    "selection_rationale": "1. Statistical Feasibility: 2,292 positive cases and 458 held-out test positives provide an enormous, statistically robust sample (over 4.5x greater than Olist's 100 test cases) with a balanced 43.40% positive rate. 2. Pre-Cutoff Depth: Leaves 648.2 days (~21.5 months) of pre-T_obs customer history, allowing rich RFM, inter-purchase interval, and seasonal behavioral capture. 3. Business Realism: 90 days represents a standard calendar quarter. A retail customer who has not returned within 90 days constitutes an actionable lifecycle event for retention marketing. 4. Window Sensitivity: Both 60d (36.9% positive) and 120d (46.8% positive) are documented as viable alternatives."
+  },
+  "validation_checks": {
+    "raw_sha256_verified": true,
+    "pre_cutoff_timestamps_isolated": true,
+    "post_cutoff_timestamps_bounded": true,
+    "cohort_right_censoring_exact": true
+  }
+}

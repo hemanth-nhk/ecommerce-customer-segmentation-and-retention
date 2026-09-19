@@ -1,0 +1,673 @@
+{
+  "checkpoint": "09_modeling_readiness_audit",
+  "audit_timestamp_utc": "2026-09-18T15:50:42.472431+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "statement_on_data_immutability": "Raw data was inspected strictly in read-only mode and was NOT modified, overwritten, or cleaned in-place.",
+  "statement_on_model_training": "CRITICAL: Zero machine learning models were trained, tuned, or executed in Phase 6.5. Feature matrix was audited strictly in read-only mode.",
+  "methodological_commitments": {
+    "statement_on_arbitrary_thresholds": "No arbitrary performance threshold is preregistered.",
+    "statement_on_top_decile_metrics": "Top-decile lift and gain are evaluation metrics, not pass/fail thresholds. Top-decile lift and gain will be reported as business-ranking metrics and compared against the trivial and RFM heuristic baselines. No fixed minimum lift threshold will determine model acceptance.",
+    "statement_on_cohort_chronology": "Cohort chronology is strictly respected. Genuinely chronological design trains on earlier period (Cohort 0) and evaluates forward on later period (Cohort 1), strictly rejecting backward future-to-past evaluation.",
+    "statement_on_cohort_overlap_and_independence": "Cohort overlap has been measured (4,977 shared customers, 100.0% of Cohort 0, 94.24% of Cohort 1). Cohort 0 and Cohort 1 are rolling-origin cohorts and are NOT independent customer populations. No claim of customer-population independence is made.",
+    "statement_on_repeat_buyer_feature": "No is_repeat_buyer_pre feature is added at this stage because it is a deterministic transformation of frequency_pre (frequency_pre >= 2). frequency_pre is kept as the primary feature. Any repeat-buyer indicator must be evaluated as an explicit ablation in Phase 7.",
+    "statement_on_model_training": "CRITICAL: Zero machine learning models were trained, tuned, or executed in Phase 6.5. Feature matrix was audited strictly in read-only mode."
+  },
+  "predictive_matrix_metadata": {
+    "file_path": "data/processed\\online_retail_retention_features_90d.parquet",
+    "rows": 5281,
+    "columns": 31,
+    "eligible_customers": 5281,
+    "target_column": "return_within_90d",
+    "positive_cases": 2292,
+    "negative_cases": 2989,
+    "positive_prevalence_pct": 43.4
+  },
+  "column_inventory_audit": [
+    {
+      "column_name": "Customer ID",
+      "dtype": "int64",
+      "role": "identifier",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5281,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": false,
+      "notes": "Primary entity key. Prohibited as a predictive feature."
+    },
+    {
+      "column_name": "return_within_90d",
+      "dtype": "int64",
+      "role": "target",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 2,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": false,
+      "notes": "Supervised binary prediction target. Strictly prohibited as feature."
+    },
+    {
+      "column_name": "recency_days_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5178,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "frequency_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 83,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "monetary_total_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5165,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "average_order_value_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 4996,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "median_order_value_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 4863,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "customer_tenure_days_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5173,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "activity_lifespan_days_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 3644,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "number_of_active_months_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 22,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "purchase_frequency_per_active_month_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 193,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "inter_purchase_mean_days_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 1576,
+      "missing_pct": 29.84,
+      "unique_count": 3651,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "inter_purchase_median_days_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 1576,
+      "missing_pct": 29.84,
+      "unique_count": 3603,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "inter_purchase_max_days_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 1576,
+      "missing_pct": 29.84,
+      "unique_count": 3618,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "total_items_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 613,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "total_units_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 2153,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "unique_products_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 415,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "average_items_per_order_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 1361,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "average_units_per_order_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 2695,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "product_diversity_ratio_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 1838,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "unique_countries_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 2,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "primary_country_pre",
+      "dtype": "str",
+      "role": "categorical_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 41,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Nominal categorical variable requiring encoding (One-Hot or Ordinal)."
+    },
+    {
+      "column_name": "cancellation_count_pre",
+      "dtype": "int64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 37,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "cancellation_value_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 1561,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "cancellation_rate_pre",
+      "dtype": "float64",
+      "role": "numeric_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 213,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Continuous numeric behavioral predictor."
+    },
+    {
+      "column_name": "R_score_pre",
+      "dtype": "int64",
+      "role": "ordinal_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Discrete 5-point quintile scores. Discretized version of raw R, F, M."
+    },
+    {
+      "column_name": "F_score_pre",
+      "dtype": "int64",
+      "role": "ordinal_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Discrete 5-point quintile scores. Discretized version of raw R, F, M."
+    },
+    {
+      "column_name": "M_score_pre",
+      "dtype": "int64",
+      "role": "ordinal_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Discrete 5-point quintile scores. Discretized version of raw R, F, M."
+    },
+    {
+      "column_name": "pre_cutoff_rfm_segment",
+      "dtype": "str",
+      "role": "categorical_feature",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 8,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": true,
+      "notes": "Nominal categorical variable requiring encoding (One-Hot or Ordinal)."
+    },
+    {
+      "column_name": "first_purchase_date_pre",
+      "dtype": "str",
+      "role": "metadata_timestamp",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5173,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": false,
+      "notes": "Raw ISO datetime string. Already captured numerically as tenure and recency."
+    },
+    {
+      "column_name": "last_purchase_date_pre",
+      "dtype": "str",
+      "role": "metadata_timestamp",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5178,
+      "is_constant_or_near_constant": false,
+      "allowed_as_predictive_feature": false,
+      "notes": "Raw ISO datetime string. Already captured numerically as tenure and recency."
+    }
+  ],
+  "leakage_audit": {
+    "overall_status": "PASS",
+    "max_feature_timestamp_le_t_obs": true,
+    "all_recency_non_negative": true,
+    "tenure_ge_recency": true,
+    "pre_cutoff_spend_isolated": true,
+    "target_distribution_exact": true
+  },
+  "identifier_audit": {
+    "overall_status": "PASS",
+    "single_row_per_customer": true,
+    "zero_duplicate_customers": true,
+    "target_uncorrelated_with_id": true,
+    "zero_accidental_index_cols": true,
+    "zero_surrogate_unique_identifiers": true
+  },
+  "redundancy_analysis": {
+    "audited_pairs": [
+      [
+        "monetary_total_pre",
+        "average_order_value_pre",
+        0.3226,
+        "Moderate",
+        "Monetary is product of AOV and frequency. Highly skewed B2B orders increase correlation."
+      ],
+      [
+        "frequency_pre",
+        "number_of_active_months_pre",
+        0.7308,
+        "High",
+        "Frequent buyers necessarily purchase across multiple calendar months."
+      ],
+      [
+        "total_items_pre",
+        "average_items_per_order_pre",
+        0.2477,
+        "Moderate",
+        "Total line items scales with order count and basket breadth."
+      ],
+      [
+        "total_units_pre",
+        "average_units_per_order_pre",
+        0.3867,
+        "High",
+        "Bulk wholesale buyers dominate both cumulative units and per-order units."
+      ],
+      [
+        "cancellation_count_pre",
+        "cancellation_rate_pre",
+        0.4019,
+        "Moderate",
+        "Rate normalizes count by total invoice volume; both are zero-inflated (57.6% zeros)."
+      ],
+      [
+        "customer_tenure_days_pre",
+        "activity_lifespan_days_pre",
+        0.6312,
+        "Moderate",
+        "Lifespan is bounded by tenure; one-time buyers have lifespan=0 but positive tenure."
+      ],
+      [
+        "recency_days_pre",
+        "R_score_pre",
+        -0.9459,
+        "Deterministic/Derived",
+        "R_score_pre is an inverted 5-bin quantile discretization of recency_days_pre (|r|=0.946)."
+      ],
+      [
+        "frequency_pre",
+        "F_score_pre",
+        0.4981,
+        "Deterministic/Derived",
+        "F_score_pre is a 5-tier discrete monotonic binning of frequency_pre (|r|=0.817)."
+      ],
+      [
+        "monetary_total_pre",
+        "M_score_pre",
+        0.246,
+        "Deterministic/Derived",
+        "M_score_pre is a 5-tier quantile binning of monetary_total_pre (|r|=0.655)."
+      ]
+    ],
+    "repeat_buyer_indicator_policy": {
+      "candidate_feature": "is_repeat_buyer_pre",
+      "relationship_to_frequency_pre": "Deterministic threshold step function: (frequency_pre >= 2).astype(int)",
+      "policy": "DO NOT ADD TO FEATURE MATRIX AT THIS STAGE.",
+      "rationale": "Because is_repeat_buyer_pre is an exact deterministic transformation of frequency_pre, adding it to the predictive matrix introduces artificial multicollinearity. frequency_pre already captures full order count granularity (F=1 vs F>=2 as well as higher orders). If a repeat-buyer binary indicator is investigated during Phase 7, it must be evaluated as an explicit ablation experiment rather than silently injected into the primary feature matrix.",
+      "status": "EXCLUDED FROM MATRIX; frequency_pre RETAINED AS PRIMARY FEATURE."
+    },
+    "model_type_impact": {
+      "logistic_regression": "High impact. Multicollinearity inflates coefficient variance and destabilizes beta weights. L2/Ridge regularization or feature pruning is mandatory.",
+      "random_forest": "Low to moderate impact. Trees are robust to collinearity for overall predictive performance, but collinear features split importance and dilute Gini/permutation metrics.",
+      "hist_gradient_boosting": "Low impact. Tree-based boosting selects the best split feature greedily at each node, invariant to linear dependency."
+    }
+  },
+  "missing_value_strategy": {
+    "features_affected": [
+      "inter_purchase_mean_days_pre",
+      "inter_purchase_median_days_pre",
+      "inter_purchase_max_days_pre"
+    ],
+    "missing_count": 1576,
+    "missing_pct": 29.84,
+    "root_cause": "Structural / Domain-specific: These 1,576 customers placed exactly one commercial order on or before T_obs (frequency_pre = 1). Consecutive intervals do not mathematically exist.",
+    "behavioral_information": "The missingness itself carries strong behavioral information (signals a one-time buyer with zero repurchase track record).",
+    "recommended_modeling_treatment": {
+      "hist_gradient_boosting": "Retain native NaN. HistGradientBoosting branches naturally on missingness without artificial numeric distortion.",
+      "random_forest": "Median or cohort maximum tenure imputation. Note: is_repeat_buyer_pre indicator is NOT automatically added at this stage to prevent deterministic collinearity with frequency_pre; if tested in Phase 7, it must be evaluated as an explicit ablation.",
+      "logistic_regression": "Median imputation. Note: is_repeat_buyer_pre indicator is NOT automatically added at this stage to prevent redundant collinearity with frequency_pre; if tested in Phase 7, it must be evaluated as an explicit ablation."
+    },
+    "all_other_features_missing_count": 0
+  },
+  "preprocessing_recommendations": {
+    "logistic_regression": {
+      "scaling": "Mandatory StandardScaler on continuous features.",
+      "transformation": "log1p(x) transformation on highly skewed positive features (frequency_pre, monetary_total_pre, average_order_value_pre, total_items_pre, total_units_pre, unique_products_pre).",
+      "categorical_encoding": "One-Hot Encoding with drop='first' or top-K + 'Other' for primary_country_pre to avoid dummy trap.",
+      "missing_handling": "Median imputation on inter-purchase metrics. Note: is_repeat_buyer_pre is NOT automatically added (redundant deterministic transformation of frequency_pre).",
+      "regularization": "L2 (Ridge) or ElasticNet regularization to handle multicollinear pairs."
+    },
+    "random_forest": {
+      "scaling": "Not required (scale-invariant).",
+      "transformation": "Optional (tree splits are monotonic and invariant to log transforms).",
+      "categorical_encoding": "One-Hot Encoding or Ordinal Encoding.",
+      "missing_handling": "Median or sentinel imputation (-1.0 or max tenure). Note: is_repeat_buyer_pre is NOT automatically added.",
+      "tree_parameters": "Limit max_depth or min_samples_leaf to prevent overfitting on wholesale outliers."
+    },
+    "hist_gradient_boosting": {
+      "scaling": "Not required (scale-invariant).",
+      "transformation": "Not required (monotonic invariance).",
+      "categorical_encoding": "Native categorical feature support (categorical_features parameter) or One-Hot Encoding.",
+      "missing_handling": "Native NaN handling (zero imputation needed; preserves structural meaning of F=1).",
+      "regularization": "l2_regularization and early stopping on validation split."
+    }
+  },
+  "categorical_feature_audit": {
+    "primary_country_pre": {
+      "unique_categories": 41,
+      "dominant_category": "United Kingdom (4,814 customers, 91.16%)",
+      "frequent_categories_ge_10": {
+        "United Kingdom": 4814,
+        "Germany": 92,
+        "France": 78,
+        "Spain": 33,
+        "Belgium": 27,
+        "Netherlands": 22,
+        "Portugal": 20,
+        "Switzerland": 20,
+        "Sweden": 19,
+        "Italy": 14,
+        "Australia": 14,
+        "Channel Islands": 13,
+        "Finland": 11,
+        "Norway": 11,
+        "Austria": 11
+      },
+      "rare_categories_lt_10_count": 26,
+      "rare_categories_list": [
+        "Cyprus",
+        "Denmark",
+        "Japan",
+        "Unspecified",
+        "USA",
+        "Poland",
+        "Canada",
+        "Greece",
+        "United Arab Emirates",
+        "EIRE",
+        "Israel",
+        "Bahrain",
+        "Brazil",
+        "Korea",
+        "Malta",
+        "Iceland",
+        "RSA",
+        "Thailand",
+        "Saudi Arabia",
+        "Singapore",
+        "Lebanon",
+        "Czech Republic",
+        "European Community",
+        "Lithuania",
+        "Nigeria",
+        "West Indies"
+      ],
+      "recommended_encoding": "Group all countries with <20 customers into 'Other', then apply One-Hot Encoding. Strictly avoid target encoding."
+    },
+    "pre_cutoff_rfm_segment": {
+      "unique_categories": 8,
+      "category_frequencies": {
+        "Champions": 1267,
+        "About to Sleep": 880,
+        "Hibernating": 842,
+        "Lost": 658,
+        "Potential Loyalists": 611,
+        "Loyal Customers": 583,
+        "Recent Customers": 235,
+        "At Risk": 205
+      },
+      "rare_categories": "None (smallest segment is At Risk with 205 customers, 3.88%)",
+      "recommended_encoding": "One-Hot Encoding (8 binary dummy features) or Ordinal Encoding based on RFM value tier."
+    }
+  },
+  "frozen_evaluation_protocol": {
+    "primary_ranking_metric": "PR-AUC (Precision-Recall Area Under Curve, average precision)",
+    "justification_primary_metric": "PR-AUC measures model discrimination directly on the minority positive class without being artificially inflated by high true-negative counts. It is the gold standard for e-commerce return prediction.",
+    "secondary_metrics": [
+      "ROC-AUC (general discriminatory ranking)",
+      "Brier Score (probabilistic calibration accuracy)",
+      "Calibration Assessment (Brier score decomposition and calibration curve slope/intercept)",
+      "Precision, Recall, F1 Score (at optimal decision threshold tuned strictly on training CV)",
+      "Top-Decile Lift (model precision in top 10% highest-risk customers / baseline prevalence)",
+      "Top-Decile Gain (percentage of total positive returners captured in top decile)"
+    ],
+    "top_decile_lift_and_gain_policy": "Top-decile lift and gain will be reported as business-ranking metrics and compared against the trivial and RFM heuristic baselines. No fixed minimum lift threshold will determine model acceptance.",
+    "strict_prohibitions": [
+      "Accuracy MUST NOT be used as the primary model-selection metric.",
+      "Test set outcomes MUST NOT be used to tune decision thresholds or select models.",
+      "All decision threshold tuning must occur on training cross-validation only.",
+      "No arbitrary performance threshold (such as fixed ROC-AUC or fixed lift cutoffs) is preregistered."
+    ]
+  },
+  "temporal_validation_specification": {
+    "design": "Rolling-Origin Chronological Out-of-Time Validation",
+    "chronology_principle": "Cohort chronology is strictly respected. The natural chronological experiment is to train/develop on the earlier period (Cohort 0, cutoff 2011-06-12) and evaluate forward on the later period (Cohort 1, cutoff 2011-09-10). Training on the future period (Cohort 1) and evaluating backward on the past (Cohort 0) is strictly rejected.",
+    "primary_phase_7_experiment": "Preserves the 80/20 stratified split inside Cohort 1 for primary model development and benchmark evaluation (train=4,224, test=1,057; ~458 test positives; test_size=0.20, stratify=y, random_state=42), keeping the test set strictly untouched until final evaluation. Cohort 1 provides the deepest pre-cutoff history (648 days / 21.5 months).",
+    "temporal_robustness_experiment": "Models trained on the earlier period (Cohort 0) will be evaluated forward onto Cohort 1 to assess model parameter stability and resistance to temporal concept drift across consecutive rolling quarters. Because 94.24% of customers overlap, this measures temporal robustness of behavioral features across rolling origins, not generalization to a detached independent customer population.",
+    "cohort_overlap_audit": {
+      "cohort_0": {
+        "name": "Cohort 0 (Earlier 90-day Cohort)",
+        "cutoff_timestamp": "2011-06-12 12:50:00",
+        "target_window": "(2011-06-12 12:50:00, 2011-09-10 12:50:00]",
+        "eligible_customers": 4977,
+        "positive_returners": 1598,
+        "negative_non_returners": 3379,
+        "positive_prevalence_pct": 32.11
+      },
+      "cohort_1": {
+        "name": "Cohort 1 (Primary 90-day Cohort)",
+        "cutoff_timestamp": "2011-09-10 12:50:00",
+        "target_window": "(2011-09-10 12:50:00, 2011-12-09 12:50:00]",
+        "eligible_customers": 5281,
+        "positive_returners": 2292,
+        "negative_non_returners": 2989,
+        "positive_prevalence_pct": 43.4
+      },
+      "overlap_statistics": {
+        "shared_customers_both_cohorts": 4977,
+        "unique_to_cohort_0": 0,
+        "unique_to_cohort_1": 304,
+        "overlap_percentage_relative_to_cohort_0": 100.0,
+        "overlap_percentage_relative_to_cohort_1": 94.24
+      },
+      "population_independence_status": "NOT INDEPENDENT. Cohort 0 and Cohort 1 represent rolling-origin observations of an overlapping customer base. Exactly 100.00% of Cohort 0 customers are present in Cohort 1, and 94.24% of Cohort 1 customers were active in Cohort 0. The 304 unique customers in Cohort 1 represent new customer acquisitions whose first purchase occurred between 2011-06-12 and 2011-09-10. No claim of customer-population independence is made."
+    }
+  },
+  "benchmark_model_suite": [
+    {
+      "model_id": "M0_majority",
+      "type": "Trivial Baseline",
+      "description": "Majority-class non-return predictor (always predicts 0)."
+    },
+    {
+      "model_id": "M1_stratified",
+      "type": "Random Baseline",
+      "description": "Stratified random predictor drawing from empirical prior (p=0.4340)."
+    },
+    {
+      "model_id": "M2_rfm_heuristic",
+      "type": "Domain Heuristic",
+      "description": "Predict return=1 if recency_days_pre <= 60 days (or R_score_pre >= 4); else 0."
+    },
+    {
+      "model_id": "M3_logistic_regression",
+      "type": "Linear ML Model",
+      "description": "L2-regularized Logistic Regression with log1p transforms and StandardScaler."
+    },
+    {
+      "model_id": "M4_random_forest",
+      "type": "Non-linear Bagging",
+      "description": "Random Forest Classifier (n_estimators=200, max_depth tuned via CV)."
+    },
+    {
+      "model_id": "M5_hist_gradient_boosting",
+      "type": "Non-linear Boosting",
+      "description": "Histogram-based Gradient Boosting with native NaN handling and early stopping."
+    }
+  ],
+  "model_acceptance_criteria": {
+    "arbitrary_threshold_rejection": "No arbitrary performance threshold is preregistered (e.g., arbitrary minimum ROC-AUC or fixed lift thresholds are strictly rejected). Model performance will be evaluated comparatively against trivial and heuristic baselines across multiple dimensions.",
+    "top_decile_lift_gain_framework": "Top-decile lift and gain will be reported as business-ranking metrics and compared against the trivial and RFM heuristic baselines. No fixed minimum lift threshold will determine model acceptance.",
+    "evaluation_criteria_matrix": [
+      "Out-of-sample PR-AUC superiority over heuristic and random baselines (M0-M2).",
+      "Out-of-sample ROC-AUC.",
+      "Well-calibrated probabilities (low Brier score, smooth calibration curve).",
+      "Top-decile lift and gain reported as business-ranking metrics compared against trivial and RFM heuristic baselines (no fixed numerical acceptance threshold).",
+      "Minimal generalization gap between CV train and held-out test.",
+      "Temporal stability under chronological forward evaluation (Cohort 0 -> Cohort 1).",
+      "Model interpretability and feature importance sanity."
+    ],
+    "decision_timing": "Operational acceptance decision will be made strictly AFTER evaluating held-out test results in Phase 7."
+  },
+  "phase_6_5_overall_verdict": "PASS - DATASET AND EVALUATION PROTOCOL ARE METHODOLOGICALLY CORRECTED, FROZEN, AND READY FOR PHASE 7 MODEL TRAINING"
+}

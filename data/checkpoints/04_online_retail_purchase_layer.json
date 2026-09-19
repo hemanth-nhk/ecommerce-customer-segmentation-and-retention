@@ -1,0 +1,61 @@
+{
+  "checkpoint": "04_online_retail_purchase_layer",
+  "build_timestamp_utc": "2026-09-18T15:07:38.513714+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "statement_on_data_immutability": "Raw data was inspected strictly in read-only mode and was NOT modified, overwritten, or cleaned in-place.",
+  "locked_treatment_policy": {
+    "deduplication": "Exact duplicate rows removed using drop_duplicates(keep='first') before feature extraction.",
+    "customer_eligibility": "Customer ID must be non-null. Customer must have >= 1 commercial purchase.",
+    "commercial_purchase_event": "Invoice does NOT start with 'C', Quantity > 0, Price > 0, Customer ID is non-null.",
+    "commercial_monetary_value": "line_value = Quantity * Price on commercial purchase rows.",
+    "cancellations": "Invoices beginning with 'C' excluded from purchase events and future return targets. Stored in descriptive cancellation table.",
+    "anonymous_transactions": "Missing Customer ID rows excluded from customer-level modeling.",
+    "zero_price_rows": "Price == 0 excluded from commercial purchase and monetary definitions.",
+    "non_c_negative_quantities": "Excluded from commercial customer analytics (missing Customer ID, zero monetary value)."
+  },
+  "processed_datasets": {
+    "commercial_purchases_csv": "data/processed\\online_retail_commercial_purchases.csv",
+    "commercial_purchases_parquet": "data/processed\\online_retail_commercial_purchases.parquet",
+    "invoice_purchases_csv": "data/processed\\online_retail_invoice_purchases.csv",
+    "invoice_purchases_parquet": "data/processed\\online_retail_invoice_purchases.parquet",
+    "customer_cancellations_csv": "data/processed\\online_retail_customer_cancellations.csv",
+    "customer_cancellations_parquet": "data/processed\\online_retail_customer_cancellations.parquet"
+  },
+  "summary_statistics": {
+    "raw_total_rows": 1067371,
+    "exact_duplicate_rows_dropped": 34335,
+    "retained_transaction_rows": 779425,
+    "retained_invoices": 36969,
+    "retained_customers": 5878,
+    "single_purchase_customers": 1623,
+    "repeat_customers": 4255,
+    "repeat_customer_rate_pct": 72.39,
+    "total_commercial_spend": 17374804.27,
+    "median_invoice_value": 303.04,
+    "mean_invoice_value": 469.98,
+    "min_invoice_value": 0.38,
+    "max_invoice_value": 168469.6,
+    "total_quantity_units": 10513952,
+    "unique_products": 4631
+  },
+  "cancellation_table_statistics": {
+    "eligible_customers_analyzed": 5878,
+    "eligible_customers_with_cancellations": 2511,
+    "eligible_customers_cancellation_pct": 42.72,
+    "total_cancellation_invoices_eligible": 7836,
+    "total_cancellation_monetary_value_eligible": -1023763.31,
+    "cancellation_only_customers_excluded": 61,
+    "cancellation_only_invoices_excluded": 65,
+    "cancellation_only_value_excluded": -61049.67
+  },
+  "reconciliation_checks": {
+    "raw_sha256_verified": true,
+    "all_rows_satisfy_commercial_definition": true,
+    "line_value_exact_match": true,
+    "single_customer_and_date_per_invoice": true,
+    "customer_invoice_exact_reconciliation": true,
+    "checkpoint_03_baseline_match": true
+  }
+}

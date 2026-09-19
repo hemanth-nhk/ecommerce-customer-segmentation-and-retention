@@ -1,0 +1,607 @@
+{
+  "checkpoint": "05_rfm_analysis",
+  "checkpoint_description": "RFM Customer Behavioral Analysis",
+  "audit_timestamp_utc": "2026-09-18T10:58:37.116377+00:00",
+  "raw_data_immutability_verified": true,
+  "population_metadata": {
+    "delivered_orders_analyzed": 96478,
+    "unique_customers_analyzed": 93358,
+    "rfm_reference_timestamp": "2018-08-29T15:00:37",
+    "monetary_definition": "sum of order-level item_plus_freight (price + freight_value) across delivered orders"
+  },
+  "rfm_distributions": {
+    "recency_days": {
+      "count": 93358,
+      "missing_count": 0,
+      "min": 0.0,
+      "p25": 113.9014,
+      "median": 218.617,
+      "mean": 237.4674,
+      "p75": 345.8579,
+      "p90": 465.0906,
+      "p95": 519.246,
+      "max": 713.1139,
+      "std": 152.5933,
+      "skewness": 0.4475,
+      "percentiles": {
+        "p01": 8.6774,
+        "p05": 22.874,
+        "p25": 113.9014,
+        "p50": 218.617,
+        "p75": 345.8579,
+        "p90": 465.0906,
+        "p95": 519.246,
+        "p99": 574.7804,
+        "p99_5": 585.8908
+      }
+    },
+    "frequency_orders": {
+      "count": 93358,
+      "missing_count": 0,
+      "min": 1.0,
+      "p25": 1.0,
+      "median": 1.0,
+      "mean": 1.0334,
+      "p75": 1.0,
+      "p90": 1.0,
+      "p95": 1.0,
+      "max": 15.0,
+      "std": 0.2091,
+      "skewness": 11.0952,
+      "percentiles": {
+        "p01": 1.0,
+        "p05": 1.0,
+        "p25": 1.0,
+        "p50": 1.0,
+        "p75": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 2.0,
+        "p99_5": 2.0
+      }
+    },
+    "monetary_item_plus_freight_brl": {
+      "count": 93358,
+      "missing_count": 0,
+      "min": 9.59,
+      "p25": 63.01,
+      "median": 107.78,
+      "mean": 165.1682,
+      "p75": 182.51,
+      "p90": 317.993,
+      "p95": 469.4775,
+      "max": 13664.08,
+      "std": 226.2921,
+      "skewness": 9.2127,
+      "percentiles": {
+        "p01": 22.75,
+        "p05": 32.69,
+        "p25": 63.01,
+        "p50": 107.78,
+        "p75": 182.51,
+        "p90": 317.993,
+        "p95": 469.4775,
+        "p99": 1097.0617,
+        "p99_5": 1462.8048
+      }
+    },
+    "monetary_item_price_only_brl": {
+      "count": 93358,
+      "missing_count": 0,
+      "min": 0.85,
+      "p25": 47.65,
+      "median": 89.73,
+      "mean": 141.6215,
+      "p75": 154.7375,
+      "p90": 279.99,
+      "p95": 419.809,
+      "max": 13440.0,
+      "std": 215.694,
+      "skewness": 9.7469,
+      "percentiles": {
+        "p01": 12.0,
+        "p05": 19.8,
+        "p25": 47.65,
+        "p50": 89.73,
+        "p75": 154.7375,
+        "p90": 279.99,
+        "p95": 419.809,
+        "p99": 1004.99,
+        "p99_5": 1380.0
+      }
+    },
+    "log1p_monetary": {
+      "count": 93358,
+      "missing_count": 0,
+      "min": 2.3599,
+      "p25": 4.159,
+      "median": 4.6893,
+      "mean": 4.7289,
+      "p75": 5.2123,
+      "p90": 5.7652,
+      "p95": 6.1537,
+      "max": 9.5226,
+      "std": 0.8084,
+      "skewness": 0.5314,
+      "percentiles": {
+        "p01": 3.1676,
+        "p05": 3.5172,
+        "p25": 4.159,
+        "p50": 4.6893,
+        "p75": 5.2123,
+        "p90": 5.7652,
+        "p95": 6.1537,
+        "p99": 7.0013,
+        "p99_5": 7.2888
+      }
+    },
+    "log1p_recency": {
+      "count": 93358,
+      "missing_count": 0,
+      "min": 0.0,
+      "p25": 4.7441,
+      "median": 5.3919,
+      "mean": 5.1612,
+      "p75": 5.8489,
+      "p90": 6.1444,
+      "p95": 6.2543,
+      "max": 6.571,
+      "std": 0.9411,
+      "skewness": -1.2521,
+      "percentiles": {
+        "p01": 2.2698,
+        "p05": 3.1728,
+        "p25": 4.7441,
+        "p50": 5.3919,
+        "p75": 5.8489,
+        "p90": 6.1444,
+        "p95": 6.2543,
+        "p99": 6.3557,
+        "p99_5": 6.3748
+      }
+    }
+  },
+  "frequency_concentration": {
+    "total_delivered_customers": 93358,
+    "frequency_breakdown": {
+      "F_eq_1": {
+        "customer_count": 90557,
+        "customer_percentage": 96.9997
+      },
+      "F_eq_2": {
+        "customer_count": 2573,
+        "customer_percentage": 2.7561
+      },
+      "F_eq_3": {
+        "customer_count": 181,
+        "customer_percentage": 0.1939
+      },
+      "F_eq_4": {
+        "customer_count": 28,
+        "customer_percentage": 0.03
+      },
+      "F_eq_5": {
+        "customer_count": 9,
+        "customer_percentage": 0.0096
+      },
+      "F_ge_5": {
+        "customer_count": 19,
+        "customer_percentage": 0.0204
+      },
+      "full_tail_counts_ge_5": {
+        "F_eq_5": 9,
+        "F_eq_6": 5,
+        "F_eq_7": 3,
+        "F_eq_9": 1,
+        "F_eq_15": 1
+      }
+    },
+    "repeat_customer_summary": {
+      "one_time_customers_count": 90557,
+      "one_time_customers_pct": 96.9997,
+      "repeat_customers_count": 2801,
+      "repeat_customers_pct": 3.0003,
+      "maximum_frequency_observed": 15
+    },
+    "value_concentration": {
+      "orders_delivered": {
+        "one_time_orders_count": 90557,
+        "one_time_orders_pct": 93.8628,
+        "repeat_orders_count": 5921,
+        "repeat_orders_pct": 6.1372,
+        "total_orders": 96478
+      },
+      "observed_customer_monetary_value": {
+        "one_time_total_value": 14555586.29,
+        "one_time_value_pct": 94.3956,
+        "repeat_total_value": 864187.46,
+        "repeat_value_pct": 5.6044,
+        "total_observed_monetary_value": 15419773.75
+      }
+    },
+    "methodological_implication": "Because 97.00% of customers have exactly one delivered purchase, Frequency has near-zero variance across the vast majority of the population. Consequently, conventional quintile-based Frequency scoring collapses mathematically, and distance-based clustering in standard RFM space will be dominated almost entirely by Recency and Monetary variance."
+  },
+  "rfm_scoring_evaluation": {
+    "frequency_quantile_collision_diagnostic": {
+      "error_encountered_without_drop": "Bin edges must be unique: Index([1.0, 1.0, 1.0, 1.0, 1.0, 15.0], dtype='float64', name='Frequency').\nYou can drop duplicate edges by setting the 'duplicates' kwarg",
+      "explanation": "Because 97.00% of customers have Frequency=1, quantiles 0.20, 0.40, 0.60, and 0.80 all equal 1.0. Unique bin edges cannot be constructed for 5 bins.",
+      "bins_resulting_from_drop_duplicates": [
+        "(0.999, 15.0]"
+      ],
+      "distribution_across_dropped_bins": {
+        "(0.999, 15.0]": 93358
+      }
+    },
+    "recency_quintile_thresholds_days": {
+      "q_20": 91.72,
+      "q_40": 176.75,
+      "q_60": 267.73,
+      "q_80": 381.75
+    },
+    "monetary_quintile_thresholds_brl": {
+      "q_20": 55.24,
+      "q_40": 87.35,
+      "q_60": 132.64,
+      "q_80": 208.53
+    },
+    "candidate_scoring_evaluations": {
+      "candidate_scheme_a_standard_quintiles_dropped_ties": {
+        "description": "Standard 5-quintile R and M with duplicate-dropped qcut F.",
+        "unique_cells_produced": 25,
+        "max_theoretical_cells": 25,
+        "assessment": "Severe failure: Frequency collapses into a single invariant bin (score 1 for 100% of customers), eliminating all frequency differentiation."
+      },
+      "candidate_scheme_b_hybrid_discrete_f": {
+        "description": "5-quintile R and M with discrete 3-level F (Score 1 for F=1, Score 3 for F=2, Score 5 for F>=3).",
+        "unique_cells_produced": 67,
+        "max_theoretical_cells": 75,
+        "assessment": "Superior: Distinguishes frequent repeat buyers (F>=3) from standard repeat buyers (F=2) while maintaining granular R and M tiers."
+      },
+      "candidate_scheme_c_simplified_domain_tiers": {
+        "description": "3-tier R (calendar-based), 2-tier F (one-time vs repeat), 3-tier M (percentile-based).",
+        "unique_cells_produced": 18,
+        "max_theoretical_cells": 18,
+        "assessment": "Coarse: Highly interpretable for basic operational reporting, but sacrifices granular monetary and recency variance."
+      }
+    },
+    "methodological_status": "Conventional independent quintile scoring REQUIRES MODIFICATION due to Frequency ties. Scoring is evaluated empirically here for behavioral characterization and is NOT permanently locked."
+  },
+  "behavioral_segmentation": {
+    "rule_definitions": {
+      "Champions (High-Value Repeat)": "F >= 2 AND Recency <= 218.6d (p50) AND Monetary >= 182.51 BRL (p75)",
+      "Loyal Repeat (Standard)": "F >= 2 AND Recency <= 218.6d (p50) AND Monetary < 182.51 BRL (p75)",
+      "At-Risk Repeat (High-Value)": "F >= 2 AND Recency > 218.6d (p50) AND Monetary >= 182.51 BRL (p75)",
+      "Hibernating Repeat (Standard)": "F >= 2 AND Recency > 218.6d (p50) AND Monetary < 182.51 BRL (p75)",
+      "Recent High-Value (New VIP)": "F == 1 AND Recency <= 91.7d (p20) AND Monetary >= 208.53 BRL (p80)",
+      "Recent Standard Buyers": "F == 1 AND Recency <= 91.7d (p20) AND Monetary < 208.53 BRL (p80)",
+      "Promising Mid-Recency": "F == 1 AND 91.7d < Recency <= 218.6d (p20 to p50)",
+      "Cooling-Off Past Buyers": "F == 1 AND 218.6d < Recency <= 381.7d (p50 to p80)",
+      "Lost One-Time Buyers": "F == 1 AND Recency > 381.7d (p80)"
+    },
+    "explicit_thresholds_used": {
+      "recency_p20_days": 91.72,
+      "recency_p50_median_days": 218.62,
+      "recency_p80_days": 381.75,
+      "monetary_p75_brl": 182.51,
+      "monetary_p80_brl": 208.53
+    },
+    "segment_profiles": {
+      "At-Risk Repeat (High-Value)": {
+        "customer_count": 761,
+        "customer_share_pct": 0.8151,
+        "mean_recency_days": 347.56,
+        "median_recency_days": 332.07,
+        "mean_frequency": 2.1012,
+        "mean_observed_monetary_value_brl": 416.54,
+        "median_observed_monetary_value_brl": 312.18,
+        "total_observed_monetary_value_brl": 316985.81,
+        "monetary_value_share_pct": 2.0557
+      },
+      "Champions (High-Value Repeat)": {
+        "customer_count": 1011,
+        "customer_share_pct": 1.0829,
+        "mean_recency_days": 111.92,
+        "median_recency_days": 112.05,
+        "mean_frequency": 2.1968,
+        "mean_observed_monetary_value_brl": 414.27,
+        "median_observed_monetary_value_brl": 316.5,
+        "total_observed_monetary_value_brl": 418825.49,
+        "monetary_value_share_pct": 2.7162
+      },
+      "Cooling-Off Past Buyers": {
+        "customer_count": 27185,
+        "customer_share_pct": 29.1191,
+        "mean_recency_days": 290.85,
+        "median_recency_days": 280.67,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 159.7,
+        "median_observed_monetary_value_brl": 104.76,
+        "total_observed_monetary_value_brl": 4341318.2,
+        "monetary_value_share_pct": 28.1542
+      },
+      "Hibernating Repeat (Standard)": {
+        "customer_count": 497,
+        "customer_share_pct": 0.5324,
+        "mean_recency_days": 358.73,
+        "median_recency_days": 339.01,
+        "mean_frequency": 2.0443,
+        "mean_observed_monetary_value_brl": 123.56,
+        "median_observed_monetary_value_brl": 124.74,
+        "total_observed_monetary_value_brl": 61409.34,
+        "monetary_value_share_pct": 0.3983
+      },
+      "Lost One-Time Buyers": {
+        "customer_count": 18236,
+        "customer_share_pct": 19.5334,
+        "mean_recency_days": 472.97,
+        "median_recency_days": 465.29,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 159.92,
+        "median_observed_monetary_value_brl": 103.08,
+        "total_observed_monetary_value_brl": 2916336.52,
+        "monetary_value_share_pct": 18.913
+      },
+      "Loyal Repeat (Standard)": {
+        "customer_count": 532,
+        "customer_share_pct": 0.5698,
+        "mean_recency_days": 112.32,
+        "median_recency_days": 114.27,
+        "mean_frequency": 2.0395,
+        "mean_observed_monetary_value_brl": 125.88,
+        "median_observed_monetary_value_brl": 131.14,
+        "total_observed_monetary_value_brl": 66966.82,
+        "monetary_value_share_pct": 0.4343
+      },
+      "Promising Mid-Recency": {
+        "customer_count": 27085,
+        "customer_share_pct": 29.012,
+        "mean_recency_days": 155.49,
+        "median_recency_days": 155.78,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 160.6,
+        "median_observed_monetary_value_brl": 106.9,
+        "total_observed_monetary_value_brl": 4349862.62,
+        "monetary_value_share_pct": 28.2096
+      },
+      "Recent High-Value (New VIP)": {
+        "customer_count": 3441,
+        "customer_share_pct": 3.6858,
+        "mean_recency_days": 46.45,
+        "median_recency_days": 42.35,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 447.92,
+        "median_observed_monetary_value_brl": 315.17,
+        "total_observed_monetary_value_brl": 1541295.97,
+        "monetary_value_share_pct": 9.9956
+      },
+      "Recent Standard Buyers": {
+        "customer_count": 14610,
+        "customer_share_pct": 15.6494,
+        "mean_recency_days": 44.54,
+        "median_recency_days": 41.0,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 96.29,
+        "median_observed_monetary_value_brl": 88.09,
+        "total_observed_monetary_value_brl": 1406772.98,
+        "monetary_value_share_pct": 9.1232
+      }
+    },
+    "segmentation_completeness": {
+      "total_customers_classified": 93358,
+      "unclassified_customers": 0,
+      "monetary_value_reconciled_pct": 100.0
+    }
+  },
+  "cutoff_based_rfm_evaluations": {
+    "cutoff_120d": {
+      "future_window_days": 120,
+      "observation_cutoff_T_obs": "2018-05-01T15:00:37",
+      "eligible_customers_count": 68977,
+      "recency_distribution": {
+        "count": 68977,
+        "missing_count": 0,
+        "min": 0.0088,
+        "p25": 76.0104,
+        "median": 157.6095,
+        "mean": 181.5695,
+        "p75": 273.3119,
+        "p90": 369.1888,
+        "p95": 414.0284,
+        "max": 593.1139,
+        "std": 125.686,
+        "skewness": 0.5564,
+        "percentiles": {
+          "p01": 3.7243,
+          "p05": 14.9278,
+          "p25": 76.0104,
+          "p50": 157.6095,
+          "p75": 273.3119,
+          "p90": 369.1888,
+          "p95": 414.0284,
+          "p99": 460.0152,
+          "p99_5": 471.6289
+        }
+      },
+      "frequency_distribution": {
+        "count": 68977,
+        "missing_count": 0,
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "mean": 1.0325,
+        "p75": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "max": 9.0,
+        "std": 0.2026,
+        "skewness": 8.982,
+        "percentiles": {
+          "p01": 1.0,
+          "p05": 1.0,
+          "p25": 1.0,
+          "p50": 1.0,
+          "p75": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 2.0,
+          "p99_5": 2.0
+        }
+      },
+      "monetary_distribution": {
+        "count": 68977,
+        "missing_count": 0,
+        "min": 10.07,
+        "p25": 62.76,
+        "median": 106.87,
+        "mean": 163.5605,
+        "p75": 181.55,
+        "p90": 317.3,
+        "p95": 462.846,
+        "max": 13664.08,
+        "std": 221.4417,
+        "skewness": 9.8188,
+        "percentiles": {
+          "p01": 23.4276,
+          "p05": 32.77,
+          "p25": 62.76,
+          "p50": 106.87,
+          "p75": 181.55,
+          "p90": 317.3,
+          "p95": 462.846,
+          "p99": 1077.59,
+          "p99_5": 1416.9592
+        }
+      },
+      "frequency_breakdown": {
+        "F_eq_1": 66958,
+        "F_eq_1_pct": 97.0729,
+        "F_ge_2": 2019,
+        "F_ge_2_pct": 2.9271,
+        "max_F": 9
+      },
+      "leakage_prevention_confirmation": "Computed strictly on orders with order_purchase_timestamp <= T_obs (2018-05-01T15:00:37). Zero information from future window (120 days) is leaked into these RFM features."
+    },
+    "cutoff_180d": {
+      "future_window_days": 180,
+      "observation_cutoff_T_obs": "2018-03-02T15:00:37",
+      "eligible_customers_count": 55907,
+      "recency_distribution": {
+        "count": 55907,
+        "missing_count": 0,
+        "min": 0.0008,
+        "p25": 63.0459,
+        "median": 134.1644,
+        "mean": 157.7153,
+        "p75": 240.251,
+        "p90": 327.117,
+        "p95": 362.961,
+        "max": 533.1139,
+        "std": 112.6253,
+        "skewness": 0.5657,
+        "percentiles": {
+          "p01": 2.0052,
+          "p05": 10.9645,
+          "p25": 63.0459,
+          "p50": 134.1644,
+          "p75": 240.251,
+          "p90": 327.117,
+          "p95": 362.961,
+          "p99": 402.7255,
+          "p99_5": 419.622
+        }
+      },
+      "frequency_distribution": {
+        "count": 55907,
+        "missing_count": 0,
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "mean": 1.0323,
+        "p75": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "max": 9.0,
+        "std": 0.2016,
+        "skewness": 9.1421,
+        "percentiles": {
+          "p01": 1.0,
+          "p05": 1.0,
+          "p25": 1.0,
+          "p50": 1.0,
+          "p75": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 2.0,
+          "p99_5": 2.0
+        }
+      },
+      "monetary_distribution": {
+        "count": 55907,
+        "missing_count": 0,
+        "min": 10.07,
+        "p25": 62.44,
+        "median": 106.17,
+        "mean": 162.3046,
+        "p75": 179.775,
+        "p90": 315.504,
+        "p95": 454.522,
+        "max": 13664.08,
+        "std": 222.2191,
+        "skewness": 10.7189,
+        "percentiles": {
+          "p01": 23.72,
+          "p05": 32.72,
+          "p25": 62.44,
+          "p50": 106.17,
+          "p75": 179.775,
+          "p90": 315.504,
+          "p95": 454.522,
+          "p99": 1061.5576,
+          "p99_5": 1404.0125
+        }
+      },
+      "frequency_breakdown": {
+        "F_eq_1": 54271,
+        "F_eq_1_pct": 97.0737,
+        "F_ge_2": 1636,
+        "F_ge_2_pct": 2.9263,
+        "max_F": 9
+      },
+      "leakage_prevention_confirmation": "Computed strictly on orders with order_purchase_timestamp <= T_obs (2018-03-02T15:00:37). Zero information from future window (180 days) is leaked into these RFM features."
+    }
+  },
+  "methodological_decisions": {
+    "rfm_feature_construction": {
+      "status": "SUPPORTED",
+      "reason": "Customer-level aggregation on customer_unique_id successfully derives raw R, F, and M without missing values or data loss."
+    },
+    "recency_differentiation": {
+      "status": "SUPPORTED",
+      "reason": "Recency forms a smooth continuous distribution spanning 0.0 to 713.1 days (median 218.6d, mean 237.5d) providing high behavioral differentiation."
+    },
+    "frequency_differentiation": {
+      "status": "LIMITED",
+      "reason": "97.00% of delivered customers have F=1, producing near-zero variance across the vast majority of the population and causing standard quantile collapse."
+    },
+    "monetary_differentiation": {
+      "status": "SUPPORTED",
+      "reason": "Monetary values span 9.59 to 13,664.08 BRL (mean 165.17, median 107.78 BRL) with a heavy right tail (skew 9.21; log1p skew 0.53), providing strong revenue differentiation."
+    },
+    "conventional_rfm_scoring": {
+      "status": "REQUIRES MODIFICATION",
+      "reason": "Standard independent quintile binning fails on Frequency due to identical quantile bin edges (q20=q40=q60=q80=1). A modified hybrid scoring or discrete F mapping is required."
+    },
+    "rule_based_behavioral_segmentation": {
+      "status": "CANDIDATE \u2014 REQUIRES FURTHER EVALUATION",
+      "reason": "Explicit, reproducible domain rules partition 100% of customers into interpretable behavioral cohorts (Champions, VIPs, Promising, Cooling Off, Lost) with clear value concentration, but whether they represent the most useful segmentation methodology requires evaluation against clustering in Checkpoint 6."
+    },
+    "kmeans_clustering": {
+      "status": "DEFERRED TO CHECKPOINT 6",
+      "reason": "Geometric clustering feasibility, feature scaling, log transformations, and the pre-registered fallback to behavioral segmentation will be formally evaluated in Checkpoint 6."
+    },
+    "churn_modeling_and_window_selection": {
+      "status": "DEFERRED TO SUBSEQUENT MODELING",
+      "reason": "Final selection between 120d and 180d candidate windows and predictive model feasibility remain deferred to dedicated modeling checkpoints."
+    }
+  }
+}

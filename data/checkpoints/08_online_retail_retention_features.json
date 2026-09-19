@@ -1,0 +1,364 @@
+{
+  "checkpoint": "08_online_retail_retention_features",
+  "build_timestamp_utc": "2026-09-18T15:30:54.005955+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "statement_on_data_immutability": "Raw data was inspected strictly in read-only mode and was NOT modified, overwritten, or cleaned in-place.",
+  "temporal_parameters": {
+    "selected_window_days": 90,
+    "t_obs": "2011-09-10 12:50:00",
+    "t_max": "2011-12-09 12:50:00",
+    "pre_cutoff_span_days": 648.21
+  },
+  "cohort_and_target_summary": {
+    "eligible_customers": 5281,
+    "positive_returners": 2292,
+    "non_returners": 2989,
+    "positive_prevalence_pct": 43.4,
+    "expected_20pct_test_positives": 458.4,
+    "expected_80pct_train_positives": 1833.6
+  },
+  "pre_cutoff_rfm_segmentation": {
+    "recency_edges": [
+      0.8729,
+      36.8271,
+      107.1368,
+      246.0153,
+      349.0361,
+      648.1215
+    ],
+    "frequency_bins": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      "inf"
+    ],
+    "monetary_edges": [
+      2.9,
+      262.64,
+      549.05,
+      1127.65,
+      2627.27,
+      456780.49
+    ],
+    "segment_distribution": {
+      "Champions": 1267,
+      "About to Sleep": 880,
+      "Hibernating": 842,
+      "Lost": 658,
+      "Potential Loyalists": 611,
+      "Loyal Customers": 583,
+      "Recent Customers": 235,
+      "At Risk": 205
+    }
+  },
+  "leakage_audit_results": {
+    "max_feature_transaction_timestamp": "2011-09-09 15:53:00",
+    "max_feature_invoice_timestamp": "2011-09-09 15:53:00",
+    "max_feature_cancellation_timestamp": "2011-09-09 16:36:00",
+    "min_target_timestamp": "2011-09-11 10:35:00",
+    "max_target_timestamp": "2011-12-09 12:50:00",
+    "temporal_isolation_verified": true,
+    "zero_post_cutoff_leakage": true
+  },
+  "feature_diagnostics": {
+    "recency_days_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 0.8729,
+      "median": 164.0736,
+      "p95": 550.0118,
+      "max": 648.1215,
+      "skewness": 0.6653,
+      "zero_pct": 0.0
+    },
+    "frequency_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 3.0,
+      "p95": 19.0,
+      "max": 309.0,
+      "skewness": 11.0706,
+      "zero_pct": 0.0
+    },
+    "monetary_total_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 2.9,
+      "median": 783.58,
+      "p95": 8397.41,
+      "max": 456780.49,
+      "skewness": 23.7612,
+      "zero_pct": 0.0
+    },
+    "average_order_value_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 2.9,
+      "median": 276.86,
+      "p95": 890.07,
+      "max": 14844.77,
+      "skewness": 13.6523,
+      "zero_pct": 0.0
+    },
+    "median_order_value_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 2.9,
+      "median": 269.5,
+      "p95": 821.1,
+      "max": 15160.9,
+      "skewness": 14.5698,
+      "zero_pct": 0.0
+    },
+    "customer_tenure_days_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 0.9417,
+      "median": 474.0882,
+      "p95": 645.7944,
+      "max": 648.2118,
+      "skewness": -0.6315,
+      "zero_pct": 0.0
+    },
+    "activity_lifespan_days_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 0.0,
+      "median": 170.7361,
+      "p95": 608.0333,
+      "max": 646.1521,
+      "skewness": 0.4563,
+      "zero_pct": 29.84
+    },
+    "number_of_active_months_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 2.0,
+      "p95": 13.0,
+      "max": 22.0,
+      "skewness": 1.9889,
+      "zero_pct": 0.0
+    },
+    "purchase_frequency_per_active_month_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 1.0,
+      "p95": 2.0,
+      "max": 19.375,
+      "skewness": 11.8966,
+      "zero_pct": 0.0
+    },
+    "inter_purchase_mean_days_pre": {
+      "missing_count": 1576,
+      "missing_pct": 29.84,
+      "min": 0.0007,
+      "median": 66.9587,
+      "p95": 254.856,
+      "max": 632.1201,
+      "skewness": 2.1467,
+      "zero_pct": 0.0
+    },
+    "inter_purchase_median_days_pre": {
+      "missing_count": 1576,
+      "missing_pct": 29.84,
+      "min": 0.0007,
+      "median": 54.4944,
+      "p95": 255.4308,
+      "max": 632.1201,
+      "skewness": 2.1425,
+      "zero_pct": 0.0
+    },
+    "inter_purchase_max_days_pre": {
+      "missing_count": 1576,
+      "missing_pct": 29.84,
+      "min": 0.0007,
+      "median": 132.7618,
+      "p95": 337.7882,
+      "max": 632.1201,
+      "skewness": 0.9298,
+      "zero_pct": 0.0
+    },
+    "total_items_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 48.0,
+      "p95": 424.0,
+      "max": 9180.0,
+      "skewness": 15.5606,
+      "zero_pct": 0.0
+    },
+    "total_units_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 438.0,
+      "p95": 4858.0,
+      "max": 298022.0,
+      "skewness": 20.5782,
+      "zero_pct": 0.0
+    },
+    "unique_products_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 41.0,
+      "p95": 258.0,
+      "max": 2182.0,
+      "skewness": 6.1207,
+      "zero_pct": 0.0
+    },
+    "average_items_per_order_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 17.0,
+      "p95": 53.3636,
+      "max": 236.0,
+      "skewness": 2.7768,
+      "zero_pct": 0.0
+    },
+    "average_units_per_order_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 1.0,
+      "median": 148.0,
+      "p95": 546.0,
+      "max": 87167.0,
+      "skewness": 51.7482,
+      "zero_pct": 0.0
+    },
+    "product_diversity_ratio_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 0.04,
+      "median": 0.8943,
+      "p95": 1.0,
+      "max": 1.0,
+      "skewness": -1.1878,
+      "zero_pct": 0.0
+    },
+    "cancellation_count_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 0.0,
+      "median": 0.0,
+      "p95": 5.0,
+      "max": 91.0,
+      "skewness": 10.6896,
+      "zero_pct": 57.62
+    },
+    "cancellation_value_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": -77608.2,
+      "median": 0.0,
+      "p95": 0.0,
+      "max": 0.0,
+      "skewness": -31.2391,
+      "zero_pct": 57.62
+    },
+    "cancellation_rate_pre": {
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "min": 0.0,
+      "median": 0.0,
+      "p95": 0.5,
+      "max": 0.8,
+      "skewness": 1.2451,
+      "zero_pct": 57.62
+    }
+  },
+  "feature_engineering_recommendations": {
+    "highly_skewed_features": [
+      "frequency_pre",
+      "monetary_total_pre",
+      "average_order_value_pre",
+      "median_order_value_pre",
+      "purchase_frequency_per_active_month_pre",
+      "inter_purchase_mean_days_pre",
+      "inter_purchase_median_days_pre",
+      "total_items_pre",
+      "total_units_pre",
+      "unique_products_pre",
+      "average_items_per_order_pre",
+      "average_units_per_order_pre",
+      "cancellation_count_pre",
+      "cancellation_value_pre"
+    ],
+    "zero_inflated_features": [
+      "cancellation_count_pre",
+      "cancellation_value_pre",
+      "cancellation_rate_pre"
+    ],
+    "log_transform_candidates": [
+      "frequency_pre",
+      "monetary_total_pre",
+      "average_order_value_pre",
+      "median_order_value_pre",
+      "purchase_frequency_per_active_month_pre",
+      "inter_purchase_mean_days_pre",
+      "inter_purchase_median_days_pre",
+      "total_items_pre",
+      "total_units_pre",
+      "unique_products_pre",
+      "average_items_per_order_pre",
+      "average_units_per_order_pre",
+      "cancellation_count_pre"
+    ],
+    "missing_treatment_single_buyers": "inter_purchase_mean/median/max_days_pre are preserved as NaN for 1,576 single-purchase buyers (frequency_pre=1)."
+  },
+  "correlation_with_target": {
+    "recency_days_pre": -0.4366,
+    "frequency_pre": 0.2681,
+    "monetary_total_pre": 0.1404,
+    "average_order_value_pre": 0.0419,
+    "customer_tenure_days_pre": 0.0445,
+    "total_items_pre": 0.2405,
+    "total_units_pre": 0.1222
+  },
+  "temporal_robustness_specification": {
+    "design_concept": "Rolling-Origin Out-of-Time Temporal Cross-Validation",
+    "primary_cohort": {
+      "name": "Cohort 1 (Primary Model Cohort)",
+      "cutoff_t_obs": "2011-09-10 12:50:00",
+      "target_window": "(2011-09-10 12:50:00, 2011-12-09 12:50:00]",
+      "eligible_customers": 5281,
+      "positive_returners": 2292,
+      "non_returners": 2989,
+      "positive_rate_pct": 43.4
+    },
+    "earlier_benchmark_cohort": {
+      "name": "Cohort 0 (Earlier Out-of-Time Validation Cohort)",
+      "cutoff_t_obs": "2011-06-12 12:50:00",
+      "target_window": "(2011-06-12 12:50:00, 2011-09-10 12:50:00]",
+      "pre_cutoff_history_days": 558.21,
+      "eligible_customers": 4977,
+      "positive_returners": 1598,
+      "non_returners": 3379,
+      "positive_rate_pct": 32.11,
+      "status": "Defined for future out-of-time evaluation; NOT used as training data yet."
+    }
+  },
+  "processed_artifacts": {
+    "features_csv": "data/processed\\online_retail_retention_features_90d.csv",
+    "features_parquet": "data/processed\\online_retail_retention_features_90d.parquet"
+  },
+  "validation_checks": {
+    "eligible_customer_count_verified": true,
+    "unique_customer_ids_verified": true,
+    "binary_target_verified": true,
+    "zero_missing_targets_verified": true,
+    "positive_cases_verified": true,
+    "negative_cases_verified": true,
+    "leakage_tests_passed": true,
+    "raw_sha256_verified": true
+  }
+}

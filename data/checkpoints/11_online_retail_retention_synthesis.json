@@ -1,0 +1,557 @@
+{
+  "checkpoint": "11_online_retail_retention_synthesis",
+  "timestamp": "2026-09-18T22:07:15.368550",
+  "phase": 8,
+  "phase_name": "Customer Retention Analysis, Risk Synthesis & Business Recommendations",
+  "metadata": {
+    "dataset": "Online Retail II (commercial B2B transactions)",
+    "observation_cutoff": "2011-09-10 12:50:00",
+    "target_window": "(2011-09-10 12:50:00, 2011-12-09 12:50:00] (90 calendar days)",
+    "cohort_size": 5281,
+    "total_pre_cutoff_commercial_spend_gbp": 13930556.0,
+    "total_post_cutoff_realized_commercial_spend_gbp": 3041357.82,
+    "candidate_model_used": "Logistic Regression (Phase 7 M3)",
+    "candidate_model_pr_auc": 0.7658,
+    "candidate_model_roc_auc": 0.8003,
+    "raw_dataset_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+    "calibration_framing": "descriptive_segment_level_agreement_check_not_formal_calibration",
+    "risk_tier_framing": "descriptive_analytical_bands_not_validated_operational_thresholds",
+    "causal_claim_status": "EXPLICITLY_DISCLAIMED_NON_CAUSAL",
+    "non_causal_guardrail_statement": "The predictive model estimates association with future return under observed historical behavior. It does not estimate the incremental effect of a retention intervention. Therefore, intervention effectiveness and ROI must be evaluated experimentally, for example through randomized holdout/control designs."
+  },
+  "segment_retention_profiles": {
+    "Champions": {
+      "customer_count": 1267,
+      "cohort_share_pct": 23.99,
+      "pre_cutoff_commercial_spend_gbp": 9765344.38,
+      "pre_cutoff_commercial_spend_share_pct": 70.1,
+      "observed_returners": 1000,
+      "observed_return_rate_pct": 78.93,
+      "observed_non_return_rate_pct": 21.07,
+      "mean_predicted_return_prob": 0.7929,
+      "median_predicted_return_prob": 0.8121,
+      "iqr_predicted_return_prob": [
+        0.7089,
+        0.8922
+      ],
+      "predicted_vs_observed_difference": 0.0036,
+      "realized_post_cutoff_commercial_spend_gbp": 2049737.43,
+      "realized_commercial_spend_share_pct": 67.4,
+      "avg_realized_spend_per_returner_gbp": 2049.74
+    },
+    "Loyal Customers": {
+      "customer_count": 583,
+      "cohort_share_pct": 11.04,
+      "pre_cutoff_commercial_spend_gbp": 1427347.44,
+      "pre_cutoff_commercial_spend_share_pct": 10.25,
+      "observed_returners": 303,
+      "observed_return_rate_pct": 51.97,
+      "observed_non_return_rate_pct": 48.03,
+      "mean_predicted_return_prob": 0.5096,
+      "median_predicted_return_prob": 0.5034,
+      "iqr_predicted_return_prob": [
+        0.405,
+        0.6178
+      ],
+      "predicted_vs_observed_difference": -0.0101,
+      "realized_post_cutoff_commercial_spend_gbp": 216129.22,
+      "realized_commercial_spend_share_pct": 7.11,
+      "avg_realized_spend_per_returner_gbp": 713.3
+    },
+    "Potential Loyalists": {
+      "customer_count": 611,
+      "cohort_share_pct": 11.57,
+      "pre_cutoff_commercial_spend_gbp": 640980.44,
+      "pre_cutoff_commercial_spend_share_pct": 4.6,
+      "observed_returners": 314,
+      "observed_return_rate_pct": 51.39,
+      "observed_non_return_rate_pct": 48.61,
+      "mean_predicted_return_prob": 0.5189,
+      "median_predicted_return_prob": 0.5295,
+      "iqr_predicted_return_prob": [
+        0.4348,
+        0.6083
+      ],
+      "predicted_vs_observed_difference": 0.005,
+      "realized_post_cutoff_commercial_spend_gbp": 249037.52,
+      "realized_commercial_spend_share_pct": 8.19,
+      "avg_realized_spend_per_returner_gbp": 793.11
+    },
+    "Recent Customers": {
+      "customer_count": 235,
+      "cohort_share_pct": 4.45,
+      "pre_cutoff_commercial_spend_gbp": 82072.89,
+      "pre_cutoff_commercial_spend_share_pct": 0.59,
+      "observed_returners": 109,
+      "observed_return_rate_pct": 46.38,
+      "observed_non_return_rate_pct": 53.62,
+      "mean_predicted_return_prob": 0.4516,
+      "median_predicted_return_prob": 0.4587,
+      "iqr_predicted_return_prob": [
+        0.3913,
+        0.5113
+      ],
+      "predicted_vs_observed_difference": -0.0122,
+      "realized_post_cutoff_commercial_spend_gbp": 65134.16,
+      "realized_commercial_spend_share_pct": 2.14,
+      "avg_realized_spend_per_returner_gbp": 597.56
+    },
+    "At Risk": {
+      "customer_count": 205,
+      "cohort_share_pct": 3.88,
+      "pre_cutoff_commercial_spend_gbp": 678119.4,
+      "pre_cutoff_commercial_spend_share_pct": 4.87,
+      "observed_returners": 72,
+      "observed_return_rate_pct": 35.12,
+      "observed_non_return_rate_pct": 64.88,
+      "mean_predicted_return_prob": 0.3445,
+      "median_predicted_return_prob": 0.3475,
+      "iqr_predicted_return_prob": [
+        0.2618,
+        0.4049
+      ],
+      "predicted_vs_observed_difference": -0.0067,
+      "realized_post_cutoff_commercial_spend_gbp": 48023.33,
+      "realized_commercial_spend_share_pct": 1.58,
+      "avg_realized_spend_per_returner_gbp": 666.99
+    },
+    "About to Sleep": {
+      "customer_count": 880,
+      "cohort_share_pct": 16.66,
+      "pre_cutoff_commercial_spend_gbp": 369607.72,
+      "pre_cutoff_commercial_spend_share_pct": 2.65,
+      "observed_returners": 206,
+      "observed_return_rate_pct": 23.41,
+      "observed_non_return_rate_pct": 76.59,
+      "mean_predicted_return_prob": 0.2455,
+      "median_predicted_return_prob": 0.2243,
+      "iqr_predicted_return_prob": [
+        0.1757,
+        0.303
+      ],
+      "predicted_vs_observed_difference": 0.0114,
+      "realized_post_cutoff_commercial_spend_gbp": 263412.02,
+      "realized_commercial_spend_share_pct": 8.66,
+      "avg_realized_spend_per_returner_gbp": 1278.7
+    },
+    "Hibernating": {
+      "customer_count": 842,
+      "cohort_share_pct": 15.94,
+      "pre_cutoff_commercial_spend_gbp": 754020.11,
+      "pre_cutoff_commercial_spend_share_pct": 5.41,
+      "observed_returners": 221,
+      "observed_return_rate_pct": 26.25,
+      "observed_non_return_rate_pct": 73.75,
+      "mean_predicted_return_prob": 0.2605,
+      "median_predicted_return_prob": 0.2538,
+      "iqr_predicted_return_prob": [
+        0.1878,
+        0.3305
+      ],
+      "predicted_vs_observed_difference": -0.0019,
+      "realized_post_cutoff_commercial_spend_gbp": 118415.67,
+      "realized_commercial_spend_share_pct": 3.89,
+      "avg_realized_spend_per_returner_gbp": 535.82
+    },
+    "Lost": {
+      "customer_count": 658,
+      "cohort_share_pct": 12.46,
+      "pre_cutoff_commercial_spend_gbp": 213063.62,
+      "pre_cutoff_commercial_spend_share_pct": 1.53,
+      "observed_returners": 67,
+      "observed_return_rate_pct": 10.18,
+      "observed_non_return_rate_pct": 89.82,
+      "mean_predicted_return_prob": 0.1005,
+      "median_predicted_return_prob": 0.0888,
+      "iqr_predicted_return_prob": [
+        0.06,
+        0.1286
+      ],
+      "predicted_vs_observed_difference": -0.0013,
+      "realized_post_cutoff_commercial_spend_gbp": 31468.47,
+      "realized_commercial_spend_share_pct": 1.03,
+      "avg_realized_spend_per_returner_gbp": 469.68
+    }
+  },
+  "analytical_band_cross_tabulation": {
+    "counts": {
+      "Champions": {
+        "High predicted-return band (p>=0.60)": 1153,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 114,
+        "Low predicted-return band (p<0.30)": 0
+      },
+      "Loyal Customers": {
+        "High predicted-return band (p>=0.60)": 163,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 377,
+        "Low predicted-return band (p<0.30)": 43
+      },
+      "Potential Loyalists": {
+        "High predicted-return band (p>=0.60)": 170,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 408,
+        "Low predicted-return band (p<0.30)": 33
+      },
+      "Recent Customers": {
+        "High predicted-return band (p>=0.60)": 15,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 205,
+        "Low predicted-return band (p<0.30)": 15
+      },
+      "At Risk": {
+        "High predicted-return band (p>=0.60)": 5,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 127,
+        "Low predicted-return band (p<0.30)": 73
+      },
+      "About to Sleep": {
+        "High predicted-return band (p>=0.60)": 3,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 226,
+        "Low predicted-return band (p<0.30)": 651
+      },
+      "Hibernating": {
+        "High predicted-return band (p>=0.60)": 0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 288,
+        "Low predicted-return band (p<0.30)": 554
+      },
+      "Lost": {
+        "High predicted-return band (p>=0.60)": 0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 2,
+        "Low predicted-return band (p<0.30)": 656
+      }
+    },
+    "pre_cutoff_commercial_spend_gbp": {
+      "Champions": {
+        "High predicted-return band (p>=0.60)": 9572331.64,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 193012.74,
+        "Low predicted-return band (p<0.30)": 0.0
+      },
+      "Loyal Customers": {
+        "High predicted-return band (p>=0.60)": 712790.39,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 562069.17,
+        "Low predicted-return band (p<0.30)": 152487.88
+      },
+      "Potential Loyalists": {
+        "High predicted-return band (p>=0.60)": 201739.86,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 383992.92,
+        "Low predicted-return band (p<0.30)": 55247.66
+      },
+      "Recent Customers": {
+        "High predicted-return band (p>=0.60)": 15628.51,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 64486.24,
+        "Low predicted-return band (p<0.30)": 1958.14
+      },
+      "At Risk": {
+        "High predicted-return band (p>=0.60)": 32630.3,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 383177.62,
+        "Low predicted-return band (p<0.30)": 262311.48
+      },
+      "About to Sleep": {
+        "High predicted-return band (p>=0.60)": 13597.81,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 142652.98,
+        "Low predicted-return band (p<0.30)": 213356.93
+      },
+      "Hibernating": {
+        "High predicted-return band (p>=0.60)": 0.0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 323314.28,
+        "Low predicted-return band (p<0.30)": 430705.83
+      },
+      "Lost": {
+        "High predicted-return band (p>=0.60)": 0.0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 1448.75,
+        "Low predicted-return band (p<0.30)": 211614.87
+      }
+    },
+    "realized_post_cutoff_commercial_spend_gbp": {
+      "Champions": {
+        "High predicted-return band (p>=0.60)": 2001851.04,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 47886.39,
+        "Low predicted-return band (p<0.30)": 0.0
+      },
+      "Loyal Customers": {
+        "High predicted-return band (p>=0.60)": 114455.92,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 96632.93,
+        "Low predicted-return band (p<0.30)": 5040.37
+      },
+      "Potential Loyalists": {
+        "High predicted-return band (p>=0.60)": 150293.92,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 96973.69,
+        "Low predicted-return band (p<0.30)": 1769.91
+      },
+      "Recent Customers": {
+        "High predicted-return band (p>=0.60)": 6863.55,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 56605.93,
+        "Low predicted-return band (p<0.30)": 1664.68
+      },
+      "At Risk": {
+        "High predicted-return band (p>=0.60)": 602.61,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 34540.51,
+        "Low predicted-return band (p<0.30)": 12880.21
+      },
+      "About to Sleep": {
+        "High predicted-return band (p>=0.60)": 0.0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 41727.45,
+        "Low predicted-return band (p<0.30)": 221684.57
+      },
+      "Hibernating": {
+        "High predicted-return band (p>=0.60)": 0.0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 71714.01,
+        "Low predicted-return band (p<0.30)": 46701.66
+      },
+      "Lost": {
+        "High predicted-return band (p>=0.60)": 0.0,
+        "Intermediate predicted-return band (0.30<=p<0.60)": 0.0,
+        "Low predicted-return band (p<0.30)": 31468.47
+      }
+    }
+  },
+  "high_value_commercial_spend_exposure": {
+    "total_high_value_customers": 1850,
+    "total_high_value_pre_spend_gbp": 11192691.82,
+    "total_high_value_pre_spend_share_pct": 80.35,
+    "high_predicted_return_band": {
+      "customer_count": 1316,
+      "share_of_high_value_pct": 71.14,
+      "pre_spend_gbp": 10285122.03,
+      "observed_return_rate_pct": 79.94,
+      "realized_post_spend_gbp": 2116306.96
+    },
+    "intermediate_predicted_return_band": {
+      "customer_count": 491,
+      "share_of_high_value_pct": 26.54,
+      "pre_spend_gbp": 755081.91,
+      "observed_return_rate_pct": 48.47,
+      "realized_post_spend_gbp": 144519.32
+    },
+    "low_predicted_return_band": {
+      "customer_count": 43,
+      "share_of_high_value_pct": 2.32,
+      "pre_spend_gbp": 152487.88,
+      "observed_return_rate_pct": 30.23,
+      "realized_post_spend_gbp": 5040.37
+    }
+  },
+  "behavioral_markers_high_value": {
+    "high_predicted_return_band": {
+      "mean_recency_days": 48.5,
+      "median_recency_days": 32.9,
+      "mean_frequency": 15.2,
+      "mean_inter_purchase_days": 52.2,
+      "mean_cancellation_rate_pct": 16.67
+    },
+    "intermediate_predicted_return_band": {
+      "mean_recency_days": 143.5,
+      "median_recency_days": 148.9,
+      "mean_frequency": 5.0,
+      "mean_inter_purchase_days": 99.7,
+      "mean_cancellation_rate_pct": 12.96
+    },
+    "low_predicted_return_band": {
+      "mean_recency_days": 192.9,
+      "median_recency_days": 190.8,
+      "mean_frequency": 4.0,
+      "mean_inter_purchase_days": 146.3,
+      "mean_cancellation_rate_pct": 10.71
+    }
+  },
+  "decile_concentration_analysis": [
+    {
+      "predicted_return_decile": 1,
+      "customer_count": 528,
+      "min_predicted_prob": 0.8441,
+      "max_predicted_prob": 0.9892,
+      "mean_predicted_prob": 0.908,
+      "observed_returns": 484,
+      "observed_return_rate_pct": 91.67,
+      "lift_vs_base_rate": 2.1121,
+      "decile_gain_pct": 21.12,
+      "cumulative_gain_pct": 21.12,
+      "realized_post_cutoff_commercial_spend_gbp": 1539770.34,
+      "realized_spend_share_pct": 50.63,
+      "cumulative_spend_share_pct": 50.63
+    },
+    {
+      "predicted_return_decile": 2,
+      "customer_count": 528,
+      "min_predicted_prob": 0.7056,
+      "max_predicted_prob": 0.8439,
+      "mean_predicted_prob": 0.775,
+      "observed_returns": 408,
+      "observed_return_rate_pct": 77.27,
+      "lift_vs_base_rate": 1.7804,
+      "decile_gain_pct": 17.8,
+      "cumulative_gain_pct": 38.92,
+      "realized_post_cutoff_commercial_spend_gbp": 497619.49,
+      "realized_spend_share_pct": 16.36,
+      "cumulative_spend_share_pct": 66.99
+    },
+    {
+      "predicted_return_decile": 3,
+      "customer_count": 528,
+      "min_predicted_prob": 0.5844,
+      "max_predicted_prob": 0.7055,
+      "mean_predicted_prob": 0.6435,
+      "observed_returns": 329,
+      "observed_return_rate_pct": 62.31,
+      "lift_vs_base_rate": 1.4357,
+      "decile_gain_pct": 14.35,
+      "cumulative_gain_pct": 53.27,
+      "realized_post_cutoff_commercial_spend_gbp": 268304.98,
+      "realized_spend_share_pct": 8.82,
+      "cumulative_spend_share_pct": 75.81
+    },
+    {
+      "predicted_return_decile": 4,
+      "customer_count": 528,
+      "min_predicted_prob": 0.4831,
+      "max_predicted_prob": 0.5841,
+      "mean_predicted_prob": 0.5325,
+      "observed_returns": 290,
+      "observed_return_rate_pct": 54.92,
+      "lift_vs_base_rate": 1.2655,
+      "decile_gain_pct": 12.65,
+      "cumulative_gain_pct": 65.92,
+      "realized_post_cutoff_commercial_spend_gbp": 171489.57,
+      "realized_spend_share_pct": 5.64,
+      "cumulative_spend_share_pct": 81.45
+    },
+    {
+      "predicted_return_decile": 5,
+      "customer_count": 528,
+      "min_predicted_prob": 0.3901,
+      "max_predicted_prob": 0.4829,
+      "mean_predicted_prob": 0.4339,
+      "observed_returns": 223,
+      "observed_return_rate_pct": 42.23,
+      "lift_vs_base_rate": 0.9731,
+      "decile_gain_pct": 9.73,
+      "cumulative_gain_pct": 75.65,
+      "realized_post_cutoff_commercial_spend_gbp": 143048.27,
+      "realized_spend_share_pct": 4.7,
+      "cumulative_spend_share_pct": 86.15
+    },
+    {
+      "predicted_return_decile": 6,
+      "customer_count": 528,
+      "min_predicted_prob": 0.3145,
+      "max_predicted_prob": 0.39,
+      "mean_predicted_prob": 0.3505,
+      "observed_returns": 169,
+      "observed_return_rate_pct": 32.01,
+      "lift_vs_base_rate": 0.7375,
+      "decile_gain_pct": 7.37,
+      "cumulative_gain_pct": 83.03,
+      "realized_post_cutoff_commercial_spend_gbp": 88962.56,
+      "realized_spend_share_pct": 2.93,
+      "cumulative_spend_share_pct": 89.08
+    },
+    {
+      "predicted_return_decile": 7,
+      "customer_count": 528,
+      "min_predicted_prob": 0.2418,
+      "max_predicted_prob": 0.3142,
+      "mean_predicted_prob": 0.2752,
+      "observed_returns": 138,
+      "observed_return_rate_pct": 26.14,
+      "lift_vs_base_rate": 0.6022,
+      "decile_gain_pct": 6.02,
+      "cumulative_gain_pct": 89.05,
+      "realized_post_cutoff_commercial_spend_gbp": 63392.71,
+      "realized_spend_share_pct": 2.08,
+      "cumulative_spend_share_pct": 91.16
+    },
+    {
+      "predicted_return_decile": 8,
+      "customer_count": 528,
+      "min_predicted_prob": 0.1804,
+      "max_predicted_prob": 0.2417,
+      "mean_predicted_prob": 0.2104,
+      "observed_returns": 125,
+      "observed_return_rate_pct": 23.67,
+      "lift_vs_base_rate": 0.5455,
+      "decile_gain_pct": 5.45,
+      "cumulative_gain_pct": 94.5,
+      "realized_post_cutoff_commercial_spend_gbp": 222171.99,
+      "realized_spend_share_pct": 7.31,
+      "cumulative_spend_share_pct": 98.47
+    },
+    {
+      "predicted_return_decile": 9,
+      "customer_count": 528,
+      "min_predicted_prob": 0.1137,
+      "max_predicted_prob": 0.1804,
+      "mean_predicted_prob": 0.1485,
+      "observed_returns": 87,
+      "observed_return_rate_pct": 16.48,
+      "lift_vs_base_rate": 0.3797,
+      "decile_gain_pct": 3.8,
+      "cumulative_gain_pct": 98.3,
+      "realized_post_cutoff_commercial_spend_gbp": 34144.29,
+      "realized_spend_share_pct": 1.12,
+      "cumulative_spend_share_pct": 99.59
+    },
+    {
+      "predicted_return_decile": 10,
+      "customer_count": 529,
+      "min_predicted_prob": 0.0088,
+      "max_predicted_prob": 0.1137,
+      "mean_predicted_prob": 0.0725,
+      "observed_returns": 39,
+      "observed_return_rate_pct": 7.37,
+      "lift_vs_base_rate": 0.1699,
+      "decile_gain_pct": 1.7,
+      "cumulative_gain_pct": 100.0,
+      "realized_post_cutoff_commercial_spend_gbp": 12453.62,
+      "realized_spend_share_pct": 0.41,
+      "cumulative_spend_share_pct": 100.0
+    }
+  ],
+  "strategic_retention_playbook": [
+    {
+      "priority_tier": "P1 \u2014 High Value & Low Predicted Return Probability",
+      "target_cohort": "Champions & Loyal Customers with p < 0.30 (43 accounts, \u00a3152.5k historical commercial spend)",
+      "empirical_diagnostics": "Severe recency lapse (mean recency 192.9 days vs 48.5 days for high-return band), inter-purchase gap blowout (146.3 days). Yet demonstrated historical loyalty.",
+      "recommended_action": "Personal outreach via assigned commercial account managers. Tailored commercial terms or personalized catalog preview. Avoid relying on generic automated email blasts.",
+      "rationale_testable_hypothesis": "These high-value, low-predicted-return accounts are a candidate cohort for testing higher-touch retention outreach because they combine substantial historical commercial spend with lower predicted probability of future return. (Testing required vs uncontacted holdout).",
+      "causal_disclaimer": "Observational correlation only; intervention effectiveness and ROI must be evaluated experimentally through randomized holdout/control designs."
+    },
+    {
+      "priority_tier": "P2 \u2014 High Value & Intermediate Predicted Return Probability",
+      "target_cohort": "Champions & Loyal Customers with 0.30 <= p < 0.60 (491 accounts, \u00a3755.1k historical commercial spend)",
+      "empirical_diagnostics": "Accounts showing moderate recency decay (mean recency 143.5 days). Realized return rate was 48.5%, representing a balanced ~50/50 pivot point in historical data.",
+      "recommended_action": "Targeted replenishment notifications timed to historical inter-purchase intervals; commercial freight threshold incentives.",
+      "rationale_testable_hypothesis": "Candidate cohort for testing automated replenishment and freight incentives to evaluate whether proactive contact influences re-order timing relative to an uncontacted holdout.",
+      "causal_disclaimer": "Associations do not guarantee incrementality; intervention effectiveness must be evaluated via randomized A/B experimentation."
+    },
+    {
+      "priority_tier": "P3 \u2014 Potential Loyalists & Recent Customers with Intermediate Probability",
+      "target_cohort": "Potential Loyalists & Recent Customers with 0.30 <= p < 0.60 (613 accounts, \u00a3448.5k historical commercial spend)",
+      "empirical_diagnostics": "Intermediate-frequency buyers (F=2-3) showing moderate 90-day engagement (observed return rate ~48-52%).",
+      "recommended_action": "Automated onboarding sequences, product bundling recommendations, and category discovery to cement multi-order purchasing habits.",
+      "rationale_testable_hypothesis": "Candidate cohort for testing onboarding sequences and cross-selling recommendations to measure whether order frequency can be incrementally elevated.",
+      "causal_disclaimer": "Behavioral cross-selling correlations reflect customer preferences, not guaranteed causal lift."
+    },
+    {
+      "priority_tier": "P4 \u2014 Low Historical Value & Low Predicted Return Probability (Spend Suppression)",
+      "target_cohort": "Lost & Hibernating with p < 0.30 (1,210 accounts, \u00a3642.3k historical commercial spend)",
+      "empirical_diagnostics": "Recency > 300 days. Observed return rate < 10% in Lost (10.2%) and low across dormant Hibernating.",
+      "recommended_action": "Marketing spend suppression: eliminate paid digital retargeting and high-cost direct outreach. Rely strictly on low-cost automated re-activation drip workflows.",
+      "rationale_testable_hypothesis": "Candidate cohort for testing spend suppression by comparing minimal low-cost automation against paid outreach to evaluate whether paid marketing yields any detectable incremental lift.",
+      "causal_disclaimer": "Low observed return indicates low organic baseline tendency; promotional offers may yield negligible incremental effect."
+    },
+    {
+      "priority_tier": "P5 \u2014 High-Probability Organic Returners (Organic Maintenance)",
+      "target_cohort": "Deciles 1 & 2 (p >= 0.70, 1,056 accounts, \u00a32.04M realized post-cutoff commercial spend)",
+      "empirical_diagnostics": "Observed return rate 84.5%. Associated with 67.0% of all observed follow-up commercial spend naturally.",
+      "recommended_action": "Avoid aggressive margin-diluting discount coupons (zero coupon waste). Maintain seamless ordering, inventory fulfillment, and premium commercial service.",
+      "rationale_testable_hypothesis": "Candidate cohort for testing discount withholding; observed historical data indicate 84.5% organic return rate, suggesting promotional discounts may largely subsidize purchases that would occur organically.",
+      "causal_disclaimer": "High return rate is predominantly organic baseline demand under observed historical conditions."
+    }
+  ],
+  "invariants_validation": {
+    "raw_data_sha256_verified": true,
+    "prior_checkpoints_verified_count": 19,
+    "model_artifact_verified": true,
+    "privacy_no_customer_ids": true,
+    "non_causal_disclosures_present": true,
+    "commercial_spend_terminology_verified": true,
+    "predicted_vs_observed_difference_verified": true,
+    "analytical_bands_framed": true
+  }
+}

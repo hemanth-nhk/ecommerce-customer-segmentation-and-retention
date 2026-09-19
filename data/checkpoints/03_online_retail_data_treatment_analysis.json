@@ -1,0 +1,349 @@
+{
+  "checkpoint": "03_online_retail_data_treatment_analysis",
+  "analysis_timestamp_utc": "2026-09-18T14:53:42.513583+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "statement_on_data_immutability": "Raw data was inspected strictly in read-only mode and was NOT modified, overwritten, or cleaned in-place.",
+  "scenarios_identifiable_cohort": {
+    "SCENARIO_A": {
+      "scenario_name": "SCENARIO_A",
+      "description": "Raw identifiable transactions: valid Customer ID, no final cleaning beyond identifying customer population.",
+      "row_count": 824364,
+      "unique_invoices": 44876,
+      "unique_customers": 5942,
+      "customers_1_purchase": 1461,
+      "customers_2_purchases": 875,
+      "customers_3_purchases": 622,
+      "customers_4plus_purchases": 2984,
+      "repeat_customer_pct": 75.41,
+      "total_positive_commercial_value": 17743429.18,
+      "median_invoice_value": 240.57,
+      "mean_invoice_value": 370.98,
+      "zero_price_rows_retained": 71,
+      "negative_quantity_rows_retained": 18744,
+      "cancellation_invoices_retained": 7901
+    },
+    "SCENARIO_B": {
+      "scenario_name": "SCENARIO_B",
+      "description": "Remove exact duplicate rows: drop exact duplicate rows only within identifiable transactions.",
+      "row_count": 797885,
+      "unique_invoices": 44876,
+      "unique_customers": 5942,
+      "customers_1_purchase": 1461,
+      "customers_2_purchases": 875,
+      "customers_3_purchases": 622,
+      "customers_4plus_purchases": 2984,
+      "repeat_customer_pct": 75.41,
+      "total_positive_commercial_value": 17374804.27,
+      "median_invoice_value": 235.68,
+      "mean_invoice_value": 363.0,
+      "zero_price_rows_retained": 70,
+      "negative_quantity_rows_retained": 18390,
+      "cancellation_invoices_retained": 7901
+    },
+    "SCENARIO_C": {
+      "scenario_name": "SCENARIO_C",
+      "description": "Remove cancellations: exclude invoices beginning with 'C' within identifiable transactions.",
+      "row_count": 805620,
+      "unique_invoices": 36975,
+      "unique_customers": 5881,
+      "customers_1_purchase": 1626,
+      "customers_2_purchases": 944,
+      "customers_3_purchases": 664,
+      "customers_4plus_purchases": 2647,
+      "repeat_customer_pct": 72.35,
+      "total_positive_commercial_value": 17743429.18,
+      "median_invoice_value": 305.22,
+      "mean_invoice_value": 479.88,
+      "zero_price_rows_retained": 71,
+      "negative_quantity_rows_retained": 0,
+      "cancellation_invoices_retained": 0
+    },
+    "SCENARIO_D": {
+      "scenario_name": "SCENARIO_D",
+      "description": "Remove cancellations + non-C negative quantities: exclude 'C' invoices and negative quantities.",
+      "row_count": 805620,
+      "unique_invoices": 36975,
+      "unique_customers": 5881,
+      "customers_1_purchase": 1626,
+      "customers_2_purchases": 944,
+      "customers_3_purchases": 664,
+      "customers_4plus_purchases": 2647,
+      "repeat_customer_pct": 72.35,
+      "total_positive_commercial_value": 17743429.18,
+      "median_invoice_value": 305.22,
+      "mean_invoice_value": 479.88,
+      "zero_price_rows_retained": 71,
+      "negative_quantity_rows_retained": 0,
+      "cancellation_invoices_retained": 0
+    },
+    "SCENARIO_E": {
+      "scenario_name": "SCENARIO_E",
+      "description": "Commercial purchases: valid Customer ID, non-cancelled, Quantity > 0, Price > 0.",
+      "row_count": 805549,
+      "unique_invoices": 36969,
+      "unique_customers": 5878,
+      "customers_1_purchase": 1623,
+      "customers_2_purchases": 944,
+      "customers_3_purchases": 664,
+      "customers_4plus_purchases": 2647,
+      "repeat_customer_pct": 72.39,
+      "total_positive_commercial_value": 17743429.18,
+      "median_invoice_value": 305.25,
+      "mean_invoice_value": 479.95,
+      "zero_price_rows_retained": 0,
+      "negative_quantity_rows_retained": 0,
+      "cancellation_invoices_retained": 0
+    }
+  },
+  "scenarios_raw_baseline": {
+    "SCENARIO_A_RAW": {
+      "scenario_name": "SCENARIO_A_RAW",
+      "description": "Raw identifiable subset: filter Customer ID not null.",
+      "row_count": 824364,
+      "unique_invoices": 44876,
+      "unique_customers": 5942,
+      "customers_1_purchase": 1461,
+      "customers_2_purchases": 875,
+      "customers_3_purchases": 622,
+      "customers_4plus_purchases": 2984,
+      "repeat_customer_pct": 75.41,
+      "total_positive_commercial_value": 17743429.18,
+      "median_invoice_value": 240.57,
+      "mean_invoice_value": 370.98,
+      "zero_price_rows_retained": 71,
+      "negative_quantity_rows_retained": 18744,
+      "cancellation_invoices_retained": 7901
+    },
+    "SCENARIO_B_RAW": {
+      "scenario_name": "SCENARIO_B_RAW",
+      "description": "Drop exact duplicate rows across all raw rows (isolated filter).",
+      "row_count": 1033036,
+      "unique_invoices": 53628,
+      "unique_customers": 5942,
+      "customers_1_purchase": 1461,
+      "customers_2_purchases": 875,
+      "customers_3_purchases": 622,
+      "customers_4plus_purchases": 2984,
+      "repeat_customer_pct": 75.41,
+      "total_positive_commercial_value": 20476634.02,
+      "median_invoice_value": 192.3,
+      "mean_invoice_value": 351.6,
+      "zero_price_rows_retained": 6014,
+      "negative_quantity_rows_retained": 22496,
+      "cancellation_invoices_retained": 8292
+    },
+    "SCENARIO_C_RAW": {
+      "scenario_name": "SCENARIO_C_RAW",
+      "description": "Exclude invoices beginning with 'C' across all raw rows (isolated filter).",
+      "row_count": 1047877,
+      "unique_invoices": 45336,
+      "unique_customers": 5881,
+      "customers_1_purchase": 1626,
+      "customers_2_purchases": 944,
+      "customers_3_purchases": 664,
+      "customers_4plus_purchases": 2647,
+      "repeat_customer_pct": 72.35,
+      "total_positive_commercial_value": 20972594.57,
+      "median_invoice_value": 263.54,
+      "mean_invoice_value": 459.1,
+      "zero_price_rows_retained": 6202,
+      "negative_quantity_rows_retained": 3457,
+      "cancellation_invoices_retained": 0
+    },
+    "SCENARIO_D_RAW": {
+      "scenario_name": "SCENARIO_D_RAW",
+      "description": "Exclude 'C' invoices and non-C negative quantities across all raw rows (isolated filter).",
+      "row_count": 1044420,
+      "unique_invoices": 41943,
+      "unique_customers": 5881,
+      "customers_1_purchase": 1626,
+      "customers_2_purchases": 944,
+      "customers_3_purchases": 664,
+      "customers_4plus_purchases": 2647,
+      "repeat_customer_pct": 72.35,
+      "total_positive_commercial_value": 20972594.57,
+      "median_invoice_value": 295.68,
+      "mean_invoice_value": 496.24,
+      "zero_price_rows_retained": 2745,
+      "negative_quantity_rows_retained": 0,
+      "cancellation_invoices_retained": 0
+    },
+    "SCENARIO_E_RAW": {
+      "scenario_name": "SCENARIO_E_RAW",
+      "description": "Commercial purchases: valid Customer ID, non-cancelled, Quantity > 0, Price > 0.",
+      "row_count": 805549,
+      "unique_invoices": 36969,
+      "unique_customers": 5878,
+      "customers_1_purchase": 1623,
+      "customers_2_purchases": 944,
+      "customers_3_purchases": 664,
+      "customers_4plus_purchases": 2647,
+      "repeat_customer_pct": 72.39,
+      "total_positive_commercial_value": 17743429.18,
+      "median_invoice_value": 305.25,
+      "mean_invoice_value": 479.95,
+      "zero_price_rows_retained": 0,
+      "negative_quantity_rows_retained": 0,
+      "cancellation_invoices_retained": 0
+    }
+  },
+  "duplicate_sensitivity_analysis": {
+    "commercial_purchases": {
+      "dataset_analyzed": "Commercial Purchases (Scenario E)",
+      "with_duplicates": {
+        "unique_customers": 5878,
+        "unique_invoices": 36969,
+        "repeat_buyer_rate_pct": 72.39,
+        "median_inter_purchase_gap_days": 24.2,
+        "total_positive_commercial_value": 17743429.18
+      },
+      "without_duplicates": {
+        "unique_customers": 5878,
+        "unique_invoices": 36969,
+        "repeat_buyer_rate_pct": 72.39,
+        "median_inter_purchase_gap_days": 24.2,
+        "total_positive_commercial_value": 17374804.27
+      },
+      "impact_summary": {
+        "commercial_value_reduction": 368624.91,
+        "commercial_value_reduction_pct": 2.12,
+        "customers_with_invoice_frequency_change": 0,
+        "customers_with_item_line_frequency_change": 1893,
+        "customers_changing_from_repeat_to_onetime": 0,
+        "customers_with_monetary_value_change": 1893,
+        "customers_with_gt_1pct_monetary_value_change": 1381,
+        "max_percentage_monetary_value_change": 119.52,
+        "customer_id_with_max_monetary_change": 17976,
+        "customer_max_spend_with_duplicates": 706.38,
+        "customer_max_spend_without_duplicates": 321.79
+      }
+    },
+    "all_identifiable": {
+      "dataset_analyzed": "All Identifiable (Scenario A)",
+      "with_duplicates": {
+        "unique_customers": 5942,
+        "unique_invoices": 44876,
+        "repeat_buyer_rate_pct": 75.41,
+        "median_inter_purchase_gap_days": 15.2,
+        "total_positive_commercial_value": 17743429.18
+      },
+      "without_duplicates": {
+        "unique_customers": 5942,
+        "unique_invoices": 44876,
+        "repeat_buyer_rate_pct": 75.41,
+        "median_inter_purchase_gap_days": 15.2,
+        "total_positive_commercial_value": 17374804.27
+      },
+      "impact_summary": {
+        "commercial_value_reduction": 368624.91,
+        "commercial_value_reduction_pct": 2.12,
+        "customers_with_invoice_frequency_change": 0,
+        "customers_with_item_line_frequency_change": 1943,
+        "customers_changing_from_repeat_to_onetime": 0,
+        "customers_with_monetary_value_change": 1941,
+        "customers_with_gt_1pct_monetary_value_change": 1403,
+        "max_percentage_monetary_value_change": 1.1074726783672996e+19,
+        "customer_id_with_max_monetary_change": 16252,
+        "customer_max_spend_with_duplicates": -295.09,
+        "customer_max_spend_without_duplicates": 0.0
+      }
+    }
+  },
+  "zero_price_analysis": {
+    "total_zero_price_rows": 6202,
+    "zero_price_rows_missing_customer_id": 6131,
+    "zero_price_rows_valid_customer_id": 71,
+    "valid_customer_zero_price_invoices_total": 61,
+    "mixed_invoices_count": 55,
+    "invoices_with_only_zero_price_items_count": 6,
+    "valid_customer_zero_price_rows_on_mixed_invoices": 62,
+    "valid_customer_zero_price_rows_on_only_zero_invoices": 9,
+    "customers_associated_with_only_zero_invoices": [
+      14103,
+      14827,
+      17560,
+      14646,
+      12748,
+      13256
+    ],
+    "customers_with_exclusively_zero_price_records_across_dataset": [
+      13256,
+      14103,
+      14827
+    ],
+    "top_descriptions_valid_customer_zero_price": {
+      "Manual": 7,
+      "CHRISTMAS PUDDING TRINKET POT ": 2,
+      "This is a test product.": 2,
+      "REGENCY CAKESTAND 3 TIER": 2,
+      "ROUND CAKE TIN VINTAGE GREEN": 2,
+      "6 RIBBONS EMPIRE  ": 1,
+      "DOOR MAT FAIRY CAKE": 1,
+      "CHRISTMAS CRAFT WHITE FAIRY ": 1,
+      "ANTIQUE LILY FAIRY LIGHTS": 1,
+      "ANTIQUE GLASS HEART DECORATION ": 1
+    }
+  },
+  "non_c_negative_quantities_analysis": {
+    "total_non_c_negative_quantity_rows": 3457,
+    "missing_customer_id_count": 3457,
+    "valid_customer_id_count": 0,
+    "identifiable_customers_affected": 0,
+    "price_equals_zero_count": 3457,
+    "total_monetary_value": 0.0,
+    "top_stock_codes": {
+      "22423": 12,
+      "46000M": 6,
+      "82494L": 6,
+      "22719": 6,
+      "46000S": 5,
+      "84016": 5,
+      "85017A": 5,
+      "47566B": 5,
+      "20852": 5,
+      "85175": 5
+    },
+    "top_descriptions": {
+      "check": 123,
+      "damages": 84,
+      "?": 83,
+      "damaged": 78,
+      "missing": 27,
+      "sold as set on dotcom": 20,
+      "Damaged": 17,
+      "smashed": 9,
+      "thrown away": 9,
+      "Unsaleable, destroyed.": 9,
+      "dotcom": 8,
+      "damages?": 7,
+      "??": 7,
+      "crushed": 6,
+      "given away": 6
+    },
+    "nature_of_records": "Warehouse and administrative adjustments (inventory damage, loss, audit corrections, write-offs)."
+  },
+  "recommended_treatment_policy": {
+    "A_purchase_event_definition": {
+      "policy": "A purchase event is defined as a unique non-cancelled invoice (Invoice NOT starting with 'C') occurring on a specific timestamp with Quantity > 0 and Price > 0.",
+      "evidence": "Invoices without 'C' prefix and with positive quantity/price correspond to authentic commercial checkouts. Zero-price lines or pure zero-price invoices represent samples/test products, and cancellation invoices represent transaction reversals."
+    },
+    "B_customer_activity_definition": {
+      "policy": "A customer is considered active at a given observation cutoff T_obs if and only if they have made at least one valid commercial purchase event (Quantity > 0, Price > 0, valid Customer ID, non-cancelled) strictly prior to T_obs.",
+      "evidence": "Focuses modeling on genuine commercial customers (5,878 verified commercial customers vs 5,942 raw IDs, filtering 3 customers who only ever had zero-price test/sample items and 61 who only had cancellations)."
+    },
+    "C_monetary_value_definition": {
+      "policy": "Row-level commercial spend is Quantity * Price for rows with Quantity > 0 and Price > 0. Invoice gross commercial spend is sum(Quantity * Price) over commercial lines. Deduplication is required to prevent an artificial \u00a3368,624.91 (+2.12%) inflation in positive commercial value.",
+      "evidence": "Exact duplicate rows inflate 1,893 customers' spend, with 1,381 customers experiencing >1% inflation and up to +119.52% inflation (e.g., Customer 17976 from \u00a3321.79 to \u00a3706.38)."
+    },
+    "D_cancellation_refund_feature_definition": {
+      "policy": "Cancellations (invoices prefixed with 'C') and refund amounts must NOT be mixed into positive purchase counts or forward return targets. Instead, they should be engineered into explicit pre-cutoff behavioral features: cancellation_count, cancellation_rate (cancellations / total orders), and total_refund_amount.",
+      "evidence": "Cancellations total -\u00a31,194,598.64 across 8,292 invoices. They represent valuable behavioral risk signals rather than standard purchase activity."
+    },
+    "E_duplicate_handling": {
+      "policy": "Apply drop_duplicates(keep='first') across all columns on the raw dataset before downstream feature extraction.",
+      "evidence": "Deduplication removes 34,335 exact logging duplicate rows without altering unique customer counts, unique invoice counts, repeat buyer rates, or inter-purchase gaps, while correcting severe monetary distortion on 1,893 customers."
+    }
+  }
+}

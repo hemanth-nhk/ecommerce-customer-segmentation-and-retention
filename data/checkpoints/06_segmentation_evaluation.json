@@ -1,0 +1,643 @@
+{
+  "checkpoint": "06_segmentation_evaluation",
+  "checkpoint_description": "K-Means vs. Behavioral Segmentation Evaluation",
+  "audit_timestamp_utc": "2026-09-18T11:45:29.628483+00:00",
+  "raw_data_immutability_verified": true,
+  "population_metadata": {
+    "delivered_orders_analyzed": 96478,
+    "unique_customers_analyzed": 93358,
+    "rfm_reference_timestamp": "2018-08-29T15:00:37"
+  },
+  "feature_representation_evaluation": {
+    "skewness_comparison": {
+      "Recency": 0.4475,
+      "Frequency": 11.0952,
+      "Monetary": 9.2127,
+      "log1p_Monetary": 0.5314,
+      "log1p_Recency": -1.2521
+    },
+    "feature_correlations_raw": {
+      "Recency": {
+        "Recency": 1.0,
+        "Frequency": -0.0222,
+        "Monetary": -0.0045
+      },
+      "Frequency": {
+        "Recency": -0.0222,
+        "Frequency": 1.0,
+        "Monetary": 0.122
+      },
+      "Monetary": {
+        "Recency": -0.0045,
+        "Frequency": 0.122,
+        "Monetary": 1.0
+      }
+    },
+    "feature_correlations_log_monetary": {
+      "Recency": {
+        "Recency": 1.0,
+        "Frequency": -0.0222,
+        "log1p_Monetary": -0.0119
+      },
+      "Frequency": {
+        "Recency": -0.0222,
+        "Frequency": 1.0,
+        "log1p_Monetary": 0.1594
+      },
+      "log1p_Monetary": {
+        "Recency": -0.0119,
+        "Frequency": 0.1594,
+        "log1p_Monetary": 1.0
+      }
+    },
+    "representation_assessments": {
+      "raw_rfm": {
+        "description": "StandardScaler applied to raw [Recency, Frequency, Monetary].",
+        "drawback": "Extreme monetary skew (9.21) causes distance metrics to be dominated by rare high-spend outliers (max 13,664 BRL vs median 107 BRL), pulling centroids away from main population density."
+      },
+      "rfm_log_monetary": {
+        "description": "StandardScaler applied to [Recency, Frequency, log1p(Monetary)].",
+        "assessment": "Primary candidate representation. Log transformation reduces monetary skewness from 9.21 to 0.53, enabling balanced Euclidean distance calculations along the spend dimension. However, Frequency remains heavily degenerate (97% F=1)."
+      },
+      "log_recency_log_monetary": {
+        "description": "StandardScaler applied to [log1p(Recency), Frequency, log1p(Monetary)].",
+        "assessment": "Recency skewness is already mild (0.45). Compressing Recency with log1p crowds moderate-to-high recency customers (100\u2013500 days) into an artificially narrow band."
+      }
+    },
+    "selected_candidate_representation": "rfm_log_monetary"
+  },
+  "kmeans_experiments": {
+    "candidate_feature_columns": [
+      "Recency",
+      "Frequency",
+      "log1p_Monetary"
+    ],
+    "k_experiments": {
+      "k_2": {
+        "k": 2,
+        "inertia": 200515.51,
+        "silhouette_score_sample": 0.6883,
+        "cluster_proportions": {
+          "cluster_0": {
+            "customer_count": 2801,
+            "proportion_pct": 3.0003
+          },
+          "cluster_1": {
+            "customer_count": 90557,
+            "proportion_pct": 96.9997
+          }
+        },
+        "min_cluster_proportion_pct": 3.0003,
+        "max_cluster_proportion_pct": 96.9997,
+        "cluster_rfm_profiles": {
+          "cluster_0": {
+            "count": 2801,
+            "pct": 3.0003,
+            "mean_recency_days": 219.81,
+            "median_recency_days": 198.78,
+            "mean_frequency": 2.1139,
+            "median_frequency": 2.0,
+            "mean_monetary_brl": 308.53,
+            "median_monetary_brl": 225.55
+          },
+          "cluster_1": {
+            "count": 90557,
+            "pct": 96.9997,
+            "mean_recency_days": 238.01,
+            "median_recency_days": 218.96,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 160.73,
+            "median_monetary_brl": 105.38
+          }
+        },
+        "multi_seed_stability": {
+          "ari_seed_42_vs_123": 1.0,
+          "ari_seed_42_vs_999": 1.0,
+          "ari_seed_123_vs_999": 1.0,
+          "mean_ari": 1.0,
+          "is_stable": true
+        },
+        "has_monolithic_repeat_cluster": true,
+        "interpretability_assessment": "K=2: Silhouette=0.6883, Inertia=200515.5. Isolated all repeat customers into single cluster 'cluster_0' (2,801 customers, 3.0003%), with zero internal lifecycle differentiation among repeat buyers."
+      },
+      "k_3": {
+        "k": 3,
+        "inertia": 136588.39,
+        "silhouette_score_sample": 0.3579,
+        "cluster_proportions": {
+          "cluster_0": {
+            "customer_count": 38545,
+            "proportion_pct": 41.2873
+          },
+          "cluster_1": {
+            "customer_count": 52012,
+            "proportion_pct": 55.7124
+          },
+          "cluster_2": {
+            "customer_count": 2801,
+            "proportion_pct": 3.0003
+          }
+        },
+        "min_cluster_proportion_pct": 3.0003,
+        "max_cluster_proportion_pct": 55.7124,
+        "cluster_rfm_profiles": {
+          "cluster_0": {
+            "count": 38545,
+            "pct": 41.2873,
+            "mean_recency_days": 386.94,
+            "median_recency_days": 373.62,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 160.41,
+            "median_monetary_brl": 103.55
+          },
+          "cluster_1": {
+            "count": 52012,
+            "pct": 55.7124,
+            "mean_recency_days": 127.65,
+            "median_recency_days": 128.75,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 160.98,
+            "median_monetary_brl": 106.87
+          },
+          "cluster_2": {
+            "count": 2801,
+            "pct": 3.0003,
+            "mean_recency_days": 219.81,
+            "median_recency_days": 198.78,
+            "mean_frequency": 2.1139,
+            "median_frequency": 2.0,
+            "mean_monetary_brl": 308.53,
+            "median_monetary_brl": 225.55
+          }
+        },
+        "multi_seed_stability": {
+          "ari_seed_42_vs_123": 0.9854,
+          "ari_seed_42_vs_999": 0.9989,
+          "ari_seed_123_vs_999": 0.9859,
+          "mean_ari": 0.9901,
+          "is_stable": true
+        },
+        "has_monolithic_repeat_cluster": true,
+        "interpretability_assessment": "K=3: Silhouette=0.3579, Inertia=136588.4. Isolated all repeat customers into single cluster 'cluster_2' (2,801 customers, 3.0003%), with zero internal lifecycle differentiation among repeat buyers."
+      },
+      "k_4": {
+        "k": 4,
+        "inertia": 96087.27,
+        "silhouette_score_sample": 0.3691,
+        "cluster_proportions": {
+          "cluster_0": {
+            "customer_count": 35951,
+            "proportion_pct": 38.5088
+          },
+          "cluster_1": {
+            "customer_count": 27011,
+            "proportion_pct": 28.9327
+          },
+          "cluster_2": {
+            "customer_count": 2801,
+            "proportion_pct": 3.0003
+          },
+          "cluster_3": {
+            "customer_count": 27595,
+            "proportion_pct": 29.5583
+          }
+        },
+        "min_cluster_proportion_pct": 3.0003,
+        "max_cluster_proportion_pct": 38.5088,
+        "cluster_rfm_profiles": {
+          "cluster_0": {
+            "count": 35951,
+            "pct": 38.5088,
+            "mean_recency_days": 146.05,
+            "median_recency_days": 145.63,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 69.83,
+            "median_monetary_brl": 66.64
+          },
+          "cluster_1": {
+            "count": 27011,
+            "pct": 28.9327,
+            "mean_recency_days": 424.56,
+            "median_recency_days": 416.87,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 118.03,
+            "median_monetary_brl": 97.52
+          },
+          "cluster_2": {
+            "count": 2801,
+            "pct": 3.0003,
+            "mean_recency_days": 219.81,
+            "median_recency_days": 198.78,
+            "mean_frequency": 2.1139,
+            "median_frequency": 2.0,
+            "mean_monetary_brl": 308.53,
+            "median_monetary_brl": 225.55
+          },
+          "cluster_3": {
+            "count": 27595,
+            "pct": 29.5583,
+            "mean_recency_days": 175.23,
+            "median_recency_days": 170.91,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 320.96,
+            "median_monetary_brl": 212.82
+          }
+        },
+        "multi_seed_stability": {
+          "ari_seed_42_vs_123": 0.9863,
+          "ari_seed_42_vs_999": 0.9768,
+          "ari_seed_123_vs_999": 0.9871,
+          "mean_ari": 0.9834,
+          "is_stable": true
+        },
+        "has_monolithic_repeat_cluster": true,
+        "interpretability_assessment": "K=4: Silhouette=0.3691, Inertia=96087.3. Isolated all repeat customers into single cluster 'cluster_2' (2,801 customers, 3.0003%), with zero internal lifecycle differentiation among repeat buyers."
+      },
+      "k_5": {
+        "k": 5,
+        "inertia": 80688.59,
+        "silhouette_score_sample": 0.3557,
+        "cluster_proportions": {
+          "cluster_0": {
+            "customer_count": 25540,
+            "proportion_pct": 27.3571
+          },
+          "cluster_1": {
+            "customer_count": 24207,
+            "proportion_pct": 25.9292
+          },
+          "cluster_2": {
+            "customer_count": 2801,
+            "proportion_pct": 3.0003
+          },
+          "cluster_3": {
+            "customer_count": 28676,
+            "proportion_pct": 30.7162
+          },
+          "cluster_4": {
+            "customer_count": 12134,
+            "proportion_pct": 12.9973
+          }
+        },
+        "min_cluster_proportion_pct": 3.0003,
+        "max_cluster_proportion_pct": 30.7162,
+        "cluster_rfm_profiles": {
+          "cluster_0": {
+            "count": 25540,
+            "pct": 27.3571,
+            "mean_recency_days": 157.66,
+            "median_recency_days": 162.31,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 54.5,
+            "median_monetary_brl": 54.04
+          },
+          "cluster_1": {
+            "count": 24207,
+            "pct": 25.9292,
+            "mean_recency_days": 421.49,
+            "median_recency_days": 413.69,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 95.48,
+            "median_monetary_brl": 87.21
+          },
+          "cluster_2": {
+            "count": 2801,
+            "pct": 3.0003,
+            "mean_recency_days": 219.81,
+            "median_recency_days": 198.78,
+            "mean_frequency": 2.1139,
+            "median_frequency": 2.0,
+            "mean_monetary_brl": 308.53,
+            "median_monetary_brl": 225.55
+          },
+          "cluster_3": {
+            "count": 28676,
+            "pct": 30.7162,
+            "mean_recency_days": 127.18,
+            "median_recency_days": 121.86,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 169.74,
+            "median_monetary_brl": 148.23
+          },
+          "cluster_4": {
+            "count": 12134,
+            "pct": 12.9973,
+            "mean_recency_days": 303.06,
+            "median_recency_days": 293.93,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 493.24,
+            "median_monetary_brl": 346.38
+          }
+        },
+        "multi_seed_stability": {
+          "ari_seed_42_vs_123": 0.9712,
+          "ari_seed_42_vs_999": 0.9955,
+          "ari_seed_123_vs_999": 0.9708,
+          "mean_ari": 0.9792,
+          "is_stable": true
+        },
+        "has_monolithic_repeat_cluster": true,
+        "interpretability_assessment": "K=5: Silhouette=0.3557, Inertia=80688.6. Isolated all repeat customers into single cluster 'cluster_2' (2,801 customers, 3.0003%), with zero internal lifecycle differentiation among repeat buyers."
+      },
+      "k_6": {
+        "k": 6,
+        "inertia": 69633.31,
+        "silhouette_score_sample": 0.3435,
+        "cluster_proportions": {
+          "cluster_0": {
+            "customer_count": 8435,
+            "proportion_pct": 9.0351
+          },
+          "cluster_1": {
+            "customer_count": 20570,
+            "proportion_pct": 22.0335
+          },
+          "cluster_2": {
+            "customer_count": 18614,
+            "proportion_pct": 19.9383
+          },
+          "cluster_3": {
+            "customer_count": 2801,
+            "proportion_pct": 3.0003
+          },
+          "cluster_4": {
+            "customer_count": 28554,
+            "proportion_pct": 30.5855
+          },
+          "cluster_5": {
+            "customer_count": 14384,
+            "proportion_pct": 15.4074
+          }
+        },
+        "min_cluster_proportion_pct": 3.0003,
+        "max_cluster_proportion_pct": 30.5855,
+        "cluster_rfm_profiles": {
+          "cluster_0": {
+            "count": 8435,
+            "pct": 9.0351,
+            "mean_recency_days": 193.88,
+            "median_recency_days": 190.02,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 605.38,
+            "median_monetary_brl": 434.73
+          },
+          "cluster_1": {
+            "count": 20570,
+            "pct": 22.0335,
+            "mean_recency_days": 122.74,
+            "median_recency_days": 124.06,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 54.25,
+            "median_monetary_brl": 54.0
+          },
+          "cluster_2": {
+            "count": 18614,
+            "pct": 19.9383,
+            "mean_recency_days": 378.48,
+            "median_recency_days": 363.25,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 60.65,
+            "median_monetary_brl": 60.61
+          },
+          "cluster_3": {
+            "count": 2801,
+            "pct": 3.0003,
+            "mean_recency_days": 219.81,
+            "median_recency_days": 198.78,
+            "mean_frequency": 2.1139,
+            "median_frequency": 2.0,
+            "mean_monetary_brl": 308.53,
+            "median_monetary_brl": 225.55
+          },
+          "cluster_4": {
+            "count": 28554,
+            "pct": 30.5855,
+            "mean_recency_days": 144.36,
+            "median_recency_days": 143.86,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 152.74,
+            "median_monetary_brl": 142.58
+          },
+          "cluster_5": {
+            "count": 14384,
+            "pct": 15.4074,
+            "mean_recency_days": 432.88,
+            "median_recency_days": 427.17,
+            "mean_frequency": 1.0,
+            "median_frequency": 1.0,
+            "mean_monetary_brl": 197.65,
+            "median_monetary_brl": 162.81
+          }
+        },
+        "multi_seed_stability": {
+          "ari_seed_42_vs_123": 0.9779,
+          "ari_seed_42_vs_999": 0.9787,
+          "ari_seed_123_vs_999": 0.9795,
+          "mean_ari": 0.9787,
+          "is_stable": true
+        },
+        "has_monolithic_repeat_cluster": true,
+        "interpretability_assessment": "K=6: Silhouette=0.3435, Inertia=69633.3. Isolated all repeat customers into single cluster 'cluster_3' (2,801 customers, 3.0003%), with zero internal lifecycle differentiation among repeat buyers."
+      }
+    },
+    "silhouette_sample_size": 10000
+  },
+  "behavioral_segmentation_evaluation": {
+    "rule_definitions": {
+      "Champions (High-Value Repeat)": "F >= 2 AND Recency <= 218.6d (p50) AND Monetary >= 182.51 BRL (p75)",
+      "Loyal Repeat (Standard)": "F >= 2 AND Recency <= 218.6d (p50) AND Monetary < 182.51 BRL (p75)",
+      "At-Risk Repeat (High-Value)": "F >= 2 AND Recency > 218.6d (p50) AND Monetary >= 182.51 BRL (p75)",
+      "Hibernating Repeat (Standard)": "F >= 2 AND Recency > 218.6d (p50) AND Monetary < 182.51 BRL (p75)",
+      "Recent High-Value (New VIP)": "F == 1 AND Recency <= 91.7d (p20) AND Monetary >= 208.53 BRL (p80)",
+      "Recent Standard Buyers": "F == 1 AND Recency <= 91.7d (p20) AND Monetary < 208.53 BRL (p80)",
+      "Promising Mid-Recency": "F == 1 AND 91.7d < Recency <= 218.6d (p20 to p50)",
+      "Cooling-Off Past Buyers": "F == 1 AND 218.6d < Recency <= 381.7d (p50 to p80)",
+      "Lost One-Time Buyers": "F == 1 AND Recency > 381.7d (p80)"
+    },
+    "explicit_thresholds_used": {
+      "recency_p20_days": 91.72,
+      "recency_p50_median_days": 218.62,
+      "recency_p80_days": 381.75,
+      "monetary_p75_brl": 182.51,
+      "monetary_p80_brl": 208.53
+    },
+    "segment_profiles": {
+      "At-Risk Repeat (High-Value)": {
+        "customer_count": 761,
+        "customer_share_pct": 0.8151,
+        "mean_recency_days": 347.56,
+        "median_recency_days": 332.07,
+        "mean_frequency": 2.1012,
+        "mean_observed_monetary_value_brl": 416.54,
+        "median_observed_monetary_value_brl": 312.18,
+        "total_observed_monetary_value_brl": 316985.81,
+        "monetary_value_share_pct": 2.0557
+      },
+      "Champions (High-Value Repeat)": {
+        "customer_count": 1011,
+        "customer_share_pct": 1.0829,
+        "mean_recency_days": 111.92,
+        "median_recency_days": 112.05,
+        "mean_frequency": 2.1968,
+        "mean_observed_monetary_value_brl": 414.27,
+        "median_observed_monetary_value_brl": 316.5,
+        "total_observed_monetary_value_brl": 418825.49,
+        "monetary_value_share_pct": 2.7162
+      },
+      "Cooling-Off Past Buyers": {
+        "customer_count": 27185,
+        "customer_share_pct": 29.1191,
+        "mean_recency_days": 290.85,
+        "median_recency_days": 280.67,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 159.7,
+        "median_observed_monetary_value_brl": 104.76,
+        "total_observed_monetary_value_brl": 4341318.2,
+        "monetary_value_share_pct": 28.1542
+      },
+      "Hibernating Repeat (Standard)": {
+        "customer_count": 497,
+        "customer_share_pct": 0.5324,
+        "mean_recency_days": 358.73,
+        "median_recency_days": 339.01,
+        "mean_frequency": 2.0443,
+        "mean_observed_monetary_value_brl": 123.56,
+        "median_observed_monetary_value_brl": 124.74,
+        "total_observed_monetary_value_brl": 61409.34,
+        "monetary_value_share_pct": 0.3983
+      },
+      "Lost One-Time Buyers": {
+        "customer_count": 18236,
+        "customer_share_pct": 19.5334,
+        "mean_recency_days": 472.97,
+        "median_recency_days": 465.29,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 159.92,
+        "median_observed_monetary_value_brl": 103.08,
+        "total_observed_monetary_value_brl": 2916336.52,
+        "monetary_value_share_pct": 18.913
+      },
+      "Loyal Repeat (Standard)": {
+        "customer_count": 532,
+        "customer_share_pct": 0.5698,
+        "mean_recency_days": 112.32,
+        "median_recency_days": 114.27,
+        "mean_frequency": 2.0395,
+        "mean_observed_monetary_value_brl": 125.88,
+        "median_observed_monetary_value_brl": 131.14,
+        "total_observed_monetary_value_brl": 66966.82,
+        "monetary_value_share_pct": 0.4343
+      },
+      "Promising Mid-Recency": {
+        "customer_count": 27085,
+        "customer_share_pct": 29.012,
+        "mean_recency_days": 155.49,
+        "median_recency_days": 155.78,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 160.6,
+        "median_observed_monetary_value_brl": 106.9,
+        "total_observed_monetary_value_brl": 4349862.62,
+        "monetary_value_share_pct": 28.2096
+      },
+      "Recent High-Value (New VIP)": {
+        "customer_count": 3441,
+        "customer_share_pct": 3.6858,
+        "mean_recency_days": 46.45,
+        "median_recency_days": 42.35,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 447.92,
+        "median_observed_monetary_value_brl": 315.17,
+        "total_observed_monetary_value_brl": 1541295.97,
+        "monetary_value_share_pct": 9.9956
+      },
+      "Recent Standard Buyers": {
+        "customer_count": 14610,
+        "customer_share_pct": 15.6494,
+        "mean_recency_days": 44.54,
+        "median_recency_days": 41.0,
+        "mean_frequency": 1.0,
+        "mean_observed_monetary_value_brl": 96.29,
+        "median_observed_monetary_value_brl": 88.09,
+        "total_observed_monetary_value_brl": 1406772.98,
+        "monetary_value_share_pct": 9.1232
+      }
+    },
+    "segmentation_completeness": {
+      "total_customers_classified": 93358,
+      "unclassified_customers": 0,
+      "monetary_value_reconciled_pct": 100.0
+    }
+  },
+  "methodological_comparison": {
+    "comparative_dimensions": {
+      "dimension_1_group_granularity": {
+        "kmeans_evaluation": "K-Means tested at K=2..6. Best silhouette occurs at K=2 (0.69), which trivially splits one-time vs repeat buyers (97% vs 3%). At K=3 and K=4, K-Means produces 3 or 4 coarse groups.",
+        "behavioral_evaluation": "Rule-based behavioral segmentation defines 9 distinct, domain-aligned customer cohorts (4 repeat cohorts, 5 one-time cohorts) capturing granular lifecycle stages.",
+        "evidence_assessment": "K-Means produces 2 to 6 broad clusters; behavioral segmentation defines 9 distinct lifecycle cohorts."
+      },
+      "dimension_2_repeat_customer_differentiation": {
+        "kmeans_evaluation": "Severe limitation: Across K=2, 3, 4, 5, and 6, K-Means isolates all 2,801 repeat customers into a single monolithic cluster. It fails to distinguish active champions from at-risk repeat buyers or standard loyalists.",
+        "behavioral_evaluation": "Differentiates repeat buyers into 4 distinct groups: Champions (1,011), Loyal Repeat (532), At-Risk Repeat (761), and Hibernating Repeat (497) based on Recency and Monetary tiers.",
+        "evidence_assessment": "K-Means: no repeat-customer differentiation across K=2..6; behavioral segmentation provides four repeat lifecycle cohorts."
+      },
+      "dimension_3_one_time_buyer_characterization": {
+        "kmeans_evaluation": "Partitions the 90,557 one-time buyers along arbitrary Euclidean voronoi lines based on standardized distance, rather than meaningful business boundaries.",
+        "behavioral_evaluation": "Separates one-time buyers by actionable lifecycle stages (Recent, Promising, Cooling-Off, Lost) and isolates Recent High-Value VIPs (3,441 customers generating 10.00% of total observed customer monetary value).",
+        "evidence_assessment": "K-Means: high-value one-time buyers are not isolated as a dedicated cohort; behavioral rules explicitly identify this cohort."
+      },
+      "dimension_4_cluster_size_balance": {
+        "kmeans_evaluation": "At K=2, cluster sizes are 97.0% and 3.0%. At K=3, 55.7%, 41.3%, and 3.0%. K-Means is heavily constrained by the 97% point mass at F=1.",
+        "behavioral_evaluation": "Cohort distribution: largest segment is 36.03% (New / Active One-Time), smallest is 0.53% (Hibernating Repeat), with every group representing an interpretable lifecycle cohort.",
+        "evidence_assessment": "K-Means is constrained by the 97% point mass at F=1 (extreme cluster size disparity at K=2); behavioral segmentation cohorts range from 0.53% to 36.03%."
+      },
+      "dimension_5_mathematical_stability": {
+        "kmeans_evaluation": "High multi-seed stability (mean ARI > 0.97 for K=3, 4), but stability is an artifact of the massive geometric separation between the isolated F>=2 cluster and the dense F=1 plane.",
+        "behavioral_evaluation": "Deterministically stable (100% reproducible) across all runs, seeds, and execution environments.",
+        "evidence_assessment": "K-Means: mathematically measurable separation; behavioral segmentation: deterministic rule-based assignment."
+      },
+      "dimension_6_business_interpretability": {
+        "kmeans_evaluation": "Fails pre-registered criteria (require_business_interpretability: true). Cluster boundaries shift with feature scaling and lack clear business justification.",
+        "behavioral_evaluation": "High business interpretability: each segment maps directly to standard retail lifecycle actions (VIP onboarding, win-back, reactivation, cross-sell).",
+        "evidence_assessment": "K-Means: less directly interpretable for lifecycle targeting; behavioral segmentation: explicit lifecycle definitions."
+      },
+      "dimension_7_utility_for_retention_analysis": {
+        "kmeans_evaluation": "Low utility: cannot support retention analysis because all repeat buyers are grouped together, preventing cohort-specific re-engagement tracking.",
+        "behavioral_evaluation": "High utility: directly supports retention analysis by providing baseline re-purchase benchmarks across recent vs cooling-off cohorts.",
+        "evidence_assessment": "K-Means: repeat buyers are not differentiated by recency; behavioral segmentation: separates active champions from cooling-off and hibernating repeat buyers."
+      }
+    },
+    "overall_synthesis": "Empirical evidence demonstrates that K-Means is structurally constrained by the 97.00% F=1 point mass. Across K=2..6, K-Means isolates all repeat buyers into a single cluster and partitions the remaining one-time buyers along continuous Euclidean Voronoi boundaries. In contrast, the rule-based behavioral segmentation provides deterministic lifecycle cohorts distinguishing repeat recency stages and identifying high-value one-time buyers."
+  },
+  "methodological_decisions": {
+    "kmeans_clustering": {
+      "status": "NOT SUPPORTED",
+      "reason": "Fails pre-registered requirement (require_business_interpretability: true). Across K=2..6, K-Means is constrained by the 97.00% single-purchase point mass, isolating all 2,801 repeat customers into a single cluster without internal differentiation and arbitrarily slicing one-time buyers along continuous Euclidean Voronoi boundaries."
+    },
+    "rule_based_behavioral_segmentation": {
+      "status": "ADOPTED AS DOWNSTREAM FALLBACK CANDIDATE",
+      "reason": "K-Means failed the preregistered business-interpretability requirement. The registered behavioral fallback provides deterministic lifecycle cohorts and will be used for subsequent downstream retention/churn analysis, where its practical usefulness can be evaluated further."
+    },
+    "project_fallback_status": {
+      "status": "NOT TRIGGERED",
+      "reason": "The behavioral segmentation fallback successfully resolves the customer segmentation objective, so project-level pivot (if_segmentation_and_churn_fail: pivot_to_alternative_olist_problem) is not required."
+    },
+    "churn_modeling_and_window_selection": {
+      "status": "DEFERRED TO SUBSEQUENT MODELING EVALUATION",
+      "reason": "Final selection between 120d and 180d candidate windows and churn model training remain deferred to dedicated predictive modeling checkpoints."
+    }
+  }
+}

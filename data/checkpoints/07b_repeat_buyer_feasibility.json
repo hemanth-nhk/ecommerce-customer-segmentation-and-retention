@@ -1,0 +1,83 @@
+{
+  "checkpoint": "07b_repeat_buyer_feasibility",
+  "checkpoint_description": "Repeat-Buyer Subpopulation Feasibility Assessment (Pre-Cutoff Qualification)",
+  "audit_timestamp_utc": "2026-09-18T13:04:55.165460+00:00",
+  "raw_data_immutability_verified": true,
+  "dataset_reference_T_max": "2018-08-29T15:00:37",
+  "preregistered_feasibility_criteria": {
+    "gate_1_min_total_positives": 200,
+    "gate_2_min_test_positives": 50,
+    "qualification_rule": "frequency_pre >= 2 delivered orders with timestamp <= T_obs",
+    "target_rule": "return_within_window = 1 if >= 1 delivered order in (T_obs, T_obs + W], else 0"
+  },
+  "candidate_windows": {
+    "120d": {
+      "window_days": 120,
+      "cutoff_timestamp_T_obs": "2018-05-01T15:00:37",
+      "future_window_end_timestamp": "2018-08-29T15:00:37",
+      "eligible_repeat_buyers": 2019,
+      "future_returners": 55,
+      "non_returners": 1964,
+      "return_rate_pct": 2.7241,
+      "positive_to_negative_ratio": 0.028004,
+      "hypothetical_20pct_test_split": {
+        "test_total_customers": 404,
+        "test_positive_returners": 11,
+        "test_prevalence_pct": 2.7228,
+        "train_total_customers": 1615,
+        "train_positive_returners": 44,
+        "train_prevalence_pct": 2.7245
+      },
+      "preregistered_gates": {
+        "gate_1_min_total_positives": {
+          "threshold": 200,
+          "observed": 55,
+          "passed": false
+        },
+        "gate_2_min_test_positives": {
+          "threshold": 50,
+          "observed": 11,
+          "passed": false
+        },
+        "overall_feasibility_gate": "FAIL",
+        "feasibility_assessment": "INFEASIBLE: INSUFFICIENT POSITIVE CASE VOLUME (UNDERPOWERED)"
+      }
+    },
+    "180d": {
+      "window_days": 180,
+      "cutoff_timestamp_T_obs": "2018-03-02T15:00:37",
+      "future_window_end_timestamp": "2018-08-29T15:00:37",
+      "eligible_repeat_buyers": 1636,
+      "future_returners": 70,
+      "non_returners": 1566,
+      "return_rate_pct": 4.2787,
+      "positive_to_negative_ratio": 0.0447,
+      "hypothetical_20pct_test_split": {
+        "test_total_customers": 328,
+        "test_positive_returners": 14,
+        "test_prevalence_pct": 4.2683,
+        "train_total_customers": 1308,
+        "train_positive_returners": 56,
+        "train_prevalence_pct": 4.2813
+      },
+      "preregistered_gates": {
+        "gate_1_min_total_positives": {
+          "threshold": 200,
+          "observed": 70,
+          "passed": false
+        },
+        "gate_2_min_test_positives": {
+          "threshold": 50,
+          "observed": 14,
+          "passed": false
+        },
+        "overall_feasibility_gate": "FAIL",
+        "feasibility_assessment": "INFEASIBLE: INSUFFICIENT POSITIVE CASE VOLUME (UNDERPOWERED)"
+      }
+    }
+  },
+  "comparative_feasibility_summary": {
+    "120d_gate_status": "FAIL",
+    "180d_gate_status": "FAIL"
+  }
+}

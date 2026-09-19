@@ -1,0 +1,603 @@
+{
+  "checkpoint": "07_churn_modeling",
+  "checkpoint_description": "Churn / Retention Modeling & Baseline Benchmarking",
+  "audit_timestamp_utc": "2026-09-18T12:30:08.760954+00:00",
+  "raw_data_immutability_verified": true,
+  "preregistered_criteria": {
+    "test_size": 0.2,
+    "stratify": true,
+    "random_state": 42,
+    "frozen_rfm_heuristic_rule": "recency_days <= 90.0"
+  },
+  "descriptive_population_feasibility": {
+    "120d": {
+      "eligible_customers": 68977,
+      "positive_return_cases": 539,
+      "negative_non_return_cases": 68438,
+      "return_prevalence_pct": 0.7814,
+      "positive_to_negative_ratio": 0.007876
+    },
+    "180d": {
+      "eligible_customers": 55907,
+      "positive_return_cases": 655,
+      "negative_non_return_cases": 55252,
+      "return_prevalence_pct": 1.1716,
+      "positive_to_negative_ratio": 0.011855
+    }
+  },
+  "candidate_window_120d": {
+    "temporal_leakage_audit": {
+      "cutoff_timestamp_T_obs": "2018-05-01T15:00:37",
+      "future_window_days": 120,
+      "future_window_end_timestamp": "2018-08-29T15:00:37",
+      "max_feature_order_timestamp": "2018-05-01T14:47:57",
+      "min_target_order_timestamp": "2018-05-01T15:07:40",
+      "max_target_order_timestamp": "2018-08-29T15:00:37",
+      "temporal_assertion_passed": true,
+      "eligible_customer_count": 68977,
+      "post_cutoff_entrants_excluded": 24381,
+      "right_censored_eligible_customers": 0,
+      "return_cases_count": 539,
+      "non_return_cases_count": 68438,
+      "return_incidence_pct": 0.7814,
+      "positive_to_negative_ratio": 0.007876
+    },
+    "modeling_experiment": {
+      "future_window_days": 120,
+      "population_split": {
+        "total_customers": 68977,
+        "train_customers": 55181,
+        "test_customers": 13796,
+        "train_positive_returners": 431,
+        "test_positive_returners": 108,
+        "train_prevalence_pct": 0.7811,
+        "test_prevalence_pct": 0.7828,
+        "stratified": true,
+        "random_state": 42
+      },
+      "models_evaluated": {
+        "baseline_1_majority_class": {
+          "model_name": "Majority-Class Baseline",
+          "type": "baseline",
+          "description": "Always predicts non-return (0).",
+          "test_metrics": {
+            "pr_auc": 0.0078,
+            "roc_auc": 0.5,
+            "top_decile_lift": 1.0182,
+            "top_decile_cumulative_gain": 0.1019,
+            "decision_threshold": 0.5,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "brier_score": 0.00777,
+            "accuracy_descriptive": 0.9922,
+            "confusion_matrix": {
+              "true_negatives": 13688,
+              "false_positives": 0,
+              "false_negatives": 108,
+              "true_positives": 0
+            },
+            "ranking_tie_note": "Top-decile metrics for constant-score baseline are arbitrary artifacts of index order tie-breaking; constant predictor has zero ranking discrimination (theoretical lift is 1.00x)."
+          },
+          "train_vs_test_pr_auc_divergence": 0.0
+        },
+        "baseline_2_stratified_dummy": {
+          "model_name": "Stratified Dummy Baseline",
+          "type": "baseline",
+          "description": "Random prediction proportional to empirical training prevalence.",
+          "test_metrics": {
+            "pr_auc": 0.0078,
+            "roc_auc": 0.4966,
+            "top_decile_lift": 1.0182,
+            "top_decile_cumulative_gain": 0.1019,
+            "decision_threshold": 0.5,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "brier_score": 0.01457,
+            "accuracy_descriptive": 0.9854,
+            "confusion_matrix": {
+              "true_negatives": 13595,
+              "false_positives": 93,
+              "false_negatives": 108,
+              "true_positives": 0
+            },
+            "ranking_tie_note": "Random stratified predictions have no true ranking discrimination; top-decile values are sampling artifacts."
+          },
+          "train_vs_test_pr_auc_divergence": 0.0
+        },
+        "baseline_3_frozen_rfm_heuristic": {
+          "model_name": "Frozen RFM Heuristic Baseline",
+          "type": "baseline",
+          "description": "Predicts return if recency_days <= 90.0. Fixed threshold; zero test-set tuning.",
+          "test_metrics": {
+            "pr_auc": 0.009,
+            "roc_auc": 0.5569,
+            "top_decile_lift": 1.6662,
+            "top_decile_cumulative_gain": 0.1667,
+            "decision_threshold": 90.0,
+            "precision": 0.0108,
+            "recall": 0.4074,
+            "f1_score": 0.0211,
+            "brier_score": 0.00776,
+            "accuracy_descriptive": 0.704,
+            "confusion_matrix": {
+              "true_negatives": 9668,
+              "false_positives": 4020,
+              "false_negatives": 64,
+              "true_positives": 44
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.0
+        },
+        "ml_1_balanced_logistic_regression": {
+          "model_name": "Balanced Logistic Regression",
+          "type": "machine_learning",
+          "description": "L2-regularized logistic regression with class_weight='balanced'.",
+          "tuned_threshold_cv": 0.8219,
+          "train_pr_auc": 0.0261,
+          "test_metrics": {
+            "pr_auc": 0.0233,
+            "roc_auc": 0.6099,
+            "top_decile_lift": 2.4067,
+            "top_decile_cumulative_gain": 0.2407,
+            "decision_threshold": 0.8219,
+            "precision": 0.0566,
+            "recall": 0.0556,
+            "f1_score": 0.0561,
+            "brier_score": 0.22781,
+            "accuracy_descriptive": 0.9854,
+            "confusion_matrix": {
+              "true_negatives": 13588,
+              "false_positives": 100,
+              "false_negatives": 102,
+              "true_positives": 6
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.0028
+        },
+        "ml_2_random_forest": {
+          "model_name": "Random Forest Classifier",
+          "type": "machine_learning",
+          "description": "Ensemble of 100 trees with class_weight='balanced_subsample' and max_depth=8.",
+          "tuned_threshold_cv": 0.6299,
+          "train_pr_auc": 0.1375,
+          "test_metrics": {
+            "pr_auc": 0.0165,
+            "roc_auc": 0.5734,
+            "top_decile_lift": 1.8513,
+            "top_decile_cumulative_gain": 0.1852,
+            "decision_threshold": 0.6299,
+            "precision": 0.0857,
+            "recall": 0.0278,
+            "f1_score": 0.042,
+            "brier_score": 0.16386,
+            "accuracy_descriptive": 0.9901,
+            "confusion_matrix": {
+              "true_negatives": 13656,
+              "false_positives": 32,
+              "false_negatives": 105,
+              "true_positives": 3
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.121
+        },
+        "ml_3_hist_gradient_boosting": {
+          "model_name": "HistGradientBoosting Classifier",
+          "type": "machine_learning",
+          "description": "Histogram gradient boosting with class_weight='balanced'.",
+          "tuned_threshold_cv": 0.7253,
+          "train_pr_auc": 0.0518,
+          "test_metrics": {
+            "pr_auc": 0.0149,
+            "roc_auc": 0.5909,
+            "top_decile_lift": 1.6662,
+            "top_decile_cumulative_gain": 0.1667,
+            "decision_threshold": 0.7253,
+            "precision": 0.0676,
+            "recall": 0.0463,
+            "f1_score": 0.0549,
+            "brier_score": 0.18525,
+            "accuracy_descriptive": 0.9875,
+            "confusion_matrix": {
+              "true_negatives": 13619,
+              "false_positives": 69,
+              "false_negatives": 103,
+              "true_positives": 5
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.0369
+        }
+      }
+    }
+  },
+  "candidate_window_180d": {
+    "temporal_leakage_audit": {
+      "cutoff_timestamp_T_obs": "2018-03-02T15:00:37",
+      "future_window_days": 180,
+      "future_window_end_timestamp": "2018-08-29T15:00:37",
+      "max_feature_order_timestamp": "2018-03-02T14:59:29",
+      "min_target_order_timestamp": "2018-03-02T15:01:42",
+      "max_target_order_timestamp": "2018-08-29T15:00:37",
+      "temporal_assertion_passed": true,
+      "eligible_customer_count": 55907,
+      "post_cutoff_entrants_excluded": 37451,
+      "right_censored_eligible_customers": 0,
+      "return_cases_count": 655,
+      "non_return_cases_count": 55252,
+      "return_incidence_pct": 1.1716,
+      "positive_to_negative_ratio": 0.011855
+    },
+    "modeling_experiment": {
+      "future_window_days": 180,
+      "population_split": {
+        "total_customers": 55907,
+        "train_customers": 44725,
+        "test_customers": 11182,
+        "train_positive_returners": 524,
+        "test_positive_returners": 131,
+        "train_prevalence_pct": 1.1716,
+        "test_prevalence_pct": 1.1715,
+        "stratified": true,
+        "random_state": 42
+      },
+      "models_evaluated": {
+        "baseline_1_majority_class": {
+          "model_name": "Majority-Class Baseline",
+          "type": "baseline",
+          "description": "Always predicts non-return (0).",
+          "test_metrics": {
+            "pr_auc": 0.0117,
+            "roc_auc": 0.5,
+            "top_decile_lift": 0.7628,
+            "top_decile_cumulative_gain": 0.0763,
+            "decision_threshold": 0.5,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "brier_score": 0.01158,
+            "accuracy_descriptive": 0.9883,
+            "confusion_matrix": {
+              "true_negatives": 11051,
+              "false_positives": 0,
+              "false_negatives": 131,
+              "true_positives": 0
+            },
+            "ranking_tie_note": "Top-decile metrics for constant-score baseline are arbitrary artifacts of index order tie-breaking; constant predictor has zero ranking discrimination (theoretical lift is 1.00x)."
+          },
+          "train_vs_test_pr_auc_divergence": 0.0
+        },
+        "baseline_2_stratified_dummy": {
+          "model_name": "Stratified Dummy Baseline",
+          "type": "baseline",
+          "description": "Random prediction proportional to empirical training prevalence.",
+          "test_metrics": {
+            "pr_auc": 0.0117,
+            "roc_auc": 0.4952,
+            "top_decile_lift": 0.534,
+            "top_decile_cumulative_gain": 0.0534,
+            "decision_threshold": 0.5,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "brier_score": 0.02119,
+            "accuracy_descriptive": 0.9788,
+            "confusion_matrix": {
+              "true_negatives": 10945,
+              "false_positives": 106,
+              "false_negatives": 131,
+              "true_positives": 0
+            },
+            "ranking_tie_note": "Random stratified predictions have no true ranking discrimination; top-decile values are sampling artifacts."
+          },
+          "train_vs_test_pr_auc_divergence": 0.0
+        },
+        "baseline_3_frozen_rfm_heuristic": {
+          "model_name": "Frozen RFM Heuristic Baseline",
+          "type": "baseline",
+          "description": "Predicts return if recency_days <= 90.0. Fixed threshold; zero test-set tuning.",
+          "test_metrics": {
+            "pr_auc": 0.0127,
+            "roc_auc": 0.536,
+            "top_decile_lift": 1.1442,
+            "top_decile_cumulative_gain": 0.1145,
+            "decision_threshold": 90.0,
+            "precision": 0.0142,
+            "recall": 0.4122,
+            "f1_score": 0.0274,
+            "brier_score": 0.01158,
+            "accuracy_descriptive": 0.6569,
+            "confusion_matrix": {
+              "true_negatives": 7292,
+              "false_positives": 3759,
+              "false_negatives": 77,
+              "true_positives": 54
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.0
+        },
+        "ml_1_balanced_logistic_regression": {
+          "model_name": "Balanced Logistic Regression",
+          "type": "machine_learning",
+          "description": "L2-regularized logistic regression with class_weight='balanced'.",
+          "tuned_threshold_cv": 0.7796,
+          "train_pr_auc": 0.0337,
+          "test_metrics": {
+            "pr_auc": 0.0263,
+            "roc_auc": 0.5792,
+            "top_decile_lift": 2.2122,
+            "top_decile_cumulative_gain": 0.2214,
+            "decision_threshold": 0.7796,
+            "precision": 0.0727,
+            "recall": 0.0611,
+            "f1_score": 0.0664,
+            "brier_score": 0.2296,
+            "accuracy_descriptive": 0.9799,
+            "confusion_matrix": {
+              "true_negatives": 10949,
+              "false_positives": 102,
+              "false_negatives": 123,
+              "true_positives": 8
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.0074
+        },
+        "ml_2_random_forest": {
+          "model_name": "Random Forest Classifier",
+          "type": "machine_learning",
+          "description": "Ensemble of 100 trees with class_weight='balanced_subsample' and max_depth=8.",
+          "tuned_threshold_cv": 0.6463,
+          "train_pr_auc": 0.1545,
+          "test_metrics": {
+            "pr_auc": 0.0287,
+            "roc_auc": 0.585,
+            "top_decile_lift": 1.3731,
+            "top_decile_cumulative_gain": 0.1374,
+            "decision_threshold": 0.6463,
+            "precision": 0.0645,
+            "recall": 0.0153,
+            "f1_score": 0.0247,
+            "brier_score": 0.16701,
+            "accuracy_descriptive": 0.9859,
+            "confusion_matrix": {
+              "true_negatives": 11022,
+              "false_positives": 29,
+              "false_negatives": 129,
+              "true_positives": 2
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.1258
+        },
+        "ml_3_hist_gradient_boosting": {
+          "model_name": "HistGradientBoosting Classifier",
+          "type": "machine_learning",
+          "description": "Histogram gradient boosting with class_weight='balanced'.",
+          "tuned_threshold_cv": 0.6997,
+          "train_pr_auc": 0.0741,
+          "test_metrics": {
+            "pr_auc": 0.0188,
+            "roc_auc": 0.5674,
+            "top_decile_lift": 1.5256,
+            "top_decile_cumulative_gain": 0.1527,
+            "decision_threshold": 0.6997,
+            "precision": 0.0769,
+            "recall": 0.0534,
+            "f1_score": 0.0631,
+            "brier_score": 0.18636,
+            "accuracy_descriptive": 0.9814,
+            "confusion_matrix": {
+              "true_negatives": 10967,
+              "false_positives": 84,
+              "false_negatives": 124,
+              "true_positives": 7
+            }
+          },
+          "train_vs_test_pr_auc_divergence": 0.0553
+        }
+      }
+    }
+  },
+  "methodological_decisions": {
+    "churn_model_status": "POST-EVALUATION ASSESSMENT: CHURN MODEL NOT SUPPORTED FOR STANDALONE OPERATIONAL USE",
+    "churn_model_supported": false,
+    "rationale": "Candidate models were evaluated on held-out test data under the predefined temporal and validation design. The results show limited discrimination above the rare-event baseline, with ROC-AUC values close to 0.5 (0.5674-0.6099) and low thresholded precision (5.7%-8.6%) and recall (1.5%-6.1%). Logistic Regression showed relatively small train-test PR-AUC divergence (0.0028-0.0074), while tree-based models showed substantially larger divergence (up to 0.1258 for Random Forest). No numerical operational-performance acceptance threshold was preregistered; therefore, the decision not to support standalone operational deployment is an evidence-based post-evaluation assessment rather than a preregistered predictive-performance gate.",
+    "fallback_status": "ACTIVATED AND EXECUTED (customer_retention_analysis)",
+    "fallback_rationale": "In accordance with preregistered thresholds.yaml (fallbacks.churn.if_churn_model_fails: customer_retention_analysis), the project activates and executes the Customer Retention Analysis fallback. Downstream analysis focuses on empirical inter-purchase interval distribution, cohort retention decay, and segment-level re-engagement economics using the validated behavioral segmentation cohorts rather than relying on weak standalone binary ML predictions.",
+    "candidate_window_comparison_summary": {
+      "eligible_customers": {
+        "120d": 68977,
+        "180d": 55907
+      },
+      "positive_cases": {
+        "120d": 539,
+        "180d": 655
+      },
+      "positive_incidence_pct": {
+        "120d": 0.7828,
+        "180d": 1.1715
+      },
+      "positive_to_negative_ratio": {
+        "120d": 0.007876,
+        "180d": 0.011855
+      },
+      "logistic_regression_metrics": {
+        "120d": {
+          "pr_auc": 0.0233,
+          "roc_auc": 0.6099,
+          "top_decile_lift": 2.4067,
+          "precision": 0.0566,
+          "recall": 0.0556,
+          "f1_score": 0.0561,
+          "brier_score": 0.22781,
+          "train_test_pr_gap": 0.0028
+        },
+        "180d": {
+          "pr_auc": 0.0263,
+          "roc_auc": 0.5792,
+          "top_decile_lift": 2.2122,
+          "precision": 0.0727,
+          "recall": 0.0611,
+          "f1_score": 0.0664,
+          "brier_score": 0.2296,
+          "train_test_pr_gap": 0.0074
+        }
+      },
+      "random_forest_metrics": {
+        "120d": {
+          "pr_auc": 0.0165,
+          "roc_auc": 0.5734,
+          "top_decile_lift": 1.8513,
+          "precision": 0.0857,
+          "recall": 0.0278,
+          "f1_score": 0.042,
+          "brier_score": 0.16386,
+          "train_test_pr_gap": 0.121
+        },
+        "180d": {
+          "pr_auc": 0.0287,
+          "roc_auc": 0.585,
+          "top_decile_lift": 1.3731,
+          "precision": 0.0645,
+          "recall": 0.0153,
+          "f1_score": 0.0247,
+          "brier_score": 0.16701,
+          "train_test_pr_gap": 0.1258
+        }
+      },
+      "window_assessment": "Evaluation reveals clear operational trade-offs rather than a single dominant window: (a) The 120-day window preserves a larger eligible population (68,977 vs 55,907; +14.0% coverage) and achieves slightly sharper top-decile lift (2.4067x vs 2.2122x with Logistic Regression). (b) The 180-day window captures more return cases (655 vs 539; +21.5%), provides higher class prevalence (1.1716% vs 0.7814%), covers 83.5% of empirical repeat intervals (vs ~74%), and yields higher PR-AUC (Logistic Regression: 0.0263 vs 0.0233; Random Forest: 0.0287 vs 0.0165) and higher F1 (Logistic Regression: 0.0664 vs 0.0561). Both windows consistently demonstrate that observed non-return is the overwhelming baseline reality (~99%)."
+    },
+    "project_fallback_status": "NOT TRIGGERED (Retention analysis fallback successfully activated)"
+  },
+  "customer_retention_analysis_fallback_results": {
+    "fallback_execution_status": "SUCCESS",
+    "evaluation_window_days": 180,
+    "total_eligible_customers_analyzed": 55907,
+    "total_returners_observed": 655,
+    "overall_return_rate_pct": 1.1716,
+    "total_post_cutoff_reengagement_spend_brl": 104843.46,
+    "behavioral_segment_reengagement": {
+      "At-Risk Repeat (High-Value)": {
+        "eligible_customers": 439,
+        "returning_customers": 9,
+        "return_rate_pct": 2.0501,
+        "observed_non_return_rate_pct": 97.9499,
+        "post_cutoff_reengagement_spend_brl": 1702.1,
+        "reengagement_spend_share_pct": 1.6235
+      },
+      "Champions (High-Value Repeat)": {
+        "eligible_customers": 586,
+        "returning_customers": 41,
+        "return_rate_pct": 6.9966,
+        "observed_non_return_rate_pct": 93.0034,
+        "post_cutoff_reengagement_spend_brl": 8817.45,
+        "reengagement_spend_share_pct": 8.4101
+      },
+      "Cooling-Off Past Buyers": {
+        "eligible_customers": 16267,
+        "returning_customers": 171,
+        "return_rate_pct": 1.0512,
+        "observed_non_return_rate_pct": 98.9488,
+        "post_cutoff_reengagement_spend_brl": 29794.08,
+        "reengagement_spend_share_pct": 28.4177
+      },
+      "Hibernating Repeat (Standard)": {
+        "eligible_customers": 294,
+        "returning_customers": 7,
+        "return_rate_pct": 2.381,
+        "observed_non_return_rate_pct": 97.619,
+        "post_cutoff_reengagement_spend_brl": 774.09,
+        "reengagement_spend_share_pct": 0.7383
+      },
+      "Lost One-Time Buyers": {
+        "eligible_customers": 10953,
+        "returning_customers": 81,
+        "return_rate_pct": 0.7395,
+        "observed_non_return_rate_pct": 99.2605,
+        "post_cutoff_reengagement_spend_brl": 11671.75,
+        "reengagement_spend_share_pct": 11.1325
+      },
+      "Loyal Repeat (Standard)": {
+        "eligible_customers": 317,
+        "returning_customers": 13,
+        "return_rate_pct": 4.1009,
+        "observed_non_return_rate_pct": 95.8991,
+        "post_cutoff_reengagement_spend_brl": 1575.93,
+        "reengagement_spend_share_pct": 1.5031
+      },
+      "Promising Mid-Recency": {
+        "eligible_customers": 16284,
+        "returning_customers": 171,
+        "return_rate_pct": 1.0501,
+        "observed_non_return_rate_pct": 98.9499,
+        "post_cutoff_reengagement_spend_brl": 23888.98,
+        "reengagement_spend_share_pct": 22.7854
+      },
+      "Recent High-Value (New VIP)": {
+        "eligible_customers": 1919,
+        "returning_customers": 31,
+        "return_rate_pct": 1.6154,
+        "observed_non_return_rate_pct": 98.3846,
+        "post_cutoff_reengagement_spend_brl": 7130.52,
+        "reengagement_spend_share_pct": 6.8011
+      },
+      "Recent Standard Buyers": {
+        "eligible_customers": 8848,
+        "returning_customers": 131,
+        "return_rate_pct": 1.4806,
+        "observed_non_return_rate_pct": 98.5194,
+        "post_cutoff_reengagement_spend_brl": 19488.56,
+        "reengagement_spend_share_pct": 18.5882
+      }
+    },
+    "recency_stratified_return_decay": {
+      "<=30d": {
+        "customer_count": 6915,
+        "return_count": 124,
+        "return_rate_pct": 1.7932,
+        "observed_non_return_rate_pct": 98.2068
+      },
+      "31-60d": {
+        "customer_count": 6801,
+        "return_count": 106,
+        "return_rate_pct": 1.5586,
+        "observed_non_return_rate_pct": 98.4414
+      },
+      "61-90d": {
+        "customer_count": 5081,
+        "return_count": 58,
+        "return_rate_pct": 1.1415,
+        "observed_non_return_rate_pct": 98.8585
+      },
+      "91-180d": {
+        "customer_count": 15508,
+        "return_count": 169,
+        "return_rate_pct": 1.0898,
+        "observed_non_return_rate_pct": 98.9102
+      },
+      "181-365d": {
+        "customer_count": 18930,
+        "return_count": 179,
+        "return_rate_pct": 0.9456,
+        "observed_non_return_rate_pct": 99.0544
+      },
+      ">365d": {
+        "customer_count": 2672,
+        "return_count": 19,
+        "return_rate_pct": 0.7111,
+        "observed_non_return_rate_pct": 99.2889
+      }
+    },
+    "frequency_tier_repurchase_dynamics": {
+      "one_time_buyers_F_eq_1": {
+        "customer_count": 54271,
+        "return_count": 585,
+        "return_rate_pct": 1.0779
+      },
+      "repeat_buyers_F_ge_2": {
+        "customer_count": 1636,
+        "return_count": 70,
+        "return_rate_pct": 4.2787
+      }
+    }
+  }
+}

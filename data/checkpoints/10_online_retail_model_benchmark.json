@@ -1,0 +1,792 @@
+{
+  "checkpoint": "10_online_retail_model_benchmark",
+  "timestamp_utc": "2026-09-18T16:05:16.528117+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "software_environment": {
+    "python_version": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+    "scikit_learn_version": "1.9.1",
+    "pandas_version": "3.0.6",
+    "numpy_version": "2.5.3",
+    "joblib_version": "1.6.0"
+  },
+  "experimental_design": {
+    "dataset_path": "data/processed\\online_retail_retention_features_90d.parquet",
+    "target_column": "return_within_90d",
+    "observation_cutoff": "2011-09-10 12:50:00",
+    "target_horizon_days": 90,
+    "primary_split": "80/20 Stratified on Cohort 1",
+    "random_seed": 42,
+    "train_size": 4224,
+    "train_positives": 1833,
+    "train_negatives": 2391,
+    "train_positive_prevalence": 0.4339,
+    "held_out_test_size": 1057,
+    "test_positives": 459,
+    "test_negatives": 598,
+    "test_positive_prevalence": 0.4342,
+    "feature_count": 27,
+    "feature_names_used": [
+      "recency_days_pre",
+      "frequency_pre",
+      "monetary_total_pre",
+      "average_order_value_pre",
+      "median_order_value_pre",
+      "customer_tenure_days_pre",
+      "activity_lifespan_days_pre",
+      "number_of_active_months_pre",
+      "purchase_frequency_per_active_month_pre",
+      "inter_purchase_mean_days_pre",
+      "inter_purchase_median_days_pre",
+      "inter_purchase_max_days_pre",
+      "total_items_pre",
+      "total_units_pre",
+      "unique_products_pre",
+      "average_items_per_order_pre",
+      "average_units_per_order_pre",
+      "product_diversity_ratio_pre",
+      "unique_countries_pre",
+      "primary_country_pre",
+      "cancellation_count_pre",
+      "cancellation_value_pre",
+      "cancellation_rate_pre",
+      "R_score_pre",
+      "F_score_pre",
+      "M_score_pre",
+      "pre_cutoff_rfm_segment"
+    ],
+    "prohibited_columns_excluded": [
+      "Customer ID",
+      "return_within_90d",
+      "first_purchase_date_pre",
+      "last_purchase_date_pre"
+    ],
+    "derived_indicator_excluded": "is_repeat_buyer_pre",
+    "target_concept": "90-day future return / non-return (retention prediction proxy, not permanent churn)",
+    "held_out_test_role": "benchmark_evaluation",
+    "model_selection_basis": "training_CV + temporal_robustness + interpretability"
+  },
+  "preprocessing_configuration": {
+    "logistic_regression": {
+      "skewed_features_log1p_scaled": [
+        "frequency_pre",
+        "monetary_total_pre",
+        "average_order_value_pre",
+        "median_order_value_pre",
+        "total_items_pre",
+        "total_units_pre",
+        "unique_products_pre",
+        "average_items_per_order_pre",
+        "average_units_per_order_pre"
+      ],
+      "inter_purchase_nan_median_scaled": [
+        "inter_purchase_mean_days_pre",
+        "inter_purchase_median_days_pre",
+        "inter_purchase_max_days_pre"
+      ],
+      "other_numeric_scaled": [
+        "recency_days_pre",
+        "customer_tenure_days_pre",
+        "activity_lifespan_days_pre",
+        "number_of_active_months_pre",
+        "purchase_frequency_per_active_month_pre",
+        "product_diversity_ratio_pre",
+        "unique_countries_pre",
+        "cancellation_count_pre",
+        "cancellation_value_pre",
+        "cancellation_rate_pre",
+        "R_score_pre",
+        "F_score_pre",
+        "M_score_pre"
+      ],
+      "categorical_onehot_min_freq_20": [
+        "primary_country_pre",
+        "pre_cutoff_rfm_segment"
+      ]
+    },
+    "random_forest": {
+      "inter_purchase_nan_median_imputed": [
+        "inter_purchase_mean_days_pre",
+        "inter_purchase_median_days_pre",
+        "inter_purchase_max_days_pre"
+      ],
+      "other_numeric_passthrough": [
+        "frequency_pre",
+        "monetary_total_pre",
+        "average_order_value_pre",
+        "median_order_value_pre",
+        "total_items_pre",
+        "total_units_pre",
+        "unique_products_pre",
+        "average_items_per_order_pre",
+        "average_units_per_order_pre",
+        "recency_days_pre",
+        "customer_tenure_days_pre",
+        "activity_lifespan_days_pre",
+        "number_of_active_months_pre",
+        "purchase_frequency_per_active_month_pre",
+        "product_diversity_ratio_pre",
+        "unique_countries_pre",
+        "cancellation_count_pre",
+        "cancellation_value_pre",
+        "cancellation_rate_pre",
+        "R_score_pre",
+        "F_score_pre",
+        "M_score_pre"
+      ],
+      "categorical_onehot_min_freq_20": [
+        "primary_country_pre",
+        "pre_cutoff_rfm_segment"
+      ]
+    },
+    "hist_gradient_boosting": {
+      "numeric_native_nan_passthrough": [
+        "frequency_pre",
+        "monetary_total_pre",
+        "average_order_value_pre",
+        "median_order_value_pre",
+        "total_items_pre",
+        "total_units_pre",
+        "unique_products_pre",
+        "average_items_per_order_pre",
+        "average_units_per_order_pre",
+        "inter_purchase_mean_days_pre",
+        "inter_purchase_median_days_pre",
+        "inter_purchase_max_days_pre",
+        "recency_days_pre",
+        "customer_tenure_days_pre",
+        "activity_lifespan_days_pre",
+        "number_of_active_months_pre",
+        "purchase_frequency_per_active_month_pre",
+        "product_diversity_ratio_pre",
+        "unique_countries_pre",
+        "cancellation_count_pre",
+        "cancellation_value_pre",
+        "cancellation_rate_pre",
+        "R_score_pre",
+        "F_score_pre",
+        "M_score_pre"
+      ],
+      "categorical_onehot_min_freq_20": [
+        "primary_country_pre",
+        "pre_cutoff_rfm_segment"
+      ]
+    }
+  },
+  "threshold_selection_protocol": "Threshold t* tuned strictly via 5-fold Stratified Cross-Validation on X_train. Grid search over [0.10, 0.90] in steps of 0.01 maximizing F1 score on out-of-fold probabilities. Held-out test set remained strictly untouched until final single-pass evaluation.",
+  "benchmark_results": {
+    "M0_majority": {
+      "model_id": "M0_majority",
+      "model_type": "Trivial Baseline",
+      "description": "Majority-class baseline predicting constant non-return (class 0). All predicted probabilities are identical (constant prior), producing ties across all deciles; top-decile ranking is non-informative.",
+      "optimal_threshold": 0.5,
+      "train_cv_metrics": {
+        "pr_auc": 0.4339,
+        "roc_auc": 0.5,
+        "brier_score": 0.2456,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "top_decile_lift": "N/A \u2014 constant-score tie; no meaningful ranking",
+        "top_decile_gain_pct": "N/A \u2014 constant-score tie; no meaningful ranking",
+        "top_decile_positives": "N/A \u2014 constant-score tie; no meaningful ranking",
+        "top_decile_k": 423,
+        "decision_threshold": 0.5,
+        "ranking_status": "NOT_MEANINGFUL_DUE_TO_TIES",
+        "linear_fit_binned_reliability_slope": 1.0,
+        "linear_fit_binned_reliability_intercept": 0.0,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "held_out_test_metrics": {
+        "pr_auc": 0.4342,
+        "roc_auc": 0.5,
+        "brier_score": 0.2457,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "top_decile_lift": "N/A \u2014 constant-score tie; no meaningful ranking",
+        "top_decile_gain_pct": "N/A \u2014 constant-score tie; no meaningful ranking",
+        "top_decile_positives": "N/A \u2014 constant-score tie; no meaningful ranking",
+        "top_decile_k": 106,
+        "decision_threshold": 0.5,
+        "ranking_status": "NOT_MEANINGFUL_DUE_TO_TIES",
+        "linear_fit_binned_reliability_slope": 1.0,
+        "linear_fit_binned_reliability_intercept": 0.0,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "generalization_gap": {
+        "pr_auc_gap": 0.0003,
+        "roc_auc_gap": 0.0
+      }
+    },
+    "M1_stratified": {
+      "model_id": "M1_stratified",
+      "model_type": "Random Baseline",
+      "description": "One stochastic random baseline realization drawn from empirical prior; its top-decile metric is a stochastic artifact of this specific seed and is not a stable ranking benchmark.",
+      "optimal_threshold": 0.5661,
+      "train_cv_metrics": {
+        "pr_auc": 0.4351,
+        "roc_auc": 0.4964,
+        "brier_score": 0.3355,
+        "precision": 0.4305,
+        "recall": 0.4343,
+        "f1": 0.4324,
+        "top_decile_lift": 0.9969,
+        "top_decile_gain_pct": 9.98,
+        "top_decile_positives": 183,
+        "top_decile_k": 423,
+        "decision_threshold": 0.5661,
+        "linear_fit_binned_reliability_slope": -0.0069,
+        "linear_fit_binned_reliability_intercept": 0.4374,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "held_out_test_metrics": {
+        "pr_auc": 0.4623,
+        "roc_auc": 0.5207,
+        "brier_score": 0.3211,
+        "precision": 0.4537,
+        "recall": 0.4379,
+        "f1": 0.4457,
+        "top_decile_lift": 1.0211,
+        "top_decile_gain_pct": 10.24,
+        "top_decile_positives": 47,
+        "top_decile_k": 106,
+        "decision_threshold": 0.5661,
+        "linear_fit_binned_reliability_slope": 0.0461,
+        "linear_fit_binned_reliability_intercept": 0.4115,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "generalization_gap": {
+        "pr_auc_gap": 0.0272,
+        "roc_auc_gap": 0.0243
+      },
+      "ranking_status": "STOCHASTIC_REALIZATION_NOT_A_STABLE_BENCHMARK"
+    },
+    "M2_rfm_heuristic": {
+      "model_id": "M2_rfm_heuristic",
+      "model_type": "Domain Heuristic",
+      "description": "Predict return if recency_days_pre <= 60 or R_score_pre >= 4. Probability calibrated on training data.",
+      "heuristic_probabilities": {
+        "p_high_active": 0.6764,
+        "p_low_lapsed": 0.2742
+      },
+      "optimal_threshold": 0.4753,
+      "train_cv_metrics": {
+        "pr_auc": 0.5841,
+        "roc_auc": 0.6961,
+        "brier_score": 0.2069,
+        "precision": 0.6764,
+        "recall": 0.6192,
+        "f1": 0.6465,
+        "top_decile_lift": 1.5799,
+        "top_decile_gain_pct": 15.82,
+        "top_decile_positives": 290,
+        "top_decile_k": 423,
+        "decision_threshold": 0.4753,
+        "linear_fit_binned_reliability_slope": 1.0,
+        "linear_fit_binned_reliability_intercept": 0.0,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "held_out_test_metrics": {
+        "pr_auc": 0.5772,
+        "roc_auc": 0.6908,
+        "brier_score": 0.2095,
+        "precision": 0.6621,
+        "recall": 0.6275,
+        "f1": 0.6443,
+        "top_decile_lift": 1.6076,
+        "top_decile_gain_pct": 16.12,
+        "top_decile_positives": 74,
+        "top_decile_k": 106,
+        "decision_threshold": 0.4753,
+        "linear_fit_binned_reliability_slope": 0.9625,
+        "linear_fit_binned_reliability_intercept": 0.0111,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "generalization_gap": {
+        "pr_auc_gap": -0.0069,
+        "roc_auc_gap": -0.0053
+      }
+    },
+    "M3_logistic_regression": {
+      "model_id": "M3_logistic_regression",
+      "model_type": "Linear ML Model",
+      "artifact_path": "models\\online_retail_m3_logistic_regression.joblib",
+      "training_duration_seconds": 0.71,
+      "threshold_selection_procedure": "5-fold Stratified CV out-of-fold probability evaluation on X_train. Grid search over candidate thresholds [0.10, 0.90] with step 0.01 maximizing F1 score. Held-out test set was NOT accessed.",
+      "optimal_threshold": 0.38,
+      "train_cv_metrics": {
+        "pr_auc": 0.7698,
+        "roc_auc": 0.7974,
+        "brier_score": 0.1792,
+        "precision": 0.6475,
+        "recall": 0.7605,
+        "f1": 0.6994,
+        "top_decile_lift": 2.1137,
+        "top_decile_gain_pct": 21.17,
+        "top_decile_positives": 388,
+        "top_decile_k": 423,
+        "decision_threshold": 0.38,
+        "linear_fit_binned_reliability_slope": 0.9738,
+        "linear_fit_binned_reliability_intercept": 0.0115,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "held_out_test_metrics": {
+        "pr_auc": 0.7658,
+        "roc_auc": 0.8003,
+        "brier_score": 0.1792,
+        "precision": 0.6472,
+        "recall": 0.7712,
+        "f1": 0.7038,
+        "top_decile_lift": 2.0639,
+        "top_decile_gain_pct": 20.7,
+        "top_decile_positives": 95,
+        "top_decile_k": 106,
+        "decision_threshold": 0.38,
+        "linear_fit_binned_reliability_slope": 0.9841,
+        "linear_fit_binned_reliability_intercept": 0.0025,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "generalization_gap": {
+        "pr_auc_gap": -0.004,
+        "roc_auc_gap": 0.0029,
+        "brier_gap": 0.0
+      }
+    },
+    "M4_random_forest": {
+      "model_id": "M4_random_forest",
+      "model_type": "Non-linear Bagging",
+      "artifact_path": "models\\online_retail_m4_random_forest.joblib",
+      "training_duration_seconds": 3.32,
+      "threshold_selection_procedure": "5-fold Stratified CV out-of-fold probability evaluation on X_train. Grid search over candidate thresholds [0.10, 0.90] with step 0.01 maximizing F1 score. Held-out test set was NOT accessed.",
+      "optimal_threshold": 0.41,
+      "train_cv_metrics": {
+        "pr_auc": 0.7634,
+        "roc_auc": 0.7887,
+        "brier_score": 0.1831,
+        "precision": 0.6509,
+        "recall": 0.7354,
+        "f1": 0.6906,
+        "top_decile_lift": 2.1464,
+        "top_decile_gain_pct": 21.49,
+        "top_decile_positives": 394,
+        "top_decile_k": 423,
+        "decision_threshold": 0.41,
+        "linear_fit_binned_reliability_slope": 0.928,
+        "linear_fit_binned_reliability_intercept": 0.027,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "held_out_test_metrics": {
+        "pr_auc": 0.7596,
+        "roc_auc": 0.7892,
+        "brier_score": 0.1838,
+        "precision": 0.6508,
+        "recall": 0.7146,
+        "f1": 0.6812,
+        "top_decile_lift": 2.129,
+        "top_decile_gain_pct": 21.35,
+        "top_decile_positives": 98,
+        "top_decile_k": 106,
+        "decision_threshold": 0.41,
+        "linear_fit_binned_reliability_slope": 0.9125,
+        "linear_fit_binned_reliability_intercept": 0.0391,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "generalization_gap": {
+        "pr_auc_gap": -0.0038,
+        "roc_auc_gap": 0.0005,
+        "brier_gap": 0.0007
+      }
+    },
+    "M5_hist_gradient_boosting": {
+      "model_id": "M5_hist_gradient_boosting",
+      "model_type": "Non-linear Boosting",
+      "artifact_path": "models\\online_retail_m5_hist_gradient_boosting.joblib",
+      "training_duration_seconds": 2.31,
+      "threshold_selection_procedure": "5-fold Stratified CV out-of-fold probability evaluation on X_train. Grid search over candidate thresholds [0.10, 0.90] with step 0.01 maximizing F1 score. Held-out test set was NOT accessed.",
+      "optimal_threshold": 0.28,
+      "train_cv_metrics": {
+        "pr_auc": 0.7569,
+        "roc_auc": 0.7865,
+        "brier_score": 0.1885,
+        "precision": 0.5973,
+        "recall": 0.8107,
+        "f1": 0.6878,
+        "top_decile_lift": 2.1246,
+        "top_decile_gain_pct": 21.28,
+        "top_decile_positives": 390,
+        "top_decile_k": 423,
+        "decision_threshold": 0.28,
+        "linear_fit_binned_reliability_slope": 0.8005,
+        "linear_fit_binned_reliability_intercept": 0.0881,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "held_out_test_metrics": {
+        "pr_auc": 0.7545,
+        "roc_auc": 0.7875,
+        "brier_score": 0.187,
+        "precision": 0.5886,
+        "recall": 0.8105,
+        "f1": 0.6819,
+        "top_decile_lift": 2.0639,
+        "top_decile_gain_pct": 20.7,
+        "top_decile_positives": 95,
+        "top_decile_k": 106,
+        "decision_threshold": 0.28,
+        "linear_fit_binned_reliability_slope": 0.8279,
+        "linear_fit_binned_reliability_intercept": 0.0747,
+        "probability_quality_diagnostic_note": "Linear fit to 10 quantile-binned reliability points reflects empirical diagnostics, not formal logistic calibration. Brier score reflects calibration, resolution/discrimination, and outcome uncertainty."
+      },
+      "generalization_gap": {
+        "pr_auc_gap": -0.0024,
+        "roc_auc_gap": 0.001,
+        "brier_gap": -0.0015
+      }
+    }
+  },
+  "interpretability_results": {
+    "M3_logistic_regression": {
+      "method": "Standardized Linear Coefficients",
+      "causal_claim_status": "NOT_SUPPORTED (Predictive associations only)",
+      "methodological_note": "Coefficients and permutation importances describe statistical predictive associations with 90-day future return, not causal drivers. Categorical coefficients are relative to encoded reference/grouping categories.",
+      "features_associated_with_higher_future_return_probability": [
+        {
+          "feature": "other_num__number_of_active_months_pre",
+          "coefficient": 0.5914783211870701
+        },
+        {
+          "feature": "cat__primary_country_pre_Spain",
+          "coefficient": 0.4652465685039372
+        },
+        {
+          "feature": "skewed__unique_products_pre",
+          "coefficient": 0.41362175760305736
+        },
+        {
+          "feature": "skewed__average_units_per_order_pre",
+          "coefficient": 0.2652591240644892
+        },
+        {
+          "feature": "other_num__F_score_pre",
+          "coefficient": 0.25686249136484657
+        },
+        {
+          "feature": "cat__pre_cutoff_rfm_segment_Champions",
+          "coefficient": 0.22638826273963314
+        },
+        {
+          "feature": "nan_impute__inter_purchase_median_days_pre",
+          "coefficient": 0.22306269609402926
+        },
+        {
+          "feature": "cat__primary_country_pre_Germany",
+          "coefficient": 0.20343462874131027
+        },
+        {
+          "feature": "skewed__average_order_value_pre",
+          "coefficient": 0.17342636930513447
+        },
+        {
+          "feature": "cat__primary_country_pre_Belgium",
+          "coefficient": 0.15735799233025247
+        }
+      ],
+      "features_associated_with_lower_future_return_probability": [
+        {
+          "feature": "other_num__recency_days_pre",
+          "coefficient": -0.5498341199485897
+        },
+        {
+          "feature": "cat__primary_country_pre_infrequent_sklearn",
+          "coefficient": -0.4436708617297092
+        },
+        {
+          "feature": "other_num__customer_tenure_days_pre",
+          "coefficient": -0.367262743938518
+        },
+        {
+          "feature": "cat__primary_country_pre_France",
+          "coefficient": -0.2590183486762001
+        },
+        {
+          "feature": "skewed__monetary_total_pre",
+          "coefficient": -0.24178961803381094
+        },
+        {
+          "feature": "nan_impute__inter_purchase_mean_days_pre",
+          "coefficient": -0.22555237302304648
+        },
+        {
+          "feature": "cat__pre_cutoff_rfm_segment_About to Sleep",
+          "coefficient": -0.204748963501057
+        },
+        {
+          "feature": "cat__primary_country_pre_United Kingdom",
+          "coefficient": -0.18137920354987996
+        },
+        {
+          "feature": "skewed__total_units_pre",
+          "coefficient": -0.1777972759957662
+        },
+        {
+          "feature": "cat__pre_cutoff_rfm_segment_At Risk",
+          "coefficient": -0.16698519528045627
+        }
+      ]
+    },
+    "M4_random_forest": {
+      "method": "Permutation Importance on Held-out Test Set (PR-AUC metric)",
+      "top_10_features": [
+        {
+          "feature": "recency_days_pre",
+          "importance_mean": 0.0474530833657341,
+          "importance_std": 0.00874899216934179
+        },
+        {
+          "feature": "total_items_pre",
+          "importance_mean": 0.016378317719440493,
+          "importance_std": 0.00694419044940424
+        },
+        {
+          "feature": "inter_purchase_max_days_pre",
+          "importance_mean": 0.013556551314437271,
+          "importance_std": 0.003108511380639278
+        },
+        {
+          "feature": "frequency_pre",
+          "importance_mean": 0.011840957630344161,
+          "importance_std": 0.0025302959668960434
+        },
+        {
+          "feature": "monetary_total_pre",
+          "importance_mean": 0.011690114992795597,
+          "importance_std": 0.0030620797821522446
+        },
+        {
+          "feature": "product_diversity_ratio_pre",
+          "importance_mean": 0.011045153502107862,
+          "importance_std": 0.003270685477984777
+        },
+        {
+          "feature": "number_of_active_months_pre",
+          "importance_mean": 0.009982861141879273,
+          "importance_std": 0.003345837435612277
+        },
+        {
+          "feature": "R_score_pre",
+          "importance_mean": 0.0079804876352914,
+          "importance_std": 0.00440377677188705
+        },
+        {
+          "feature": "unique_products_pre",
+          "importance_mean": 0.007957158616309057,
+          "importance_std": 0.0034815855633662245
+        },
+        {
+          "feature": "pre_cutoff_rfm_segment",
+          "importance_mean": 0.00767179238577691,
+          "importance_std": 0.002259459101489107
+        }
+      ],
+      "causal_claim_status": "NOT_SUPPORTED (Predictive associations only)",
+      "methodological_note": "Coefficients and permutation importances describe statistical predictive associations with 90-day future return, not causal drivers. Categorical coefficients are relative to encoded reference/grouping categories."
+    },
+    "M5_hist_gradient_boosting": {
+      "method": "Permutation Importance on Held-out Test Set (PR-AUC metric)",
+      "top_10_features": [
+        {
+          "feature": "recency_days_pre",
+          "importance_mean": 0.1240872974510067,
+          "importance_std": 0.010759455546254282
+        },
+        {
+          "feature": "inter_purchase_max_days_pre",
+          "importance_mean": 0.01729959480327088,
+          "importance_std": 0.008132590104121288
+        },
+        {
+          "feature": "total_items_pre",
+          "importance_mean": 0.009501205597465678,
+          "importance_std": 0.004754012859368065
+        },
+        {
+          "feature": "monetary_total_pre",
+          "importance_mean": 0.008224752099058286,
+          "importance_std": 0.0036876864509139693
+        },
+        {
+          "feature": "median_order_value_pre",
+          "importance_mean": 0.0072997671741166,
+          "importance_std": 0.002060485414192093
+        },
+        {
+          "feature": "inter_purchase_mean_days_pre",
+          "importance_mean": 0.006912631822306925,
+          "importance_std": 0.005882398057670336
+        },
+        {
+          "feature": "average_units_per_order_pre",
+          "importance_mean": 0.004874827642852653,
+          "importance_std": 0.0028445037035242757
+        },
+        {
+          "feature": "unique_products_pre",
+          "importance_mean": 0.0039120869129908534,
+          "importance_std": 0.0013953265316708813
+        },
+        {
+          "feature": "number_of_active_months_pre",
+          "importance_mean": 0.0027254315216182824,
+          "importance_std": 0.002146700498215924
+        },
+        {
+          "feature": "purchase_frequency_per_active_month_pre",
+          "importance_mean": 0.002611188328302938,
+          "importance_std": 0.001162997053426372
+        }
+      ],
+      "causal_claim_status": "NOT_SUPPORTED (Predictive associations only)",
+      "methodological_note": "Coefficients and permutation importances describe statistical predictive associations with 90-day future return, not causal drivers. Categorical coefficients are relative to encoded reference/grouping categories."
+    }
+  },
+  "chronological_temporal_validation": {
+    "design": "Cohort 0 (cutoff 2011-06-12) trained -> evaluated forward on Cohort 1 (cutoff 2011-09-10)",
+    "customer_overlap_context": "94.24% of Cohort 1 customers overlap with Cohort 0 (rolling-origin structure)",
+    "results": {
+      "M3_logistic_regression": {
+        "training_cohort": "Cohort 0 (Cutoff: 2011-06-12, Target: 2011-06-12 to 2011-09-10, N=4,977)",
+        "evaluation_cohort": "Cohort 1 (Cutoff: 2011-09-10, Target: 2011-09-10 to 2011-12-09, N=5,281)",
+        "forward_chronological_metrics": {
+          "pr_auc": 0.7709,
+          "roc_auc": 0.7994,
+          "brier_score": 0.2,
+          "precision": 0.8232,
+          "recall": 0.4306,
+          "f1": 0.5655,
+          "top_decile_lift": 2.1125,
+          "top_decile_gain_pct": 21.16,
+          "top_decile_positives": 485,
+          "top_decile_k": 529,
+          "decision_threshold": 0.5,
+          "linear_fit_binned_reliability_slope": 0.9289,
+          "linear_fit_binned_reliability_intercept": 0.1593
+        },
+        "stability_comparison_against_c1_test": {
+          "c1_internal_test_pr_auc": 0.7658,
+          "c0_to_c1_forward_pr_auc": 0.7709,
+          "pr_auc_drift": 0.0051
+        }
+      },
+      "M4_random_forest": {
+        "training_cohort": "Cohort 0 (Cutoff: 2011-06-12, Target: 2011-06-12 to 2011-09-10, N=4,977)",
+        "evaluation_cohort": "Cohort 1 (Cutoff: 2011-09-10, Target: 2011-09-10 to 2011-12-09, N=5,281)",
+        "forward_chronological_metrics": {
+          "pr_auc": 0.7624,
+          "roc_auc": 0.7857,
+          "brier_score": 0.2038,
+          "precision": 0.8129,
+          "recall": 0.4302,
+          "f1": 0.5626,
+          "top_decile_lift": 2.1081,
+          "top_decile_gain_pct": 21.12,
+          "top_decile_positives": 484,
+          "top_decile_k": 529,
+          "decision_threshold": 0.5,
+          "linear_fit_binned_reliability_slope": 0.8929,
+          "linear_fit_binned_reliability_intercept": 0.171
+        },
+        "stability_comparison_against_c1_test": {
+          "c1_internal_test_pr_auc": 0.7596,
+          "c0_to_c1_forward_pr_auc": 0.7624,
+          "pr_auc_drift": 0.0028
+        }
+      },
+      "M5_hist_gradient_boosting": {
+        "training_cohort": "Cohort 0 (Cutoff: 2011-06-12, Target: 2011-06-12 to 2011-09-10, N=4,977)",
+        "evaluation_cohort": "Cohort 1 (Cutoff: 2011-09-10, Target: 2011-09-10 to 2011-12-09, N=5,281)",
+        "forward_chronological_metrics": {
+          "pr_auc": 0.7603,
+          "roc_auc": 0.7869,
+          "brier_score": 0.21,
+          "precision": 0.796,
+          "recall": 0.4324,
+          "f1": 0.5604,
+          "top_decile_lift": 2.1037,
+          "top_decile_gain_pct": 21.07,
+          "top_decile_positives": 483,
+          "top_decile_k": 529,
+          "decision_threshold": 0.5,
+          "linear_fit_binned_reliability_slope": 0.7868,
+          "linear_fit_binned_reliability_intercept": 0.2012
+        },
+        "stability_comparison_against_c1_test": {
+          "c1_internal_test_pr_auc": 0.7545,
+          "c0_to_c1_forward_pr_auc": 0.7603,
+          "pr_auc_drift": 0.0058
+        }
+      }
+    }
+  },
+  "baseline_comparison_summary": {
+    "primary_metric": "PR-AUC (Average Precision)",
+    "heuristic_baseline_pr_auc": 0.5772,
+    "best_ml_model": "M3_logistic_regression",
+    "best_ml_pr_auc": 0.7658,
+    "ml_gain_over_heuristic_pr_auc": 0.1886,
+    "best_ml_roc_auc": 0.8003,
+    "best_ml_top_decile_lift": 2.0639,
+    "model_selection_basis": "Supported by training-only 5-fold cross-validation (LR PR-AUC = 0.7698 vs RF 0.7634 and HGB 0.7569), model interpretability, and consistency with forward temporal validation. Held-out test metrics serve as benchmark evidence.",
+    "held_out_test_role": "benchmark_evaluation",
+    "constant_baseline_lift_status": "NOT_MEANINGFUL_DUE_TO_TIES"
+  },
+  "methodological_invariants_verified": {
+    "raw_sha256_unaltered": true,
+    "predictive_source_matrix_unaltered": true,
+    "all_18_prior_checkpoints_intact": true,
+    "test_labels_unused_for_thresholds": true,
+    "preprocessing_fit_only_on_train": true,
+    "no_future_period_data_entered_train": true,
+    "no_smote_used": true,
+    "no_hyperparameter_search_conducted": true,
+    "model_artifacts_saved": true
+  },
+  "phase_7_verdict": "PASS - BENCHMARK PROTOCOL AND METRIC REPORTING FULLY CORRECTED AND FROZEN",
+  "benchmark_status": "PASS",
+  "leakage_checks": "PASS",
+  "predictive_signal": "SUPPORTED",
+  "temporal_robustness": "SUPPORTED_WITHIN_EVALUATED_PERIOD",
+  "primary_candidate": "Logistic Regression",
+  "model_selection_basis": "training_CV + temporal_robustness + interpretability",
+  "held_out_test_role": "benchmark_evaluation",
+  "constant_baseline_top_decile_lift": "NOT_MEANINGFUL_DUE_TO_TIES",
+  "calibration_claim": "empirical_probability_quality_diagnostics_only",
+  "target_definition": "90_day_future_return_nonreturn",
+  "causal_claims": "NOT_SUPPORTED",
+  "operational_churn_claim": "NOT_SUPPORTED_OR_CLAIMED",
+  "calibration_assessment": {
+    "summary": "Logistic Regression showed the strongest empirical probability-quality diagnostics among the benchmark models, with the lowest Brier score in the held-out benchmark (0.1792 vs RF 0.1838 and HGB 0.1870). These diagnostics should not be interpreted as a pure calibration measure because Brier score reflects calibration, discrimination/resolution, and outcome uncertainty. Formal probability calibration would require a dedicated calibration procedure and validation if operational probability estimates were required.",
+    "linear_fit_binned_reliability_diagnostics": {
+      "M3_logistic_regression": {
+        "slope": 0.9841,
+        "intercept": 0.0025,
+        "brier": 0.1792
+      },
+      "M4_random_forest": {
+        "slope": 0.9125,
+        "intercept": 0.0391,
+        "brier": 0.1838
+      },
+      "M5_hist_gradient_boosting": {
+        "slope": 0.8279,
+        "intercept": 0.0747,
+        "brier": 0.187
+      }
+    },
+    "operational_readiness": "Formal calibration required before operational expected-value targeting."
+  },
+  "generalization_and_stability_assessment": {
+    "held_out_generalization": "Observed CV-to-test metric differences were small for all three ML models in this benchmark (PR-AUC gap between -0.0024 and -0.0040), providing no strong indication of substantial degradation on the held-out split.",
+    "temporal_robustness": "Performance remained similar in the rolling-origin temporal evaluation (forward PR-AUC 0.7709 vs test 0.7658 for LR), providing evidence of temporal robustness within the evaluated period. This does not claim that the model will generalize indefinitely or to an independent customer population."
+  }
+}

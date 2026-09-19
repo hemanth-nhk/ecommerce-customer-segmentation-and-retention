@@ -1,0 +1,492 @@
+{
+  "checkpoint": "04_temporal_behavior",
+  "checkpoint_description": "Temporal Behavioral Analysis & Inter-Purchase Gaps",
+  "audit_timestamp_utc": "2026-09-18T10:29:43.390040+00:00",
+  "raw_data_immutability_verified": true,
+  "customer_purchase_timeline": {
+    "earliest_delivered_purchase_timestamp": "2016-09-15T12:16:38",
+    "latest_delivered_purchase_timestamp": "2018-08-29T15:00:37",
+    "total_timespan_days": 713.11,
+    "total_active_months": 23,
+    "early_ramp_up_description": "Sparse initial ramp-up in late 2016 (2016-09: 1 order, 2016-10: 265 orders, 2016-12: 1 order). Steady-state platform volume begins in 2017-01 (750 orders) and expands rapidly.",
+    "peak_month": "2017-11",
+    "peak_month_orders": 7289,
+    "late_period_tail_description": "Steady-state volume continues across 2017 and 2018 (averaging 4,000\u20137,000 orders/month) until transactions end on 2018-08-29. Orders drop to zero in September 2018 as dataset collection concludes.",
+    "coverage_vs_behavioral_window_distinction": "Dataset purchase-event coverage spans 2016-09-15 to 2018-08-29 (713 days). However, the customer behavioral observation window must terminate at T_obs = max_ts - W to guarantee that customer return/non-return behavior in future window W can be completely observed.",
+    "monthly_summary": {
+      "2016-09": {
+        "delivered_orders": 1,
+        "unique_customers": 1
+      },
+      "2016-10": {
+        "delivered_orders": 265,
+        "unique_customers": 262
+      },
+      "2016-12": {
+        "delivered_orders": 1,
+        "unique_customers": 1
+      },
+      "2017-01": {
+        "delivered_orders": 750,
+        "unique_customers": 718
+      },
+      "2017-02": {
+        "delivered_orders": 1653,
+        "unique_customers": 1630
+      },
+      "2017-03": {
+        "delivered_orders": 2546,
+        "unique_customers": 2508
+      },
+      "2017-04": {
+        "delivered_orders": 2303,
+        "unique_customers": 2274
+      },
+      "2017-05": {
+        "delivered_orders": 3546,
+        "unique_customers": 3479
+      },
+      "2017-06": {
+        "delivered_orders": 3135,
+        "unique_customers": 3076
+      },
+      "2017-07": {
+        "delivered_orders": 3872,
+        "unique_customers": 3802
+      },
+      "2017-08": {
+        "delivered_orders": 4193,
+        "unique_customers": 4114
+      },
+      "2017-09": {
+        "delivered_orders": 4150,
+        "unique_customers": 4083
+      },
+      "2017-10": {
+        "delivered_orders": 4478,
+        "unique_customers": 4417
+      },
+      "2017-11": {
+        "delivered_orders": 7289,
+        "unique_customers": 7183
+      },
+      "2017-12": {
+        "delivered_orders": 5513,
+        "unique_customers": 5450
+      },
+      "2018-01": {
+        "delivered_orders": 7069,
+        "unique_customers": 6974
+      },
+      "2018-02": {
+        "delivered_orders": 6555,
+        "unique_customers": 6400
+      },
+      "2018-03": {
+        "delivered_orders": 7003,
+        "unique_customers": 6914
+      },
+      "2018-04": {
+        "delivered_orders": 6798,
+        "unique_customers": 6744
+      },
+      "2018-05": {
+        "delivered_orders": 6749,
+        "unique_customers": 6693
+      },
+      "2018-06": {
+        "delivered_orders": 6099,
+        "unique_customers": 6061
+      },
+      "2018-07": {
+        "delivered_orders": 6159,
+        "unique_customers": 6100
+      },
+      "2018-08": {
+        "delivered_orders": 6351,
+        "unique_customers": 6310
+      }
+    }
+  },
+  "inter_purchase_intervals": {
+    "number_of_repeat_customers": 2801,
+    "total_purchases_among_repeat_customers": 5921,
+    "number_of_consecutive_purchase_intervals": 3120,
+    "inter_purchase_interval_distribution_days": {
+      "count": 3120,
+      "missing_count": 0,
+      "min": 0.0,
+      "max": 608.9789,
+      "mean": 79.1503,
+      "median": 29.4555,
+      "std": 107.2963,
+      "percentiles": {
+        "p01": 0.0,
+        "p05": 0.0,
+        "p25": 0.0066,
+        "p50": 29.4555,
+        "p75": 121.4688,
+        "p90": 240.2762,
+        "p95": 312.1758,
+        "p99": 444.617,
+        "p99_5": 484.4623
+      }
+    },
+    "interval_threshold_breakdown": {
+      "intervals_under_1_day_same_day": 922,
+      "intervals_under_1_day_pct": 29.5513,
+      "intervals_under_30_days": 1564,
+      "intervals_under_30_days_pct": 50.1282,
+      "intervals_under_60_days": 1923,
+      "intervals_under_60_days_pct": 61.6346,
+      "intervals_under_90_days": 2148,
+      "intervals_under_90_days_pct": 68.8462,
+      "intervals_under_180_days": 2605,
+      "intervals_under_180_days_pct": 83.4936,
+      "intervals_over_365_days": 84,
+      "intervals_over_365_days_pct": 2.6923
+    },
+    "behavioral_implication_note": "Nearly 25% of repeat intervals happen within minutes/same-day (min: 0.0 days), and the median interval is ~29.5 days. However, the distribution has a heavy right tail (mean: ~79.2 days, p90: ~240.3 days, max: ~609.0 days). This wide dispersion indicates that short churn windows (60\u201390 days) will prematurely classify legitimately returning customers as non-returners."
+  },
+  "observation_cutoffs": {
+    "candidate_window_evaluations": {
+      "60d": {
+        "future_window_days": 60,
+        "observation_cutoff_T_obs": "2018-06-30T15:00:37",
+        "eligible_customers": 81203,
+        "eligible_percentage_of_all_customers": 86.9802,
+        "post_cutoff_entrants_count": 12155,
+        "post_cutoff_entrants_pct": 13.0198,
+        "right_censored_eligible_customers": 0,
+        "right_censored_eligible_pct": 0.0,
+        "returned_within_window_count": 282,
+        "return_rate_pct": 0.3473,
+        "did_not_return_within_window_count": 80921,
+        "non_return_rate_pct": 99.6527,
+        "projected_test_positive_cases": 56,
+        "projected_test_positive_note": "Projected test positive count based on the preregistered 20% test-size criterion; no train/test split was performed at Checkpoint 4.",
+        "numerical_feasibility_gates": {
+          "min_positive_cases_threshold": 500,
+          "min_positive_cases_pass": false,
+          "min_test_positive_cases_threshold": 100,
+          "min_test_positive_cases_pass": false,
+          "numerical_gates_overall_pass": false
+        }
+      },
+      "90d": {
+        "future_window_days": 90,
+        "observation_cutoff_T_obs": "2018-05-31T15:00:37",
+        "eligible_customers": 75320,
+        "eligible_percentage_of_all_customers": 80.6787,
+        "post_cutoff_entrants_count": 18038,
+        "post_cutoff_entrants_pct": 19.3213,
+        "right_censored_eligible_customers": 0,
+        "right_censored_eligible_pct": 0.0,
+        "returned_within_window_count": 421,
+        "return_rate_pct": 0.5589,
+        "did_not_return_within_window_count": 74899,
+        "non_return_rate_pct": 99.4411,
+        "projected_test_positive_cases": 84,
+        "projected_test_positive_note": "Projected test positive count based on the preregistered 20% test-size criterion; no train/test split was performed at Checkpoint 4.",
+        "numerical_feasibility_gates": {
+          "min_positive_cases_threshold": 500,
+          "min_positive_cases_pass": false,
+          "min_test_positive_cases_threshold": 100,
+          "min_test_positive_cases_pass": false,
+          "numerical_gates_overall_pass": false
+        }
+      },
+      "120d": {
+        "future_window_days": 120,
+        "observation_cutoff_T_obs": "2018-05-01T15:00:37",
+        "eligible_customers": 68977,
+        "eligible_percentage_of_all_customers": 73.8844,
+        "post_cutoff_entrants_count": 24381,
+        "post_cutoff_entrants_pct": 26.1156,
+        "right_censored_eligible_customers": 0,
+        "right_censored_eligible_pct": 0.0,
+        "returned_within_window_count": 539,
+        "return_rate_pct": 0.7814,
+        "did_not_return_within_window_count": 68438,
+        "non_return_rate_pct": 99.2186,
+        "projected_test_positive_cases": 108,
+        "projected_test_positive_note": "Projected test positive count based on the preregistered 20% test-size criterion; no train/test split was performed at Checkpoint 4.",
+        "numerical_feasibility_gates": {
+          "min_positive_cases_threshold": 500,
+          "min_positive_cases_pass": true,
+          "min_test_positive_cases_threshold": 100,
+          "min_test_positive_cases_pass": true,
+          "numerical_gates_overall_pass": true
+        }
+      },
+      "180d": {
+        "future_window_days": 180,
+        "observation_cutoff_T_obs": "2018-03-02T15:00:37",
+        "eligible_customers": 55907,
+        "eligible_percentage_of_all_customers": 59.8845,
+        "post_cutoff_entrants_count": 37451,
+        "post_cutoff_entrants_pct": 40.1155,
+        "right_censored_eligible_customers": 0,
+        "right_censored_eligible_pct": 0.0,
+        "returned_within_window_count": 655,
+        "return_rate_pct": 1.1716,
+        "did_not_return_within_window_count": 55252,
+        "non_return_rate_pct": 98.8284,
+        "projected_test_positive_cases": 131,
+        "projected_test_positive_note": "Projected test positive count based on the preregistered 20% test-size criterion; no train/test split was performed at Checkpoint 4.",
+        "numerical_feasibility_gates": {
+          "min_positive_cases_threshold": 500,
+          "min_positive_cases_pass": true,
+          "min_test_positive_cases_threshold": 100,
+          "min_test_positive_cases_pass": true,
+          "numerical_gates_overall_pass": true
+        }
+      }
+    },
+    "methodological_framing_note": "Return events within window W represent the minority behavioral class. Non-returners are documented as observed non-returns under window W rather than definitively labeled as churned. Right-censoring among eligible customers is 0 because T_obs + W == max_ts guarantees complete follow-up."
+  },
+  "customer_history_depth": {
+    "60_days_window": {
+      "observation_cutoff_T_obs": "2018-06-30T15:00:37",
+      "eligible_customers_count": 81203,
+      "history_days_distribution": {
+        "count": 81203,
+        "missing_count": 0,
+        "min": 0.0057,
+        "max": 653.1139,
+        "mean": 211.6044,
+        "median": 194.7606,
+        "std": 138.9128,
+        "percentiles": {
+          "p01": 4.0678,
+          "p05": 20.0003,
+          "p25": 97.7675,
+          "p50": 194.7606,
+          "p75": 313.1724,
+          "p90": 418.1967,
+          "p95": 467.9428,
+          "p99": 518.7038,
+          "p99_5": 528.7653
+        }
+      },
+      "history_depth_thresholds": {
+        "history_ge_30_days": {
+          "count": 75320,
+          "percentage": 92.7552
+        },
+        "history_ge_60_days": {
+          "count": 68977,
+          "percentage": 84.9439
+        },
+        "history_ge_90_days": {
+          "count": 62366,
+          "percentage": 76.8026
+        },
+        "history_ge_120_days": {
+          "count": 55907,
+          "percentage": 68.8484
+        },
+        "history_ge_180_days": {
+          "count": 42415,
+          "percentage": 52.2333
+        },
+        "history_ge_365_days": {
+          "count": 13815,
+          "percentage": 17.0129
+        }
+      }
+    },
+    "90_days_window": {
+      "observation_cutoff_T_obs": "2018-05-31T15:00:37",
+      "eligible_customers_count": 75320,
+      "history_days_distribution": {
+        "count": 75320,
+        "missing_count": 0,
+        "min": 0.0151,
+        "max": 623.1139,
+        "mean": 196.974,
+        "median": 178.8209,
+        "std": 132.4303,
+        "percentiles": {
+          "p01": 6.5803,
+          "p05": 20.7019,
+          "p25": 87.2042,
+          "p50": 178.8209,
+          "p75": 294.614,
+          "p90": 393.9898,
+          "p95": 441.8093,
+          "p99": 489.6511,
+          "p99_5": 499.7224
+        }
+      },
+      "history_depth_thresholds": {
+        "history_ge_30_days": {
+          "count": 68977,
+          "percentage": 91.5786
+        },
+        "history_ge_60_days": {
+          "count": 62366,
+          "percentage": 82.8014
+        },
+        "history_ge_90_days": {
+          "count": 55907,
+          "percentage": 74.226
+        },
+        "history_ge_120_days": {
+          "count": 49113,
+          "percentage": 65.2058
+        },
+        "history_ge_180_days": {
+          "count": 37409,
+          "percentage": 49.6668
+        },
+        "history_ge_365_days": {
+          "count": 10749,
+          "percentage": 14.2711
+        }
+      }
+    },
+    "120_days_window": {
+      "observation_cutoff_T_obs": "2018-05-01T15:00:37",
+      "eligible_customers_count": 68977,
+      "history_days_distribution": {
+        "count": 68977,
+        "missing_count": 0,
+        "min": 0.0088,
+        "max": 593.1139,
+        "mean": 183.4859,
+        "median": 157.909,
+        "std": 126.1236,
+        "percentiles": {
+          "p01": 3.8031,
+          "p05": 15.1414,
+          "p25": 77.1981,
+          "p50": 157.909,
+          "p75": 276.6967,
+          "p90": 370.9344,
+          "p95": 415.2257,
+          "p99": 460.1607,
+          "p99_5": 471.878
+        }
+      },
+      "history_depth_thresholds": {
+        "history_ge_30_days": {
+          "count": 62366,
+          "percentage": 90.4156
+        },
+        "history_ge_60_days": {
+          "count": 55907,
+          "percentage": 81.0517
+        },
+        "history_ge_90_days": {
+          "count": 49113,
+          "percentage": 71.202
+        },
+        "history_ge_120_days": {
+          "count": 42415,
+          "percentage": 61.4915
+        },
+        "history_ge_180_days": {
+          "count": 30143,
+          "percentage": 43.7001
+        },
+        "history_ge_365_days": {
+          "count": 7402,
+          "percentage": 10.7311
+        }
+      }
+    },
+    "180_days_window": {
+      "observation_cutoff_T_obs": "2018-03-02T15:00:37",
+      "eligible_customers_count": 55907,
+      "history_days_distribution": {
+        "count": 55907,
+        "missing_count": 0,
+        "min": 0.0008,
+        "max": 533.1139,
+        "mean": 159.3426,
+        "median": 136.1567,
+        "std": 113.0032,
+        "percentiles": {
+          "p01": 2.0261,
+          "p05": 11.0668,
+          "p25": 64.735,
+          "p50": 136.1567,
+          "p75": 242.9888,
+          "p90": 329.1998,
+          "p95": 364.0137,
+          "p99": 403.0451,
+          "p99_5": 420.731
+        }
+      },
+      "history_depth_thresholds": {
+        "history_ge_30_days": {
+          "count": 49113,
+          "percentage": 87.8477
+        },
+        "history_ge_60_days": {
+          "count": 42415,
+          "percentage": 75.8671
+        },
+        "history_ge_90_days": {
+          "count": 37409,
+          "percentage": 66.9129
+        },
+        "history_ge_120_days": {
+          "count": 30143,
+          "percentage": 53.9163
+        },
+        "history_ge_180_days": {
+          "count": 21959,
+          "percentage": 39.2777
+        },
+        "history_ge_365_days": {
+          "count": 2739,
+          "percentage": 4.8992
+        }
+      }
+    }
+  },
+  "rfm_segmentation_implications": {
+    "repeat_purchase_sparsity_implication": "With 97.00% of delivered customers having exactly 1 order, Frequency is degenerate/invariant for 90,557 customers (F=1). A standard 3D K-Means on R, F, M will face extreme density concentration along the F=1 plane, making distance-based cluster boundaries largely driven by Recency and Monetary variance.",
+    "inter_purchase_interval_implication": "The wide dispersion of repeat intervals (median ~29.5 days, mean ~79.2 days, p75 ~121.5 days) indicates that customer re-engagement occurs across diverse timescales. Forcing customers into a single small window risks misclassifying long-cycle repeat buyers.",
+    "conventional_rfm_utility": "A conventional RFM representation remains descriptive and useful for ranking and cohort comparison, but statistical clustering (e.g. K-Means) requires careful validation against behavioral segmentation fallbacks.",
+    "fallback_status": "Pre-registered behavioral segmentation fallback (if_kmeans_fails: behavioral_segmentation) remains an essential alternative if conventional clustering proves geometrically uninformative in Checkpoint 6."
+  },
+  "temporal_feasibility_decision": {
+    "60_day_churn_window": {
+      "status": "FAIL",
+      "reason": "Only 282 returning cases (< 500 threshold; projected test: 56 < 100)."
+    },
+    "90_day_churn_window": {
+      "status": "FAIL",
+      "reason": "Only 421 returning cases (< 500 threshold; projected test: 84 < 100)."
+    },
+    "120_day_churn_window": {
+      "status": "PASS",
+      "reason": "Satisfies numerical gate with 539 returning cases (>= 500; projected test: 108 >= 100). Eligible: 68,977."
+    },
+    "180_day_churn_window": {
+      "status": "PASS",
+      "reason": "Satisfies numerical gate with 655 returning cases (>= 500; projected test: 131 >= 100). Eligible: 55,907."
+    },
+    "preferred_candidate_window": "DEFERRED TO METHODOLOGY DECISION AFTER REVIEW",
+    "preferred_candidate_note": "Both 120-day and 180-day windows pass the pre-registered numerical feasibility gates. However, selection between 120d (larger eligible population of 68,977; captures ~75% of repeat intervals) and 180d (higher return volume of 655 cases, but smaller eligible population of 55,907) is deferred to formal methodological review before Checkpoint 5.",
+    "rfm_behavioral_analysis": {
+      "status": "SUPPORTED",
+      "reason": "Customer purchase timelines, order timestamps, and customer_unique_id resolution support robust RFM feature construction."
+    },
+    "inter_purchase_analysis": {
+      "status": "SUPPORTED",
+      "reason": "Empirical interval distribution is fully measured across all 3,120 consecutive intervals without artificial truncation."
+    },
+    "churn_model_case_count_feasibility": {
+      "status": "SUPPORTED for 120-day and 180-day candidate windows; overall churn-model feasibility remains subject to subsequent modeling and evaluation.",
+      "reason": "Numerical case-count gates (>= 500 positive cases, >= 100 projected test cases) are satisfied for 120-day and 180-day candidate windows. However, overall churn-model feasibility remains subject to subsequent modeling, feature availability, stratified split validation, and evaluation."
+    },
+    "right_censoring_summary": {
+      "status": "PROPERLY DEFINED AND ZERO FOR ELIGIBLE CUSTOMERS",
+      "reason": "Under fixed cutoff T_obs = max_ts - W, exactly 0 eligible customers are right-censored because the entire future window is observed. Post-cutoff entrants are correctly tracked as separate excluded cohorts."
+    }
+  }
+}

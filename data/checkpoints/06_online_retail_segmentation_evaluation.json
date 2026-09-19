@@ -1,0 +1,587 @@
+{
+  "checkpoint": "06_online_retail_segmentation_evaluation",
+  "evaluation_timestamp_utc": "2026-09-18T15:18:21.147331+00:00",
+  "raw_file_path": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "raw_data_immutability_verified": true,
+  "statement_on_data_immutability": "Raw data was inspected strictly in read-only mode and was NOT modified, overwritten, or cleaned in-place.",
+  "rfm_scoring_evaluation": {
+    "recency_score_distribution": {
+      "1": {
+        "count": 1176,
+        "min_val": 409.99,
+        "median_val": 534.5,
+        "mean_val": 543.62,
+        "max_val": 738.12
+      },
+      "2": {
+        "count": 1175,
+        "min_val": 188.9,
+        "median_val": 310.13,
+        "mean_val": 309.77,
+        "max_val": 409.93
+      },
+      "3": {
+        "count": 1176,
+        "min_val": 58.15,
+        "median_val": 95.04,
+        "mean_val": 106.89,
+        "max_val": 188.88
+      },
+      "4": {
+        "count": 1175,
+        "min_val": 18.96,
+        "median_val": 32.96,
+        "mean_val": 35.49,
+        "max_val": 58.15
+      },
+      "5": {
+        "count": 1176,
+        "min_val": 0.0,
+        "median_val": 8.03,
+        "mean_val": 8.45,
+        "max_val": 18.96
+      }
+    },
+    "frequency_score_distribution": {
+      "1": {
+        "count": 1623,
+        "min_val": 1,
+        "median_val": 1.0,
+        "mean_val": 1.0,
+        "max_val": 1
+      },
+      "2": {
+        "count": 944,
+        "min_val": 2,
+        "median_val": 2.0,
+        "mean_val": 2.0,
+        "max_val": 2
+      },
+      "3": {
+        "count": 1150,
+        "min_val": 3,
+        "median_val": 3.0,
+        "mean_val": 3.42,
+        "max_val": 4
+      },
+      "4": {
+        "count": 1034,
+        "min_val": 5,
+        "median_val": 6.0,
+        "mean_val": 6.2,
+        "max_val": 8
+      },
+      "5": {
+        "count": 1127,
+        "min_val": 9,
+        "median_val": 14.0,
+        "mean_val": 20.51,
+        "max_val": 398
+      }
+    },
+    "monetary_score_distribution": {
+      "1": {
+        "count": 1176,
+        "min_val": 2.95,
+        "median_val": 161.52,
+        "mean_val": 162.01,
+        "max_val": 285.56
+      },
+      "2": {
+        "count": 1175,
+        "min_val": 285.6,
+        "median_val": 409.04,
+        "mean_val": 422.66,
+        "max_val": 608.86
+      },
+      "3": {
+        "count": 1176,
+        "min_val": 609.3,
+        "median_val": 867.74,
+        "mean_val": 883.3,
+        "max_val": 1220.9
+      },
+      "4": {
+        "count": 1175,
+        "min_val": 1220.91,
+        "median_val": 1817.54,
+        "mean_val": 1895.43,
+        "max_val": 2909.86
+      },
+      "5": {
+        "count": 1176,
+        "min_val": 2910.23,
+        "median_val": 5466.34,
+        "mean_val": 11413.07,
+        "max_val": 580987.04
+      }
+    },
+    "scoring_methodology": {
+      "recency": "5-quintile qcut inverted (R=5: [0, 18.96d], R=1: [409.99, 738.12d]).",
+      "frequency": "Tie-aware discrete quintile-aligned cut (F=1: 1, F=2: 2, F=3: [3,4], F=4: [5,8], F=5: [9,398]).",
+      "monetary": "5-quintile qcut (M=1: [\u00a32.95, \u00a3285.56], M=5: [\u00a32,910.23, \u00a3580,987.04])."
+    }
+  },
+  "rfm_segment_profiles": {
+    "Champions": {
+      "customer_count": 1405,
+      "median_recency": 15.93,
+      "median_frequency": 11.0,
+      "median_monetary": 3593.06,
+      "total_monetary": 11912395.68,
+      "repeat_customers": 1405,
+      "pct_customers": 23.9,
+      "pct_monetary": 68.56,
+      "repeat_customer_rate": 100.0
+    },
+    "Loyal Customers": {
+      "customer_count": 755,
+      "median_recency": 95.13,
+      "median_frequency": 5.0,
+      "median_monetary": 1785.13,
+      "total_monetary": 2045258.26,
+      "repeat_customers": 755,
+      "pct_customers": 12.84,
+      "pct_monetary": 11.77,
+      "repeat_customer_rate": 100.0
+    },
+    "At Risk": {
+      "customer_count": 283,
+      "median_recency": 325.12,
+      "median_frequency": 6.0,
+      "median_monetary": 1762.61,
+      "total_monetary": 1007120.98,
+      "repeat_customers": 283,
+      "pct_customers": 4.81,
+      "pct_monetary": 5.8,
+      "repeat_customer_rate": 100.0
+    },
+    "Potential Loyalists": {
+      "customer_count": 709,
+      "median_recency": 22.97,
+      "median_frequency": 3.0,
+      "median_monetary": 754.2,
+      "total_monetary": 866751.72,
+      "repeat_customers": 709,
+      "pct_customers": 12.06,
+      "pct_monetary": 4.99,
+      "repeat_customer_rate": 100.0
+    },
+    "Hibernating": {
+      "customer_count": 928,
+      "median_recency": 391.06,
+      "median_frequency": 2.0,
+      "median_monetary": 634.92,
+      "total_monetary": 858240.13,
+      "repeat_customers": 928,
+      "pct_customers": 15.79,
+      "pct_monetary": 4.94,
+      "repeat_customer_rate": 100.0
+    },
+    "About to Sleep": {
+      "customer_count": 844,
+      "median_recency": 188.92,
+      "median_frequency": 1.0,
+      "median_monetary": 303.29,
+      "total_monetary": 360218.28,
+      "repeat_customers": 175,
+      "pct_customers": 14.36,
+      "pct_monetary": 2.07,
+      "repeat_customer_rate": 20.73
+    },
+    "Lost": {
+      "customer_count": 717,
+      "median_recency": 575.14,
+      "median_frequency": 1.0,
+      "median_monetary": 214.8,
+      "total_monetary": 244313.76,
+      "repeat_customers": 0,
+      "pct_customers": 12.2,
+      "pct_monetary": 1.41,
+      "repeat_customer_rate": 0.0
+    },
+    "Recent Customers": {
+      "customer_count": 237,
+      "median_recency": 29.0,
+      "median_frequency": 1.0,
+      "median_monetary": 240.55,
+      "total_monetary": 80505.44,
+      "repeat_customers": 0,
+      "pct_customers": 4.03,
+      "pct_monetary": 0.46,
+      "repeat_customer_rate": 0.0
+    }
+  },
+  "business_separation_tests": {
+    "kruskal_wallis_recency": {
+      "statistic": 5160.6429,
+      "p_value": 0.0,
+      "statistically_significant": true
+    },
+    "kruskal_wallis_frequency": {
+      "statistic": 5212.9588,
+      "p_value": 0.0,
+      "statistically_significant": true
+    },
+    "kruskal_wallis_monetary": {
+      "statistic": 3826.529,
+      "p_value": 0.0,
+      "statistically_significant": true
+    },
+    "conclusion": "All three core dimensions show massive, statistically significant separation across RFM segments (all p-values < 1e-100)."
+  },
+  "clustering_benchmark": {
+    "transformations_evaluated": {
+      "Rep_A_Raw": {
+        "description": "Raw RFM + StandardScaler",
+        "k_metrics": {
+          "k_2": {
+            "k": 2,
+            "silhouette_score": 0.9165,
+            "inertia": 12110.48,
+            "min_cluster_proportion": 0.0037,
+            "cluster_sizes": {
+              "0": 5856,
+              "1": 22
+            }
+          },
+          "k_3": {
+            "k": 3,
+            "silhouette_score": 0.5828,
+            "inertia": 7130.84,
+            "min_cluster_proportion": 0.0037,
+            "cluster_sizes": {
+              "0": 3846,
+              "1": 2010,
+              "2": 22
+            }
+          },
+          "k_4": {
+            "k": 4,
+            "silhouette_score": 0.5905,
+            "inertia": 5158.51,
+            "min_cluster_proportion": 0.0007,
+            "cluster_sizes": {
+              "1": 3840,
+              "0": 1999,
+              "2": 35,
+              "3": 4
+            }
+          },
+          "k_5": {
+            "k": 5,
+            "silhouette_score": 0.603,
+            "inertia": 3901.14,
+            "min_cluster_proportion": 0.0007,
+            "cluster_sizes": {
+              "0": 3575,
+              "1": 1922,
+              "4": 353,
+              "3": 24,
+              "2": 4
+            }
+          },
+          "k_6": {
+            "k": 6,
+            "silhouette_score": 0.5498,
+            "inertia": 3295.6,
+            "min_cluster_proportion": 0.0007,
+            "cluster_sizes": {
+              "4": 3238,
+              "0": 1488,
+              "5": 776,
+              "1": 348,
+              "2": 24,
+              "3": 4
+            }
+          },
+          "k_7": {
+            "k": 7,
+            "silhouette_score": 0.5487,
+            "inertia": 2740.92,
+            "min_cluster_proportion": 0.0005,
+            "cluster_sizes": {
+              "4": 3159,
+              "6": 1482,
+              "0": 778,
+              "1": 421,
+              "2": 29,
+              "5": 6,
+              "3": 3
+            }
+          },
+          "k_8": {
+            "k": 8,
+            "silhouette_score": 0.5403,
+            "inertia": 2267.92,
+            "min_cluster_proportion": 0.0003,
+            "cluster_sizes": {
+              "2": 3025,
+              "7": 1473,
+              "1": 771,
+              "0": 537,
+              "5": 54,
+              "3": 10,
+              "6": 6,
+              "4": 2
+            }
+          }
+        }
+      },
+      "Rep_B_LogFM": {
+        "description": "log1p(Frequency, Monetary) + Raw Recency + StandardScaler",
+        "k_metrics": {
+          "k_2": {
+            "k": 2,
+            "silhouette_score": 0.4187,
+            "inertia": 8880.21,
+            "min_cluster_proportion": 0.4592,
+            "cluster_sizes": {
+              "0": 3179,
+              "1": 2699
+            }
+          },
+          "k_3": {
+            "k": 3,
+            "silhouette_score": 0.401,
+            "inertia": 5716.03,
+            "min_cluster_proportion": 0.285,
+            "cluster_sizes": {
+              "2": 2363,
+              "0": 1840,
+              "1": 1675
+            }
+          },
+          "k_4": {
+            "k": 4,
+            "silhouette_score": 0.3616,
+            "inertia": 4473.06,
+            "min_cluster_proportion": 0.149,
+            "cluster_sizes": {
+              "3": 1862,
+              "1": 1644,
+              "0": 1496,
+              "2": 876
+            }
+          },
+          "k_5": {
+            "k": 5,
+            "silhouette_score": 0.3664,
+            "inertia": 3627.7,
+            "min_cluster_proportion": 0.1363,
+            "cluster_sizes": {
+              "4": 1691,
+              "2": 1427,
+              "1": 1106,
+              "3": 853,
+              "0": 801
+            }
+          },
+          "k_6": {
+            "k": 6,
+            "silhouette_score": 0.3474,
+            "inertia": 3072.22,
+            "min_cluster_proportion": 0.0733,
+            "cluster_sizes": {
+              "3": 1381,
+              "1": 1184,
+              "2": 1030,
+              "0": 992,
+              "5": 860,
+              "4": 431
+            }
+          },
+          "k_7": {
+            "k": 7,
+            "silhouette_score": 0.3353,
+            "inertia": 2726.3,
+            "min_cluster_proportion": 0.0718,
+            "cluster_sizes": {
+              "5": 1293,
+              "4": 1127,
+              "2": 935,
+              "1": 777,
+              "0": 738,
+              "6": 586,
+              "3": 422
+            }
+          },
+          "k_8": {
+            "k": 8,
+            "silhouette_score": 0.3161,
+            "inertia": 2464.12,
+            "min_cluster_proportion": 0.0437,
+            "cluster_sizes": {
+              "3": 1051,
+              "7": 1043,
+              "0": 805,
+              "5": 788,
+              "1": 697,
+              "4": 650,
+              "2": 587,
+              "6": 257
+            }
+          }
+        }
+      },
+      "Rep_C_LogRFM": {
+        "description": "log1p(Recency, Frequency, Monetary) + StandardScaler",
+        "k_metrics": {
+          "k_2": {
+            "k": 2,
+            "silhouette_score": 0.439,
+            "inertia": 8600.26,
+            "min_cluster_proportion": 0.3937,
+            "cluster_sizes": {
+              "0": 3564,
+              "1": 2314
+            }
+          },
+          "k_3": {
+            "k": 3,
+            "silhouette_score": 0.3469,
+            "inertia": 6375.41,
+            "min_cluster_proportion": 0.2047,
+            "cluster_sizes": {
+              "2": 2402,
+              "0": 2273,
+              "1": 1203
+            }
+          },
+          "k_4": {
+            "k": 4,
+            "silhouette_score": 0.3652,
+            "inertia": 4962.5,
+            "min_cluster_proportion": 0.1902,
+            "cluster_sizes": {
+              "0": 2056,
+              "3": 1473,
+              "2": 1231,
+              "1": 1118
+            }
+          },
+          "k_5": {
+            "k": 5,
+            "silhouette_score": 0.3391,
+            "inertia": 4136.97,
+            "min_cluster_proportion": 0.0818,
+            "cluster_sizes": {
+              "3": 1636,
+              "0": 1368,
+              "4": 1266,
+              "2": 1127,
+              "1": 481
+            }
+          },
+          "k_6": {
+            "k": 6,
+            "silhouette_score": 0.3332,
+            "inertia": 3583.63,
+            "min_cluster_proportion": 0.0752,
+            "cluster_sizes": {
+              "2": 1497,
+              "3": 1283,
+              "0": 1022,
+              "5": 952,
+              "4": 682,
+              "1": 442
+            }
+          },
+          "k_7": {
+            "k": 7,
+            "silhouette_score": 0.3047,
+            "inertia": 3212.19,
+            "min_cluster_proportion": 0.0551,
+            "cluster_sizes": {
+              "0": 1168,
+              "3": 1079,
+              "6": 990,
+              "4": 885,
+              "2": 750,
+              "1": 682,
+              "5": 324
+            }
+          },
+          "k_8": {
+            "k": 8,
+            "silhouette_score": 0.2971,
+            "inertia": 2918.8,
+            "min_cluster_proportion": 0.0592,
+            "cluster_sizes": {
+              "0": 1139,
+              "1": 841,
+              "5": 836,
+              "6": 828,
+              "3": 776,
+              "7": 639,
+              "4": 471,
+              "2": 348
+            }
+          }
+        }
+      }
+    },
+    "multi_seed_stability_ari": {
+      "Rep_B_LogFM": {
+        "k_3": {
+          "k": 3,
+          "mean_ari": 0.9933,
+          "min_ari": 0.9849,
+          "max_ari": 1.0,
+          "is_stable": true
+        },
+        "k_4": {
+          "k": 4,
+          "mean_ari": 0.9994,
+          "min_ari": 0.9986,
+          "max_ari": 1.0,
+          "is_stable": true
+        },
+        "k_5": {
+          "k": 5,
+          "mean_ari": 0.9561,
+          "min_ari": 0.9071,
+          "max_ari": 0.9897,
+          "is_stable": true
+        }
+      },
+      "Rep_C_LogRFM": {
+        "k_3": {
+          "k": 3,
+          "mean_ari": 0.9889,
+          "min_ari": 0.9762,
+          "max_ari": 1.0,
+          "is_stable": true
+        },
+        "k_4": {
+          "k": 4,
+          "mean_ari": 0.9693,
+          "min_ari": 0.9332,
+          "max_ari": 0.9991,
+          "is_stable": true
+        },
+        "k_5": {
+          "k": 5,
+          "mean_ari": 0.9988,
+          "min_ari": 0.9973,
+          "max_ari": 1.0,
+          "is_stable": true
+        }
+      }
+    }
+  },
+  "segmentation_decision": {
+    "final_decision": "BOTH SUPPORTED",
+    "primary_operational_choice": "RULE_BASED_RFM",
+    "rationale": "1. Rule-Based RFM is STRONGLY SUPPORTED: It establishes 100% reproducible, deterministic, and business-interpretable segments with massive statistical separation (Kruskal-Wallis p < 1e-100). It cleanly isolates Champions (23.9% of customers generating 68.6% of revenue) from Lost/Hibernating accounts. 2. Raw K-Means is FIRMLY REJECTED: Raw feature clustering achieves an artificially inflated silhouette score of 0.9165 at k=2 solely because 22 extreme wholesale accounts (0.37% of customers) form a singleton cluster, compressing 5,856 retail customers into a single undifferentiated group. 3. Transformed K-Means is TECHNICALLY SUPPORTED: Under log1p(Frequency, Monetary) + Raw Recency (Rep B) with k=4, K-Means produces balanced clusters (min proportion 14.9%, silhouette 0.3616) and exceptional multi-seed stability (mean ARI = 0.9994). 4. Operational Recommendation: Use Rule-Based RFM as the primary business segmentation baseline for CRM and downstream feature analysis due to superior transparent actionability. Retain log-transformed K-Means as an alternative unsupervised benchmark."
+  },
+  "validation_checks": {
+    "customer_count_verified": true,
+    "zero_duplicate_customers": true,
+    "all_customers_assigned": true,
+    "segment_counts_sum_to_5878": true,
+    "monetary_spend_reconciled": true,
+    "raw_sha256_verified": true
+  }
+}

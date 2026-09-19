@@ -1,0 +1,31 @@
+# Pre-registered project evaluation criteria
+# Created before dataset inspection.
+
+project:
+  random_state: 42
+
+segmentation:
+  candidate_k_min: 2
+  candidate_k_max: 6
+  require_business_interpretability: true
+
+evaluation:
+  test_size: 0.20
+  stratify: true
+  random_state: 42
+
+  candidate_future_windows_days:
+    - 60
+    - 90
+    - 120
+    - 180
+
+fallbacks:
+  segmentation:
+    if_kmeans_fails: behavioral_segmentation
+
+  churn:
+    if_churn_model_fails: customer_retention_analysis
+
+  project:
+    if_segmentation_and_churn_fail: pivot_to_alternative_olist_problem

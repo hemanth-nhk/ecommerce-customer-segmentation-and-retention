@@ -1,0 +1,156 @@
+{
+  "checkpoint": "01_online_retail_dataset_selection",
+  "checkpoint_description": "Formal Dataset-Selection Feasibility Decision: Online Retail II",
+  "audit_timestamp_utc": "2026-09-18T14:23:15Z",
+  "selected_dataset": "Online Retail II",
+  "raw_file": "data/raw/online_retail_II.csv",
+  "raw_file_sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+  "immutability_note": "The raw file data/raw/online_retail_II.csv must be treated as strictly read-only and immutable across all downstream pipeline stages.",
+  "dataset_statistics": {
+    "rows": 1067371,
+    "columns": 8,
+    "column_names": [
+      "Invoice",
+      "StockCode",
+      "Description",
+      "Quantity",
+      "InvoiceDate",
+      "Price",
+      "Customer ID",
+      "Country"
+    ],
+    "identifiable_customers": 5881,
+    "unique_invoices": 53628,
+    "unique_stock_codes": 5305,
+    "countries": 43,
+    "missing_customer_id": 243007,
+    "missing_customer_id_pct": 22.77,
+    "cancellation_invoices": 11685,
+    "cancellation_rows": 22951,
+    "cancellation_rows_pct": 2.15,
+    "duplicate_rows": 34335,
+    "duplicate_rows_pct": 3.22,
+    "date_range": {
+      "min": "2009-12-01 07:45:00",
+      "max": "2011-12-09 12:50:00"
+    }
+  },
+  "repeat_purchase_feasibility": {
+    "total_identifiable_customers": 5881,
+    "repeat_buyers_count": 4255,
+    "repeat_buyers_ratio_str": "4,255 / 5,881 = 72.35%",
+    "repeat_buyers_pct": 72.35,
+    "single_purchase_customers": 1626,
+    "single_purchase_pct": 27.65,
+    "two_purchase_customers": 944,
+    "three_purchase_customers": 664,
+    "four_plus_purchase_customers": 2647,
+    "maximum_purchases_single_customer": 398,
+    "inter_purchase_intervals_count": 31094,
+    "inter_purchase_intervals_summary_days": {
+      "min": 0.0,
+      "p25": 6.98,
+      "median": 24.74,
+      "p75": 61.8,
+      "p90": 134.86,
+      "p95": 206.32,
+      "max": 714.15,
+      "mean": 51.68
+    }
+  },
+  "future_return_feasibility": {
+    "60d": {
+      "cutoff_timestamp": "2011-10-10 12:50:00",
+      "eligible_customers": 5520,
+      "future_returners": 2036,
+      "non_returners": 3484,
+      "return_rate_pct": 36.88,
+      "return_rate_ratio_str": "2,036 / 5,520 (36.88%)",
+      "expected_test_positives_20pct": 407,
+      "status": "PASS"
+    },
+    "90d": {
+      "cutoff_timestamp": "2011-09-10 12:50:00",
+      "eligible_customers": 5283,
+      "future_returners": 2292,
+      "non_returners": 2991,
+      "return_rate_pct": 43.38,
+      "return_rate_ratio_str": "2,292 / 5,283 (43.38%)",
+      "expected_test_positives_20pct": 458,
+      "status": "PASS"
+    },
+    "120d": {
+      "cutoff_timestamp": "2011-08-11 12:50:00",
+      "eligible_customers": 5181,
+      "future_returners": 2422,
+      "non_returners": 2759,
+      "return_rate_pct": 46.75,
+      "return_rate_ratio_str": "2,422 / 5,181 (46.75%)",
+      "expected_test_positives_20pct": 484,
+      "status": "PASS"
+    },
+    "180d": {
+      "cutoff_timestamp": "2011-06-12 12:50:00",
+      "eligible_customers": 4979,
+      "future_returners": 2577,
+      "non_returners": 2402,
+      "return_rate_pct": 51.76,
+      "return_rate_ratio_str": "2,577 / 4,979 (51.76%)",
+      "expected_test_positives_20pct": 515,
+      "status": "PASS"
+    }
+  },
+  "repeat_buyer_feasibility": {
+    "60d": {
+      "cutoff_timestamp": "2011-10-10 12:50:00",
+      "eligible_repeat_buyers_f_pre_ge_2": 3841,
+      "future_returners": 1737,
+      "non_returners": 2104,
+      "return_rate_pct": 45.22,
+      "return_rate_ratio_str": "1,737 / 3,841 (45.22%)",
+      "expected_test_positives_20pct": 347,
+      "status": "PASS"
+    },
+    "90d": {
+      "cutoff_timestamp": "2011-09-10 12:50:00",
+      "eligible_repeat_buyers_f_pre_ge_2": 3705,
+      "future_returners": 1974,
+      "non_returners": 1731,
+      "return_rate_pct": 53.28,
+      "return_rate_ratio_str": "1,974 / 3,705 (53.28%)",
+      "expected_test_positives_20pct": 395,
+      "status": "PASS"
+    },
+    "120d": {
+      "cutoff_timestamp": "2011-08-11 12:50:00",
+      "eligible_repeat_buyers_f_pre_ge_2": 3615,
+      "future_returners": 2076,
+      "non_returners": 1539,
+      "return_rate_pct": 57.43,
+      "return_rate_ratio_str": "2,076 / 3,615 (57.43%)",
+      "expected_test_positives_20pct": 415,
+      "status": "PASS"
+    },
+    "180d": {
+      "cutoff_timestamp": "2011-06-12 12:50:00",
+      "eligible_repeat_buyers_f_pre_ge_2": 3429,
+      "future_returners": 2181,
+      "non_returners": 1248,
+      "return_rate_pct": 63.6,
+      "return_rate_ratio_str": "2,181 / 3,429 (63.60%)",
+      "expected_test_positives_20pct": 436,
+      "status": "PASS"
+    }
+  },
+  "feasibility_decisions": {
+    "customer_segmentation_feasibility": "PASS",
+    "rfm_feasibility": "PASS",
+    "future_return_churn_proxy_feasibility": "PASS",
+    "repeat_buyer_modeling_feasibility": "PASS",
+    "overall_dataset_feasibility": "PASS"
+  },
+  "methodological_qualification": "This is a DATASET FEASIBILITY decision only. It does NOT establish that the eventual churn/return model will achieve useful predictive performance. Predictive performance must be evaluated using a temporally valid, held-out test set.",
+  "dataset_selection_rationale": "Online Retail II is selected because its longitudinal transaction history and repeat-purchase density provide substantially more feasible return-event cases than the previously evaluated Olist dataset.",
+  "olist_status": "Preserve Olist and its existing checkpoints as a completed rejected feasibility experiment/benchmark. Do not delete it.",
+  "next_phase": "Begin a new Online Retail II project pipeline from the raw dataset, starting with a formal data audit."
+}

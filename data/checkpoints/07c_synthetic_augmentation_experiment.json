@@ -1,0 +1,406 @@
+{
+  "checkpoint": "07c_synthetic_augmentation_experiment",
+  "experiment_label": "SYNTHETIC TRAINING AUGMENTATION \u2014 EXPERIMENTAL",
+  "audit_timestamp_utc": "2026-09-18T13:40:51.652344+00:00",
+  "raw_data_immutability_verified": true,
+  "leakage_safeguards": {
+    "test_set_strictly_real": true,
+    "synthetic_samples_in_test": 0,
+    "cv_validation_folds_strictly_real": true,
+    "test_labels_accessed_during_augmentation_or_tuning": false
+  },
+  "experiments": {
+    "120d": {
+      "v1_baseline_logistic_regression": {
+        "window_days": 120,
+        "model_name": "Balanced Logistic Regression (V1 Baseline - No SMOTE)",
+        "test_metrics": {
+          "pr_auc": 0.0233,
+          "roc_auc": 0.6099,
+          "top_decile_lift": 2.4067,
+          "top_decile_cumulative_gain": 0.2407,
+          "decision_threshold": 0.8219,
+          "precision": 0.0566,
+          "recall": 0.0556,
+          "f1_score": 0.0561,
+          "brier_score": 0.22781,
+          "accuracy_descriptive": 0.9854,
+          "confusion_matrix": {
+            "true_negatives": 13588,
+            "false_positives": 100,
+            "false_negatives": 102,
+            "true_positives": 6
+          }
+        }
+      },
+      "smotenc_2x": {
+        "experiment_label": "SYNTHETIC TRAINING AUGMENTATION \u2014 EXPERIMENTAL",
+        "window_days": 120,
+        "model_name": "Balanced Logistic Regression (SMOTENC Augmented)",
+        "augmentation_method": "SMOTENC",
+        "augmentation_multiplier": 2,
+        "augmentation_ratio_description": "2x minority class",
+        "original_train_size": 55181,
+        "augmented_train_size": 55612,
+        "synthetic_samples_added": 431,
+        "original_train_positives": 431,
+        "augmented_train_positives": 862,
+        "original_train_prevalence_pct": 0.7811,
+        "augmented_train_prevalence_pct": 1.55,
+        "test_size_real_untouched": 13796,
+        "test_positives_real_untouched": 108,
+        "test_prevalence_pct": 0.7828,
+        "selected_cv_threshold": 0.8078,
+        "test_metrics": {
+          "pr_auc": 0.0204,
+          "roc_auc": 0.6464,
+          "top_decile_lift": 2.4067,
+          "top_decile_cumulative_gain": 0.2407,
+          "decision_threshold": 0.8078,
+          "precision": 0.0325,
+          "recall": 0.037,
+          "f1_score": 0.0346,
+          "brier_score": 0.22556,
+          "accuracy_descriptive": 0.9838,
+          "confusion_matrix": {
+            "true_negatives": 13569,
+            "false_positives": 119,
+            "false_negatives": 104,
+            "true_positives": 4
+          }
+        },
+        "cv_audit": {
+          "fold_records": [
+            {
+              "fold": 0,
+              "val_samples_real_only": 11037,
+              "val_positive_samples_real": 87,
+              "train_samples_pre_aug": 44144,
+              "train_positive_pre_aug": 344,
+              "train_samples_post_aug": 44488,
+              "train_positive_post_aug": 688
+            },
+            {
+              "fold": 1,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 44490,
+              "train_positive_post_aug": 690
+            },
+            {
+              "fold": 2,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 44490,
+              "train_positive_post_aug": 690
+            },
+            {
+              "fold": 3,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 44490,
+              "train_positive_post_aug": 690
+            },
+            {
+              "fold": 4,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 44490,
+              "train_positive_post_aug": 690
+            }
+          ]
+        }
+      },
+      "smotenc_5x": {
+        "experiment_label": "SYNTHETIC TRAINING AUGMENTATION \u2014 EXPERIMENTAL",
+        "window_days": 120,
+        "model_name": "Balanced Logistic Regression (SMOTENC Augmented)",
+        "augmentation_method": "SMOTENC",
+        "augmentation_multiplier": 5,
+        "augmentation_ratio_description": "5x minority class",
+        "original_train_size": 55181,
+        "augmented_train_size": 56905,
+        "synthetic_samples_added": 1724,
+        "original_train_positives": 431,
+        "augmented_train_positives": 2155,
+        "original_train_prevalence_pct": 0.7811,
+        "augmented_train_prevalence_pct": 3.787,
+        "test_size_real_untouched": 13796,
+        "test_positives_real_untouched": 108,
+        "test_prevalence_pct": 0.7828,
+        "selected_cv_threshold": 0.7802,
+        "test_metrics": {
+          "pr_auc": 0.019,
+          "roc_auc": 0.6229,
+          "top_decile_lift": 2.129,
+          "top_decile_cumulative_gain": 0.213,
+          "decision_threshold": 0.7802,
+          "precision": 0.0339,
+          "recall": 0.0556,
+          "f1_score": 0.0421,
+          "brier_score": 0.22264,
+          "accuracy_descriptive": 0.9802,
+          "confusion_matrix": {
+            "true_negatives": 13517,
+            "false_positives": 171,
+            "false_negatives": 102,
+            "true_positives": 6
+          }
+        },
+        "cv_audit": {
+          "fold_records": [
+            {
+              "fold": 0,
+              "val_samples_real_only": 11037,
+              "val_positive_samples_real": 87,
+              "train_samples_pre_aug": 44144,
+              "train_positive_pre_aug": 344,
+              "train_samples_post_aug": 45520,
+              "train_positive_post_aug": 1720
+            },
+            {
+              "fold": 1,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 45525,
+              "train_positive_post_aug": 1725
+            },
+            {
+              "fold": 2,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 45525,
+              "train_positive_post_aug": 1725
+            },
+            {
+              "fold": 3,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 45525,
+              "train_positive_post_aug": 1725
+            },
+            {
+              "fold": 4,
+              "val_samples_real_only": 11036,
+              "val_positive_samples_real": 86,
+              "train_samples_pre_aug": 44145,
+              "train_positive_pre_aug": 345,
+              "train_samples_post_aug": 45525,
+              "train_positive_post_aug": 1725
+            }
+          ]
+        }
+      }
+    },
+    "180d": {
+      "v1_baseline_logistic_regression": {
+        "window_days": 180,
+        "model_name": "Balanced Logistic Regression (V1 Baseline - No SMOTE)",
+        "test_metrics": {
+          "pr_auc": 0.0263,
+          "roc_auc": 0.5792,
+          "top_decile_lift": 2.2122,
+          "top_decile_cumulative_gain": 0.2214,
+          "decision_threshold": 0.7796,
+          "precision": 0.0727,
+          "recall": 0.0611,
+          "f1_score": 0.0664,
+          "brier_score": 0.2296,
+          "accuracy_descriptive": 0.9799,
+          "confusion_matrix": {
+            "true_negatives": 10949,
+            "false_positives": 102,
+            "false_negatives": 123,
+            "true_positives": 8
+          }
+        }
+      },
+      "smotenc_2x": {
+        "experiment_label": "SYNTHETIC TRAINING AUGMENTATION \u2014 EXPERIMENTAL",
+        "window_days": 180,
+        "model_name": "Balanced Logistic Regression (SMOTENC Augmented)",
+        "augmentation_method": "SMOTENC",
+        "augmentation_multiplier": 2,
+        "augmentation_ratio_description": "2x minority class",
+        "original_train_size": 44725,
+        "augmented_train_size": 45249,
+        "synthetic_samples_added": 524,
+        "original_train_positives": 524,
+        "augmented_train_positives": 1048,
+        "original_train_prevalence_pct": 1.1716,
+        "augmented_train_prevalence_pct": 2.3161,
+        "test_size_real_untouched": 11182,
+        "test_positives_real_untouched": 131,
+        "test_prevalence_pct": 1.1715,
+        "selected_cv_threshold": 0.8173,
+        "test_metrics": {
+          "pr_auc": 0.022,
+          "roc_auc": 0.5713,
+          "top_decile_lift": 1.907,
+          "top_decile_cumulative_gain": 0.1908,
+          "decision_threshold": 0.8173,
+          "precision": 0.0563,
+          "recall": 0.0305,
+          "f1_score": 0.0396,
+          "brier_score": 0.23141,
+          "accuracy_descriptive": 0.9827,
+          "confusion_matrix": {
+            "true_negatives": 10984,
+            "false_positives": 67,
+            "false_negatives": 127,
+            "true_positives": 4
+          }
+        },
+        "cv_audit": {
+          "fold_records": [
+            {
+              "fold": 0,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 104,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 420,
+              "train_samples_post_aug": 36200,
+              "train_positive_post_aug": 840
+            },
+            {
+              "fold": 1,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 36199,
+              "train_positive_post_aug": 838
+            },
+            {
+              "fold": 2,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 36199,
+              "train_positive_post_aug": 838
+            },
+            {
+              "fold": 3,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 36199,
+              "train_positive_post_aug": 838
+            },
+            {
+              "fold": 4,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 36199,
+              "train_positive_post_aug": 838
+            }
+          ]
+        }
+      },
+      "smotenc_5x": {
+        "experiment_label": "SYNTHETIC TRAINING AUGMENTATION \u2014 EXPERIMENTAL",
+        "window_days": 180,
+        "model_name": "Balanced Logistic Regression (SMOTENC Augmented)",
+        "augmentation_method": "SMOTENC",
+        "augmentation_multiplier": 5,
+        "augmentation_ratio_description": "5x minority class",
+        "original_train_size": 44725,
+        "augmented_train_size": 46821,
+        "synthetic_samples_added": 2096,
+        "original_train_positives": 524,
+        "augmented_train_positives": 2620,
+        "original_train_prevalence_pct": 1.1716,
+        "augmented_train_prevalence_pct": 5.5958,
+        "test_size_real_untouched": 11182,
+        "test_positives_real_untouched": 131,
+        "test_prevalence_pct": 1.1715,
+        "selected_cv_threshold": 0.7158,
+        "test_metrics": {
+          "pr_auc": 0.0213,
+          "roc_auc": 0.5502,
+          "top_decile_lift": 2.0596,
+          "top_decile_cumulative_gain": 0.2061,
+          "decision_threshold": 0.7158,
+          "precision": 0.0526,
+          "recall": 0.0382,
+          "f1_score": 0.0442,
+          "brier_score": 0.2287,
+          "accuracy_descriptive": 0.9807,
+          "confusion_matrix": {
+            "true_negatives": 10961,
+            "false_positives": 90,
+            "false_negatives": 126,
+            "true_positives": 5
+          }
+        },
+        "cv_audit": {
+          "fold_records": [
+            {
+              "fold": 0,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 104,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 420,
+              "train_samples_post_aug": 37460,
+              "train_positive_post_aug": 2100
+            },
+            {
+              "fold": 1,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 37456,
+              "train_positive_post_aug": 2095
+            },
+            {
+              "fold": 2,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 37456,
+              "train_positive_post_aug": 2095
+            },
+            {
+              "fold": 3,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 37456,
+              "train_positive_post_aug": 2095
+            },
+            {
+              "fold": 4,
+              "val_samples_real_only": 8945,
+              "val_positive_samples_real": 105,
+              "train_samples_pre_aug": 35780,
+              "train_positive_pre_aug": 419,
+              "train_samples_post_aug": 37456,
+              "train_positive_post_aug": 2095
+            }
+          ]
+        }
+      }
+    }
+  }
+}

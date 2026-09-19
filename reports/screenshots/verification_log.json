@@ -1,0 +1,62 @@
+{
+  "Overview": {
+    "title": "Executive Overview",
+    "subtitle": "High-level synthesis of 90-day return prediction and customer retention dynamics.",
+    "numCharts": 1,
+    "numDataframes": 0,
+    "numMetrics": 0,
+    "numCards": 4,
+    "hasNoExceptions": true,
+    "hasPII": false
+  },
+  "Customer Prediction": {
+    "title": "Customer Prediction Engine",
+    "subtitle": "Live scoring using frozen Logistic Regression pipeline on point-in-time pre-cutoff telemetry.",
+    "numCharts": 1,
+    "numDataframes": 1,
+    "numMetrics": 7,
+    "numCards": 0,
+    "hasNoExceptions": true,
+    "hasPII": false
+  },
+  "Segmentation": {
+    "title": "Descriptive Segmentation",
+    "subtitle": "Phase 4 RFM segmentation evaluation and descriptive behavioral separation analysis.",
+    "numCharts": 3,
+    "numDataframes": 1,
+    "numMetrics": 0,
+    "numCards": 4,
+    "hasNoExceptions": true,
+    "hasPII": false
+  },
+  "Model Performance": {
+    "title": "MODEL PERFORMANCE",
+    "subtitle": "Held-out benchmark evaluation of the frozen candidate models.",
+    "numCharts": 4,
+    "numDataframes": 1,
+    "numMetrics": 10,
+    "numCards": 0,
+    "hasNoExceptions": true,
+    "hasPII": false
+  },
+  "Retention Analytics": {
+    "title": "Retention Analytics",
+    "subtitle": "Decision-support analytics: high-value cohort concentration and observational commercial spend capture.",
+    "numCharts": 2,
+    "numDataframes": 1,
+    "numMetrics": 0,
+    "numCards": 6,
+    "hasNoExceptions": true,
+    "hasPII": false
+  },
+  "Methodology & Governance": {
+    "title": "Methodology & Governance",
+    "subtitle": "Auditability safeguards, point-in-time feature architecture, and non-causal guardrails.",
+    "numCharts": 0,
+    "numDataframes": 0,
+    "numMetrics": 0,
+    "numCards": 0,
+    "hasNoExceptions": true,
+    "hasPII": false
+  }
+}

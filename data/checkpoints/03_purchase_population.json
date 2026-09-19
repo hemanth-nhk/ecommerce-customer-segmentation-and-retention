@@ -1,0 +1,407 @@
+{
+  "checkpoint": "03_purchase_population",
+  "checkpoint_description": "Purchase Population and Monetary/Temporal Integrity Audit",
+  "audit_timestamp_utc": "2026-09-18T09:41:36.832032+00:00",
+  "raw_data_immutability_verified": true,
+  "purchase_population": {
+    "total_orders_all_statuses": 99441,
+    "order_status_counts": {
+      "delivered": 96478,
+      "shipped": 1107,
+      "canceled": 625,
+      "unavailable": 609,
+      "invoiced": 314,
+      "processing": 301,
+      "created": 5,
+      "approved": 2
+    },
+    "delivered_population": {
+      "total_delivered_orders": 96478,
+      "delivered_orders_with_customer_delivery_date": 96470,
+      "delivered_orders_without_customer_delivery_date": 8,
+      "delivered_orders_with_purchase_timestamp": 96478,
+      "delivered_orders_without_purchase_timestamp": 0,
+      "delivered_orders_with_complete_required_timestamps": 96470,
+      "delivery_timestamp_completeness_pct": 99.9917,
+      "caveat_missing_delivery_timestamps_note": "8 delivered orders lack a recorded order_delivered_customer_date. These are preserved as documented data-quality caveats rather than silently discarded."
+    }
+  },
+  "order_items_relationship": {
+    "orders_total_rows": 99441,
+    "orders_unique_order_id": 99441,
+    "items_total_rows": 112650,
+    "items_unique_order_id": 98666,
+    "delivered_orders_total": 96478,
+    "delivered_orders_with_at_least_one_item": 96478,
+    "delivered_orders_with_zero_items": 0,
+    "delivered_orders_representation_pct": 100.0,
+    "item_order_ids_absent_from_orders": 0,
+    "order_item_id_structural_nature": "order_item_id is treated as a structural sequential index (item number within order), not as a monetary variable or independent line-item quantity multiplier.",
+    "items_per_order_distribution": {
+      "1": 88863,
+      "2": 7516,
+      "3": 1322,
+      "4": 505,
+      "5": 204,
+      "6": 198,
+      "7": 22,
+      "8": 8,
+      "9": 3,
+      "10": 8,
+      "11": 4,
+      "12": 5,
+      "13": 1,
+      "14": 2,
+      "15": 2,
+      "20": 2,
+      "21": 1
+    },
+    "max_items_in_single_order": 21,
+    "numerical_parseability": {
+      "all_monetary_and_quantity_fields_parseable": true,
+      "price_valid_count": 112650,
+      "freight_value_valid_count": 112650,
+      "order_item_id_valid_count": 112650
+    }
+  },
+  "item_monetary_distributions": {
+    "item_price_distribution": {
+      "count": 112650,
+      "missing_count": 0,
+      "zero_count": 0,
+      "negative_count": 0,
+      "min": 0.85,
+      "max": 6735.0,
+      "mean": 120.6537,
+      "median": 74.99,
+      "std": 183.6339,
+      "percentiles": {
+        "p01": 9.99,
+        "p05": 17.0,
+        "p25": 39.9,
+        "p50": 74.99,
+        "p75": 134.9,
+        "p95": 349.9,
+        "p99": 890.0,
+        "p99_5": 1218.0827
+      }
+    },
+    "item_freight_distribution": {
+      "count": 112650,
+      "missing_count": 0,
+      "zero_count": 383,
+      "negative_count": 0,
+      "min": 0.0,
+      "max": 409.68,
+      "mean": 19.9903,
+      "median": 16.26,
+      "std": 15.8064,
+      "percentiles": {
+        "p01": 4.4198,
+        "p05": 7.78,
+        "p25": 13.08,
+        "p50": 16.26,
+        "p75": 21.15,
+        "p95": 45.12,
+        "p99": 84.52,
+        "p99_5": 106.2251
+      }
+    }
+  },
+  "order_level_monetary": {
+    "all_represented_orders_monetary": {
+      "count": 98666,
+      "missing_count": 0,
+      "zero_count": 0,
+      "negative_count": 0,
+      "min": 9.59,
+      "max": 13664.08,
+      "mean": 160.5776,
+      "median": 105.29,
+      "std": 220.4661,
+      "percentiles": {
+        "p01": 22.38,
+        "p05": 32.38,
+        "p25": 61.98,
+        "p50": 105.29,
+        "p75": 176.87,
+        "p95": 450.53,
+        "p99": 1063.321,
+        "p99_5": 1427.1818
+      }
+    },
+    "delivered_orders_monetary": {
+      "count": 96478,
+      "missing_count": 0,
+      "zero_count": 0,
+      "negative_count": 0,
+      "min": 9.59,
+      "max": 13664.08,
+      "mean": 159.8268,
+      "median": 105.28,
+      "std": 218.7942,
+      "percentiles": {
+        "p01": 22.38,
+        "p05": 32.38,
+        "p25": 61.85,
+        "p50": 105.28,
+        "p75": 176.26,
+        "p95": 446.232,
+        "p99": 1052.3899,
+        "p99_5": 1416.5884
+      }
+    },
+    "delivered_order_level_edge_cases": {
+      "delivered_orders_with_zero_item_price": 0,
+      "delivered_orders_with_negative_item_price": 0,
+      "delivered_orders_with_zero_freight": 336,
+      "delivered_orders_with_negative_freight": 0,
+      "delivered_orders_with_zero_item_plus_freight": 0,
+      "delivered_orders_with_negative_item_plus_freight": 0,
+      "delivered_orders_with_non_positive_item_plus_freight": 0,
+      "delivered_orders_over_1000_brl": 1107,
+      "delivered_orders_over_5000_brl": 6
+    }
+  },
+  "payment_reconciliation": {
+    "total_payment_rows": 103886,
+    "unique_payment_order_ids": 99440,
+    "orders_with_multiple_payment_records": 2961,
+    "payment_rows_per_order_distribution": {
+      "1": 96479,
+      "2": 2382,
+      "3": 301,
+      "4": 108,
+      "5": 52,
+      "6": 36,
+      "7": 28,
+      "8": 11,
+      "9": 9,
+      "10": 5,
+      "11": 8,
+      "12": 8,
+      "13": 3,
+      "14": 2,
+      "15": 2,
+      "19": 2,
+      "21": 1,
+      "22": 1,
+      "26": 1,
+      "29": 1
+    },
+    "delivered_orders_with_payment_records": 96477,
+    "delivered_orders_without_payment_records": 1,
+    "payment_value_distribution": {
+      "count": 103886,
+      "missing_count": 0,
+      "zero_count": 9,
+      "negative_count": 0,
+      "min": 0.0,
+      "max": 13664.08,
+      "mean": 154.1004,
+      "median": 100.0,
+      "std": 217.4941,
+      "percentiles": {
+        "p01": 6.69,
+        "p05": 26.1125,
+        "p25": 56.79,
+        "p50": 100.0,
+        "p75": 171.8375,
+        "p95": 437.635,
+        "p99": 1039.9165,
+        "p99_5": 1410.2757
+      }
+    },
+    "diagnostic_reconciliation": {
+      "total_reconciled_orders": 98665,
+      "exact_matches_count": 98089,
+      "within_0_01_brl_count": 98278,
+      "within_0_01_brl_pct": 99.6078,
+      "within_1_00_brl_count": 98416,
+      "within_1_00_brl_pct": 99.7476,
+      "diff_min": -51.62,
+      "diff_max": 182.81,
+      "diff_mean": 0.0291,
+      "diff_median": 0.0,
+      "diff_percentiles": {
+        "p01": -0.0,
+        "p05": -0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "p99_5": 0.0
+      },
+      "diagnostic_framing_note": "Payment reconciliation is evaluated strictly as a diagnostic comparison between recorded payment installments/vouchers and item price + freight totals. Differences are not classified as revenue errors, but as documented transaction adjustments (e.g. multi-payment splits or vouchers)."
+    }
+  },
+  "temporal_integrity": {
+    "temporal_sequence_checks": {
+      "approval_before_purchase": {
+        "valid_paired_observations": 96464,
+        "anomaly_count": 0,
+        "anomaly_rate_pct": 0.0
+      },
+      "carrier_delivery_before_purchase": {
+        "valid_paired_observations": 96476,
+        "anomaly_count": 165,
+        "anomaly_rate_pct": 0.171
+      },
+      "customer_delivery_before_purchase": {
+        "valid_paired_observations": 96470,
+        "anomaly_count": 0,
+        "anomaly_rate_pct": 0.0
+      },
+      "customer_delivery_before_carrier_delivery": {
+        "valid_paired_observations": 96469,
+        "anomaly_count": 23,
+        "anomaly_rate_pct": 0.0238
+      },
+      "estimated_delivery_before_purchase_calendar_date": {
+        "valid_paired_observations": 96478,
+        "anomaly_count": 0,
+        "anomaly_rate_pct": 0.0,
+        "comparison_method": "Compared calendar date of estimated delivery against calendar date of purchase"
+      }
+    },
+    "delivered_temporal_bounds": {
+      "earliest_purchase_timestamp": "2016-09-15T12:16:38",
+      "latest_purchase_timestamp": "2018-08-29T15:00:37",
+      "earliest_delivered_customer_timestamp": "2016-10-11T13:46:32",
+      "latest_delivered_customer_timestamp": "2018-10-17T13:22:46"
+    },
+    "purchase_event_timestamp_policy": "order_purchase_timestamp is established strictly as the customer purchase-event timestamp. shipping_limit_date is a fulfillment constraint and is not used as customer behavioral timing."
+  },
+  "monthly_temporal_coverage": {
+    "first_purchase_month": "2016-09",
+    "last_purchase_month": "2018-08",
+    "total_active_months": 23,
+    "minimum_monthly_orders": 1,
+    "maximum_monthly_orders": 7289,
+    "monthly_orders_distribution": {
+      "2016-09": {
+        "delivered_orders": 1,
+        "unique_customers": 1
+      },
+      "2016-10": {
+        "delivered_orders": 265,
+        "unique_customers": 262
+      },
+      "2016-12": {
+        "delivered_orders": 1,
+        "unique_customers": 1
+      },
+      "2017-01": {
+        "delivered_orders": 750,
+        "unique_customers": 718
+      },
+      "2017-02": {
+        "delivered_orders": 1653,
+        "unique_customers": 1630
+      },
+      "2017-03": {
+        "delivered_orders": 2546,
+        "unique_customers": 2508
+      },
+      "2017-04": {
+        "delivered_orders": 2303,
+        "unique_customers": 2274
+      },
+      "2017-05": {
+        "delivered_orders": 3546,
+        "unique_customers": 3479
+      },
+      "2017-06": {
+        "delivered_orders": 3135,
+        "unique_customers": 3076
+      },
+      "2017-07": {
+        "delivered_orders": 3872,
+        "unique_customers": 3802
+      },
+      "2017-08": {
+        "delivered_orders": 4193,
+        "unique_customers": 4114
+      },
+      "2017-09": {
+        "delivered_orders": 4150,
+        "unique_customers": 4083
+      },
+      "2017-10": {
+        "delivered_orders": 4478,
+        "unique_customers": 4417
+      },
+      "2017-11": {
+        "delivered_orders": 7289,
+        "unique_customers": 7183
+      },
+      "2017-12": {
+        "delivered_orders": 5513,
+        "unique_customers": 5450
+      },
+      "2018-01": {
+        "delivered_orders": 7069,
+        "unique_customers": 6974
+      },
+      "2018-02": {
+        "delivered_orders": 6555,
+        "unique_customers": 6400
+      },
+      "2018-03": {
+        "delivered_orders": 7003,
+        "unique_customers": 6914
+      },
+      "2018-04": {
+        "delivered_orders": 6798,
+        "unique_customers": 6744
+      },
+      "2018-05": {
+        "delivered_orders": 6749,
+        "unique_customers": 6693
+      },
+      "2018-06": {
+        "delivered_orders": 6099,
+        "unique_customers": 6061
+      },
+      "2018-07": {
+        "delivered_orders": 6159,
+        "unique_customers": 6100
+      },
+      "2018-08": {
+        "delivered_orders": 6351,
+        "unique_customers": 6310
+      }
+    }
+  },
+  "customer_level_aggregation_verification": {
+    "delivered_orders_checked": 96478,
+    "orders_successfully_resolved_with_monetary_value": 96478,
+    "unique_customers_aggregated_in_memory": 93358,
+    "aggregation_integrity_verified": true,
+    "zero_customer_records_persisted": true
+  },
+  "methodological_suitability_assessment": {
+    "1_delivered_orders_sufficiently_represented_in_order_items": {
+      "supported": true,
+      "evidence": "100.0% of delivered orders (96,478/96,478) have at least one order-item row."
+    },
+    "2_monetary_fields_numerically_usable": {
+      "supported": true,
+      "evidence": "100.0% of price and freight values are numerically parseable with 0 nulls, 0 negative values, and legitimate positive distributions."
+    },
+    "3_payment_data_sufficiently_represented_for_reconciliation": {
+      "supported": true,
+      "evidence": "99.6078% of common orders match within 0.01 BRL between payments and items. Residuals reflect documented promotions/vouchers."
+    },
+    "4_timestamps_parseable_and_chronologically_coherent": {
+      "supported": true,
+      "evidence": "0 customer deliveries occurred before purchase. 165 carrier timestamp inversions (0.17%) and 23 customer/carrier inversions (0.02%) are isolated carrier operational logging anomalies."
+    },
+    "5_purchase_population_provides_defensible_foundation": {
+      "supported": true,
+      "evidence": "All 5 integrity gates passed. Delivered orders, item monetary values, payment reconciliation, and customer-level aggregation integrity provide a robust, defensible foundation for subsequent RFM and temporal analysis."
+    },
+    "methodological_boundary_note": "This checkpoint validates monetary and temporal integrity only. It does NOT evaluate or decide whether K-Means, RFM scoring thresholds, or churn prediction windows are viable. Those decisions occur in subsequent checkpoints."
+  }
+}

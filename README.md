@@ -252,7 +252,7 @@ ecommerce-customer-segmentation-churn/
 │   ├── 06_segmentation_evaluation.ipynb # Rule-based RFM vs K-Means benchmarking
 │   └── 07_churn_modeling.ipynb       # Point-in-time ML benchmarks & evaluation
 ├── reports/
-│   ├── AI_Powered_Ecommerce_Customer_Segmentation_and_Retention_Analysis_Report.docx # Comprehensive 19-page report
+│   ├── NalluriHemanthKumar_ProjectReport.docx # Comprehensive 19-page report
 │   └── screenshots/                  # High-resolution dashboard verification captures
 ├── src/
 │   ├── audit_online_retail_integrity.py # Ingestion auditing & cryptographic verification

@@ -13,7 +13,7 @@ An enterprise-grade machine learning system demonstrating end-to-end customer an
 
 Customer retention and account prioritization are critical challenges for wholesale and B2B e-commerce platforms. Rather than relying on ungrounded heuristics or leaky snapshot aggregations, this project builds a statistically disciplined analytical framework using two years of real-world commercial transaction records.
 
-The system addresses two complementary business objectives across two distinct, non-overlapping analytical populations:
+The system addresses two complementary business objectives across two complementary analytical populations with separate purposes:
 1. **Descriptive Account Segmentation ($N = 5,878$ All-Time Commercial Accounts):** Employs rule-based RFM (Recency, Frequency, Monetary) segmentation to profile commercial customers, revealing extreme spend concentration where the top 23.90% of accounts drive 68.56% of cumulative commercial spend.
 2. **Predictive Retention Modeling ($N = 5,281$ Pre-Cutoff Eligible Accounts):** Formulates a leakage-free 90-day future-return prediction task relative to a frozen observation cutoff ($T_{\text{obs}}$ = September 10, 2011, 12:50:00). A primary candidate Logistic Regression pipeline achieves **0.7658 PR-AUC**, **0.8003 ROC-AUC**, and **2.0639x top-decile lift**, verified through forward temporal cross-validation.
 
@@ -123,9 +123,9 @@ Six competing model architectures (M0 to M5) were evaluated on the held-out test
 **M3 Logistic Regression** is designated as **the frozen primary candidate model used by the dashboard**. 
 
 Selection basis:
-- **Consistent Discrimination:** Superior PR-AUC (0.7658) and ROC-AUC (0.8003) on 5-fold training cross-validation and held-out test evaluation.
+- **Consistent Discrimination:** Highest observed PR-AUC (0.7658) and ROC-AUC (0.8003) among evaluated candidates on 5-fold training cross-validation and held-out test evaluation.
 - **Empirical Probability Calibration:** Lowest Brier score (0.1792), with a linear-fit reliability slope of 0.9841 and intercept of 0.0025. *(Note: These represent empirical diagnostic checks and do not constitute formal mathematical proof of calibration).*
-- **Superior Top-Decile Lift:** 2.0639x lift over base prevalence, identifying 20.70% of all future-returning accounts in the top 10% of predicted scores.
+- **Highest Observed Top-Decile Lift:** 2.0639x lift over base prevalence, identifying 20.70% of all future-returning accounts in the top 10% of predicted scores.
 - **Operational Interpretability:** Transparent, standardized linear coefficients suitable for commercial audit and stakeholder review.
 
 ### Operating Point Diagnostics ($t^* = 0.38$)
@@ -159,7 +159,7 @@ Forward M3 Generalization Performance:
 ├── Top-Decile Lift: 2.1125x
 └── Top-Decile Gain: 21.16%
 ```
-The forward temporal validation confirms that the feature pipeline and model parameters maintain stable discriminative power over consecutive operational quarters without performance degradation.
+The forward temporal backtest demonstrates that the feature pipeline and model parameters maintained consistent discriminative ranking across consecutive operational quarters within this historical dataset.
 
 ---
 
@@ -196,7 +196,7 @@ The project includes an interactive multi-page web application built with Stream
 ```text
 Streamlit Application Architecture:
 ├── app/dashboard.py (Multi-Page Single-File Router with Lazy-Loaded Data Caching)
-└── Six Dedicated Modules:
+└── Six Dashboard Pages:
     ├── 1. Executive Overview: High-level KPI scorecards, spend share charts, decile gains.
     ├── 2. Customer Prediction: Interactive customer lookup, real predict_proba inference.
     ├── 3. Descriptive Segmentation: RFM segment explorer, distribution plots, monetary metrics.
@@ -207,7 +207,7 @@ Streamlit Application Architecture:
 
 ### Dashboard Verification Status
 - **Automated Verification:** 8/8 test suite checks passed (`tests/test_dashboard.py`).
-- **Visual Interface Quality:** High-resolution screenshots captured across all six modules (`reports/screenshots/`).
+- **Visual Interface Quality:** High-resolution screenshots captured across all six dashboard pages (`reports/screenshots/`).
 - **Theme Support:** Verified under both Streamlit Light and Dark modes.
 - **Privacy & Security:** Customer IDs are masked by default in user-facing tables.
 - **Zero UI Defects:** Verified free of blank pages, broken links, or visual artifacts.
@@ -232,34 +232,41 @@ To maintain rigorous data science integrity and prevent misapplication in operat
 ```text
 ecommerce-customer-segmentation-churn/
 ├── app/
-│   └── dashboard.py                  # Multi-page Streamlit web application
+│   └── dashboard.py                  # Multi-page Streamlit decision-support application
 ├── config/
-│   └── config.yaml                   # Global project and analytical configurations
+│   └── thresholds.yaml               # Decision thresholds, segment rules, and feature configurations
 ├── data/
-│   ├── raw/                          # Raw transaction files (Online Retail II)
-│   ├── processed/                    # Point-in-time features, target vectors, cohorts
+│   ├── raw/                          # Raw transaction data (kept local, excluded from Git)
+│   ├── processed/                    # Processed Parquet matrices (tracked) & large CSVs (local)
 │   └── checkpoints/                  # 20 frozen JSON checkpoints (Evidence Register)
 ├── models/
 │   ├── online_retail_m3_logistic_regression.joblib  # Frozen primary candidate model (M3)
 │   ├── online_retail_m4_random_forest.joblib        # Frozen benchmark model (M4)
 │   └── online_retail_m5_hist_gradient_boosting.joblib # Frozen benchmark model (M5)
 ├── notebooks/
-│   ├── 01_data_cleaning.ipynb        # EDA and data cleansing pipelines
-│   ├── 02_rfm_segmentation.ipynb     # Descriptive RFM rule-based segmentation
-│   ├── 03_predictive_modeling.ipynb  # Point-in-time feature engineering & ML benchmark
-│   └── 04_retention_analytics.ipynb  # Longitudinal backtesting and spend concentration
+│   ├── 01_phase1_audit.ipynb         # Raw data integrity & schema validation
+│   ├── 02_customer_identity.ipynb    # Customer token & transaction cardinality audit
+│   ├── 03_purchase_population.ipynb  # Commercial purchase layer filtering
+│   ├── 04_temporal_behavior.ipynb    # Inter-purchase intervals & cadence analysis
+│   ├── 05_rfm_analysis.ipynb         # Descriptive RFM quintile calculations
+│   ├── 06_segmentation_evaluation.ipynb # Rule-based RFM vs K-Means benchmarking
+│   └── 07_churn_modeling.ipynb       # Point-in-time ML benchmarks & evaluation
 ├── reports/
+│   ├── AI_Powered_Ecommerce_Customer_Segmentation_and_Retention_Analysis_Report.docx # Comprehensive 19-page report
 │   └── screenshots/                  # High-resolution dashboard verification captures
 ├── src/
-│   ├── data_loader.py                # Raw ingestion, validation, and SHA-256 verification
-│   ├── rfm_analysis.py               # RFM metric computation and segment assignments
-│   ├── feature_engineering.py        # Point-in-time feature extraction pipelines
-│   ├── modeling.py                   # Model training, cross-validation, and threshold tuning
-│   └── evaluation.py                 # Precision-recall, ROC, Brier, and lift calculations
+│   ├── audit_online_retail_integrity.py # Ingestion auditing & cryptographic verification
+│   ├── build_online_retail_purchase_layer.py # Commercial purchase filtering
+│   ├── build_online_retail_customer_features.py # Historical feature extraction
+│   ├── build_online_retail_retention_features.py # Leakage-safe 27 point-in-time feature matrix
+│   ├── evaluate_online_retail_segmentation.py # Descriptive RFM segment assignment
+│   ├── train_online_retail_retention_models.py # M0–M5 training, CV threshold tuning & serialization
+│   ├── synthesize_online_retail_retention_segmentation.py # Probability bands & spend exposure synthesis
+│   └── rfm_analysis.py               # Core RFM calculation routines
 ├── tests/
-│   └── test_dashboard.py             # Automated unit and integration test suite
-├── requirements.txt                  # Pinned environment dependencies
-└── README.md                         # Project documentation and governance overview
+│   └── test_dashboard.py             # Automated unit and integration test suite (8/8 passed)
+├── requirements.txt                  # Pinned environment dependencies (UTF-8)
+└── README.md                         # Authoritative repository documentation & governance
 ```
 
 ---
@@ -275,7 +282,7 @@ ecommerce-customer-segmentation-churn/
 
 1. **Clone or Download the Repository:**
    ```powershell
-   git clone https://github.com/example/ecommerce-customer-segmentation-churn.git
+   git clone https://github.com/hemanth-nhk/ecommerce-customer-segmentation-churn.git
    Set-Location -Path "ecommerce-customer-segmentation-churn"
    ```
 
@@ -339,5 +346,18 @@ Historical Customer Transactions (Database / Lakehouse)
 
 ## Author & Citation
 
-- **Author:** Data Science & Machine Learning Engineering Team
-- **Dataset Citation:** Chen, D. (2015). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D.
+- **Author:** Nalluri Hemanth Kumar
+- **Dataset Citation:** Chen, D. (2012). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D.
+
+---
+
+## Dataset Attribution
+
+This project uses the **Online Retail II** dataset from the **UCI Machine Learning Repository**.
+- **Dataset Attribution:** Daqing Chen
+- **Official DOI:** [10.24432/C5CG6D](https://doi.org/10.24432/C5CG6D)
+- **Dataset License:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
+
+The dataset and materials derived from it remain subject to the applicable third-party dataset license and attribution requirements.
+
+The MIT License in this repository applies only to the project's original source code and implementation, and does not relicense the third-party dataset or dataset-derived materials.
